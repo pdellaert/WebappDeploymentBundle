@@ -1,0 +1,27 @@
+APIKeyList:
+    pattern: /
+    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+
+APIKeyListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+
+APIKeyAdd:
+    pattern: /add
+    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+
+APIKeyEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+    requirements:
+        id: \d+
+
+APIKeyDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+    requirements:
+        id: \d+
+
+APIKeyViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}

@@ -42,7 +42,7 @@ class Server
     protected $serverTypes;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
      * @var string
@@ -50,7 +50,7 @@ class Server
     protected $host;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
      * @var string
@@ -82,6 +82,14 @@ class Server
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $sshKeyPath;
+
+    /**
+     * @ORM\Column(name="slug", type="string", length="255", unique=true)
+     * @Gedmo\Slug(fields={"host"})
+     * 
+     * @var string
+     */
+    protected $slug;
 
     /**
      * Constructor

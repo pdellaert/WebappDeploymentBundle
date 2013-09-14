@@ -13,3 +13,7 @@ Server:
 ServerType:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-servertype.yml"
     prefix:   /server-type
+
+APIKey:
+    resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-apikey.yml"
+    prefix:   /api-key
