@@ -58,3 +58,4 @@ class APIKey
      * @var string
      */
     protected $slug;
+}
