@@ -7,6 +7,6 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('DellaertDCIMBundle:Main:dashboard.html.twig');
+        return $this->render('DellaertWebappDeploymentBundle:Main:index.html.twig');
     }
 }
