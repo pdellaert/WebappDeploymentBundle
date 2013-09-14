@@ -186,4 +186,27 @@ class ServerType
     {
         $this->servers->removeElement($servers);
     }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return ServerType
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }
