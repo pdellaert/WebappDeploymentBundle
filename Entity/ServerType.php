@@ -12,41 +12,49 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
  */
 class ServerType
 {
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 * 
-	 * @var integer
-	 */
-	protected $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * 
+     * @var integer
+     */
+    protected $id;
 
-	/**
-	 * @ORM\Column(type="datetime", nullable=true)
-	 * 
-	 * @var \DateTime
-	 */
-	protected $updatedAt;
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @var \DateTime
+     */
+    protected $updatedAt;
 
-	/**
-	 * @ORM\Column(type="boolean")
-	 * 
-	 * @var boolean
-	 */
-	protected $enabled;
+    /**
+     * @ORM\Column(type="boolean")
+     * 
+     * @var boolean
+     */
+    protected $enabled;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="Server", mappedBy="serverTypes")
-	 */
-	protected $servers;
+    /**
+     * @ORM\ManyToMany(targetEntity="Server", mappedBy="serverTypes")
+     */
+    protected $servers;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 * @Assert\NotBlank()
-	 *
-	 * @var string
-	 */
-	protected $title;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     *
+     * @var string
+     */
+    protected $title;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->servers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     public function preInsert()
     {
@@ -138,12 +146,22 @@ class ServerType
     }
 
     /**
+     * Get servers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getServers()
+    {
+        return $this->servers;
+    }
+    
+    /**
      * Add servers
      *
      * @param \Dellaert\WebappDeploymentBundle\Entity\Server $servers
      * @return ServerType
      */
-    public function addKulLevel(\Dellaert\WebappDeploymentBundle\Entity\Server $servers)
+    public function addServer(\Dellaert\WebappDeploymentBundle\Entity\Server $servers)
     {
         $this->servers[] = $servers;
     
@@ -155,18 +173,8 @@ class ServerType
      *
      * @param \Dellaert\WebappDeploymentBundle\Entity\Server $servers
      */
-    public function removeKulLevel(\Dellaert\WebappDeploymentBundle\Entity\Server $servers)
+    public function removeServer(\Dellaert\WebappDeploymentBundle\Entity\Server $servers)
     {
-        $this->kulLevels->removeElement($servers);
-    }
-
-    /**
-     * Get servers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getServers()
-    {
-        return $this->servers;
+        $this->servers->removeElement($servers);
     }
 }

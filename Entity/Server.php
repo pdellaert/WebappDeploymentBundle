@@ -12,75 +12,309 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
  */
 class Server
 {
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 * 
-	 * @var integer
-	 */
-	protected $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * 
+     * @var integer
+     */
+    protected $id;
 
-	/**
-	 * @ORM\Column(type="datetime", nullable=true)
-	 * 
-	 * @var \DateTime
-	 */
-	protected $updatedAt;
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @var \DateTime
+     */
+    protected $updatedAt;
 
-	/**
-	 * @ORM\Column(type="boolean")
-	 * 
-	 * @var boolean
-	 */
-	protected $enabled;
+    /**
+     * @ORM\Column(type="boolean")
+     * 
+     * @var boolean
+     */
+    protected $enabled;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="ServerType", inversedBy="servers")
-	 * @ORM\JoinTable(name="webapp_server_servertype")
-	 */
-	protected $serverTypes;
+    /**
+     * @ORM\ManyToMany(targetEntity="ServerType", inversedBy="servers")
+     * @ORM\JoinTable(name="webapp_server_servertype")
+     */
+    protected $serverTypes;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 * @Assert\NotBlank()
-	 *
-	 * @var string
-	 */
-	protected $host;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     *
+     * @var string
+     */
+    protected $host;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 * @Assert\NotBlank()
-	 *
-	 * @var string
-	 */
-	protected $ip;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     *
+     * @var string
+     */
+    protected $ip;
 
-	/**
-	 * @ORM\Column(type="boolean")
-	 * 
-	 * @var boolean
-	 */
-	protected $pleskCapable;
+    /**
+     * @ORM\Column(type="boolean")
+     * 
+     * @var boolean
+     */
+    protected $pleskCapable;
 
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 *
-	 * @var string
-	 */
-	protected $pleskUser;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    protected $pleskUser;
 
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 *
-	 * @var string
-	 */
-	protected $pleskPassword;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    protected $pleskPassword;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $sshKeyPath;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->serverTypes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Server
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return Server
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set host
+     *
+     * @param string $host
+     * @return Server
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+    
+        return $this;
+    }
+
+    /**
+     * Get host
+     *
+     * @return string 
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     * @return Server
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+    
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string 
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Set pleskCapable
+     *
+     * @param boolean $pleskCapable
+     * @return Server
+     */
+    public function setPleskCapable($pleskCapable)
+    {
+        $this->pleskCapable = $pleskCapable;
+    
+        return $this;
+    }
+
+    /**
+     * Get pleskCapable
+     *
+     * @return boolean 
+     */
+    public function getPleskCapable()
+    {
+        return $this->pleskCapable;
+    }
+
+    /**
+     * Set pleskUser
+     *
+     * @param string $pleskUser
+     * @return Server
+     */
+    public function setPleskUser($pleskUser)
+    {
+        $this->pleskUser = $pleskUser;
+    
+        return $this;
+    }
+
+    /**
+     * Get pleskUser
+     *
+     * @return string 
+     */
+    public function getPleskUser()
+    {
+        return $this->pleskUser;
+    }
+
+    /**
+     * Set pleskPassword
+     *
+     * @param string $pleskPassword
+     * @return Server
+     */
+    public function setPleskPassword($pleskPassword)
+    {
+        $this->pleskPassword = $pleskPassword;
+    
+        return $this;
+    }
+
+    /**
+     * Get pleskPassword
+     *
+     * @return string 
+     */
+    public function getPleskPassword()
+    {
+        return $this->pleskPassword;
+    }
+
+    /**
+     * Set sshKeyPath
+     *
+     * @param string $sshKeyPath
+     * @return Server
+     */
+    public function setSshKeyPath($sshKeyPath)
+    {
+        $this->sshKeyPath = $sshKeyPath;
+    
+        return $this;
+    }
+
+    /**
+     * Get sshKeyPath
+     *
+     * @return string 
+     */
+    public function getSshKeyPath()
+    {
+        return $this->sshKeyPath;
+    }
+
+    /**
+     * Add serverTypes
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes
+     * @return Server
+     */
+    public function addServerType(\Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes)
+    {
+        $this->serverTypes[] = $serverTypes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove serverTypes
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes
+     */
+    public function removeServerType(\Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes)
+    {
+        $this->serverTypes->removeElement($serverTypes);
+    }
+
+    /**
+     * Get serverTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getServerTypes()
+    {
+        return $this->serverTypes;
+    }
 }
