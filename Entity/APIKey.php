@@ -1,6 +1,7 @@
 <?php
 namespace Dellaert\WebappDeploymentBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -52,8 +53,8 @@ class APIKey
     protected $key;
 
     /**
-     * @ORM\Column(name="slug", type="string", length=255, unique=true)
      * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=255, unique=true)
      * 
      * @var string
      */
