@@ -59,6 +59,16 @@ class APIKey
      * @var string
      */
     protected $slug;
+    
+    public function preInsert()
+    {
+        $this->preUpdate();
+    }
+    
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+    }
 
     /**
      * Get id

@@ -100,6 +100,16 @@ class Server
         $this->serverTypes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    public function preInsert()
+    {
+        $this->preUpdate();
+    }
+    
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+    
     /**
      * Get id
      *
