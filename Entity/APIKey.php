@@ -50,7 +50,7 @@ class APIKey
      *
      * @var string
      */
-    protected $key;
+    protected $apikey;
 
     /**
      * @Gedmo\Slug(fields={"title"})
