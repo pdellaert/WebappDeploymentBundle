@@ -21,7 +21,7 @@
 		<h2>Servers</h2>
 		<ul>
 			{% for server in entity.servers %}
-				<li>><a href="{{ path('ServerViewSlug',{ 'slug': server.slug }) }}">{{ server.host }} - {{ server.ip }}</a></li>
+				<li><a href="{{ path('ServerViewSlug',{ 'slug': server.slug }) }}">{{ server.host }} - {{ server.ip }}</a></li>
 			{% endfor %}
 		</ul>
 	{% else %}

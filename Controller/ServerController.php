@@ -116,13 +116,6 @@ class ServerController extends Controller
     public function addAction($id)
     {
         $entity = new Server();
-        $form = $this->createAddEditForm($entity);
-        $request = $this->getRequest();
-        
-        $this->get("white_october_breadcrumbs")
-            ->addItem("Home", $this->get("router")->generate("homepage"))
-            ->addItem("Servers", $this->get("router")->generate("ServerList"));
-
         if( $id > 0 ) {
             $serverType = $this->getDoctrine()
                 ->getRepository('DellaertWebappDeploymentBundle:ServerType')
@@ -131,6 +124,12 @@ class ServerController extends Controller
                 $entity->addServerType($serverType);
             }
         }
+        $form = $this->createAddEditForm($entity);
+        $request = $this->getRequest();
+        
+        $this->get("white_october_breadcrumbs")
+            ->addItem("Home", $this->get("router")->generate("homepage"))
+            ->addItem("Servers", $this->get("router")->generate("ServerList"));
 
         if( $request->getMethod() == 'POST' ) {
             $form->handleRequest($request);   
