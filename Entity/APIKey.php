@@ -42,7 +42,7 @@ class APIKey
      *
      * @var string
      */
-    protected $title;
+    protected $name;
 
     /**
      * @ORM\Column(type="string", length=128, unique=true)
@@ -53,7 +53,7 @@ class APIKey
     protected $apikey;
 
     /**
-     * @Gedmo\Slug(fields={"title"})
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=255, unique=true)
      * 
      * @var string
@@ -127,26 +127,26 @@ class APIKey
     }
 
     /**
-     * Set title
+     * Set name
      *
-     * @param string $title
+     * @param string $name
      * @return APIKey
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
     
         return $this;
     }
 
     /**
-     * Get title
+     * Get name
      *
      * @return string 
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**

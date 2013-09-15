@@ -1,0 +1,24 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this API key?') ) {
+					window.location = "{{ path('APIKeyDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('APIKeyEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+	    <h1>API key: {{ entity.name }}</h1>
+	    <table cellspacing="0">
+	    	<tr>
+	    		<th>Key</th>
+	    		<td>{{ entity.apikey }}</td>
+	    	</tr>
+	    </table>
+	{% else %}
+		<h1>Unknown API key</h1>
+		<p>The specified API key is not available.</p>
+	{% endif %}
+{% endblock %}
