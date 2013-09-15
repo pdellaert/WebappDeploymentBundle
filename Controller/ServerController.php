@@ -81,7 +81,7 @@ class ServerController extends Controller
             }
             $serverTypes = "";
             foreach( $entity->getServerTypes() as $serverType ) {
-                $serverTypes .= $serverType->getName().', ';
+                $serverTypes .= $serverType->getHost().', ';
             }
             $serverTypes = substr($serverTypes, 0, -2);
             $data['rows'][] = array(
@@ -105,7 +105,7 @@ class ServerController extends Controller
             ->addItem("Home", $this->get("router")->generate("homepage"))
             ->addItem("Servers", $this->get("router")->generate("ServerList"));
         if( $entity ) {
-            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$slug)));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$slug)));
         } else {
             $this->get("white_october_breadcrumbs")->addItem("Unkown server", '');
         }
@@ -141,7 +141,7 @@ class ServerController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $this->get("white_october_breadcrumbs")
-                    ->addItem($entity->getName(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
+                    ->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
                     ->addItem("Save",'');
                 return $this->render('DellaertWebappDeploymentBundle:Server:add.html.twig',array('entity'=>$entity));
             }
@@ -158,7 +158,7 @@ class ServerController extends Controller
             ->addItem("Home", $this->get("router")->generate("homepage"))
             ->addItem("Servers", $this->get("router")->generate("ServerList"));
         if( $entity ) {
-            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())));
             $form = $this->createAddEditForm($entity);
             $request = $this->getRequest();
             if( $request->getMethod() == 'POST' ) {
@@ -187,7 +187,7 @@ class ServerController extends Controller
             ->addItem("Servers", $this->get("router")->generate("ServerList"));
         if( $entity ) {
             $this->get("white_october_breadcrumbs")
-                ->addItem($entity->getName(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
+                ->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
                 ->addItem("Delete",'');
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($entity);
