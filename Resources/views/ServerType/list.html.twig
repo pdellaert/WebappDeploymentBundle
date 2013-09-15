@@ -1,20 +1,18 @@
 {% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
 
 {% block content %}
-	<div id="entitybuttons"><a href="{{ path('APIKeyAdd') }}" class="button add">Add</a></div>
-	<h1>API Keys</h1>
+	<div id="entitybuttons"><a href="{{ path('ServerTypeAdd') }}" class="button add">Add</a></div>
+	<h1>Server types</h1>
 	<script type="text/javascript">
 		$(function() {
 			$(".entitytable").flexigrid({
-				url: '{{ path('APIKeyListData') }}',
+				url: '{{ path('ServerTypeListData') }}',
 				dataType: 'json',
 				colModel : [
-					{display: 'Name', name : 'name', width : 180, sortable : true, align: 'left'},
-					{display: 'Key', name : 'apikey', width : 600, sortable : true, align: 'left'}
+					{display: 'Name', name : 'name', width : 800, sortable : true, align: 'left'},
 				],
 				searchitems : [
-					{display: 'Name', name : 'name', isdefault: true},
-					{display: 'Key', name : 'key'}
+					{display: 'Name', name : 'name', isdefault: true}
 				],
 				sortname: "name",
 				sortorder: "asc",
@@ -31,7 +29,7 @@
 		});
 
 		$('.flexigrid tr[id*="row"]').live('click', function(){
-			window.location = '{{ path('APIKeyList') }}' + $(this).attr('id').substr(3);
+			window.location = '{{ path('ServerTypeList') }}' + $(this).attr('id').substr(3);
 		});
 	</script>
 	
