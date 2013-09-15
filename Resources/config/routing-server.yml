@@ -1,29 +1,29 @@
 ServerList:
     pattern: /
-    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Server:list}
 
 ServerListData:
     pattern: /listdata
-    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Server:listData}
 
 ServerAdd:
     pattern: /add/{id}
-    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index, id: -1}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Server:add, id: -1}
     requirements:
         id: \d+
 
 ServerEdit:
     pattern: /edit/{id}
-    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Server:edit}
     requirements:
         id: \d+
 
 ServerDelete:
     pattern: /delete/{id}
-    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Server:delete}
     requirements:
         id: \d+
 
 ServerViewSlug:
     pattern: /{slug}
-    defaults: { _controller: DellaertWebappDeploymentBundle:Main:index}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Server:view}

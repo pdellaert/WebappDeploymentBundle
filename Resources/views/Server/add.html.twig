@@ -3,6 +3,7 @@
 {% block content %}
 	{% if form is defined %}
 		<h1>Add server</h1>
+		<p>The root password will not be stored, it is only used one time to push an SSH key to the server to facilitate communication.</p>
 		<form action="{{ path('ServerAdd') }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form) }}
 			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Clear" /><a href="{{ path('ServerList') }}" class="button right delete">Cancel</a>
