@@ -183,7 +183,7 @@ class APIKeyController extends Controller
     {
         $fb = $this->createFormBuilder($entity);
         $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
-        $fb->add('apikey','text',array('max_length'=>128,'required'=>true,'label'=>'API Key','read_only'=>true));
+        $fb->add('apikey','text',array('max_length'=>64,'required'=>true,'label'=>'API Key','read_only'=>true));
         return $fb->getForm();
     }
 }
