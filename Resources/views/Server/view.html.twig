@@ -19,7 +19,7 @@
 				<td rowspan="4" width="30%">
 					<ul>
 						{% for serverType in entity.serverTypes %}
-							<li><a href="{{ path('ServertypeViewSlug',{ 'slug': serverType.slug }) }}">{{ serverType.name }}</a></li>
+							<li><a href="{{ path('ServerTypeViewSlug',{ 'slug': serverType.slug }) }}">{{ serverType.name }}</a></li>
 						{% endfor %}
 					</ul>
 				</td>
