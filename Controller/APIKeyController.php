@@ -9,9 +9,9 @@ class APIKeyController extends Controller
 {
     public function listAction()
     {
-        $this->get("breadcrumbs")
-            ->add("Home", $this->get("router")->generate("homepage"))
-            ->add("API Keys", $this->get("router")->generate("APIKeyList"));
+        $this->get("white_october_breadcrumbs")
+            ->addItem("Home", $this->get("router")->generate("homepage"))
+            ->addItem("API Keys", $this->get("router")->generate("APIKeyList"));
         return $this->render('DellaertWebappDeploymentBundle:APIKey:list.html.twig');
     }
     
@@ -91,13 +91,13 @@ class APIKeyController extends Controller
         $repository = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:APIKey');
         $entity = $repository->findOneBySlug($slug);
         
-        $this->get("breadcrumbs")
-            ->add("Home", $this->get("router")->generate("homepage"))
-            ->add("API Keys", $this->get("router")->generate("APIKeyList"));
+        $this->get("white_october_breadcrumbs")
+            ->addItem("Home", $this->get("router")->generate("homepage"))
+            ->addItem("API Keys", $this->get("router")->generate("APIKeyList"));
         if( $entity ) {
-            $this->get("breadcrumbs")->add($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$slug)));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$slug)));
         } else {
-            $this->get("breadcrumbs")->add("Unkown API key", '');
+            $this->get("white_october_breadcrumbs")->addItem("Unkown API key", '');
         }
         
         return $this->render('DellaertWebappDeploymentBundle:APIKey:view.html.twig',array('entity'=>$entity));
@@ -111,9 +111,9 @@ class APIKeyController extends Controller
         $form = $this->createAddEditForm($entity);
         $request = $this->getRequest();
         
-        $this->get("breadcrumbs")
-            ->add("Home", $this->get("router")->generate("homepage"))
-            ->add("API Keys", $this->get("router")->generate("APIKeyList"));
+        $this->get("white_october_breadcrumbs")
+            ->addItem("Home", $this->get("router")->generate("homepage"))
+            ->addItem("API Keys", $this->get("router")->generate("APIKeyList"));
         
         if( $request->getMethod() == 'POST' ) {
             $form->bindRequest($request);   
@@ -123,24 +123,24 @@ class APIKeyController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($entity);
                 $em->flush();
-                $this->get("breadcrumbs")
-                    ->add($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$entity->getSlug())))
-                    ->add("Save",'');
+                $this->get("white_october_breadcrumbs")
+                    ->addItem($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$entity->getSlug())))
+                    ->addItem("Save",'');
                 return $this->render('DellaertWebappDeploymentBundle:APIKey:add.html.twig',array('entity'=>$entity));
             }
         }
-        $this->get("breadcrumbs")->add("Add API key", '');
+        $this->get("white_october_breadcrumbs")->addItem("Add API key", '');
         return $this->render('DellaertWebappDeploymentBundle:APIKey:add.html.twig',array('form'=>$form->createView()));
     }
     
     public function editAction($id)
     {
         $entity = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:APIKey')->find($id);
-        $this->get("breadcrumbs")
-            ->add("Home", $this->get("router")->generate("homepage"))
-            ->add("API Keys", $this->get("router")->generate("APIKeyList"));
+        $this->get("white_october_breadcrumbs")
+            ->addItem("Home", $this->get("router")->generate("homepage"))
+            ->addItem("API Keys", $this->get("router")->generate("APIKeyList"));
         if( $entity ) {
-            $this->get("breadcrumbs")->add($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$entity->getSlug())));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$entity->getSlug())));
             $form = $this->createAddEditForm($entity);
             $request = $this->getRequest();
             if( $request->getMethod() == 'POST' ) {
@@ -150,33 +150,33 @@ class APIKeyController extends Controller
                     $em = $this->getDoctrine()->getEntityManager();
                     $em->persist($entity);
                     $em->flush();
-                    $this->get("breadcrumbs")->add("Save",'');
+                    $this->get("white_october_breadcrumbs")->addItem("Save",'');
                     return $this->render('DellaertWebappDeploymentBundle:APIKey:edit.html.twig',array('entity'=>$entity));
                 }
             }
-            $this->get("breadcrumbs")->add("Edit",'');
+            $this->get("white_october_breadcrumbs")->addItem("Edit",'');
             return $this->render('DellaertWebappDeploymentBundle:APIKey:edit.html.twig',array('form'=>$form->createView(),'entity'=>$entity));
         }
-        $this->get("breadcrumbs")->add("Unkown API Key", '');
+        $this->get("white_october_breadcrumbs")->addItem("Unkown API Key", '');
         return $this->render('DellaertWebappDeploymentBundle:APIKey:edit.html.twig');
     }
     
     public function deleteAction($id)
     {
         $entity = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:APIKey')->find($id);
-        $this->get("breadcrumbs")
-            ->add("Home", $this->get("router")->generate("homepage"))
-            ->add("API Keys", $this->get("router")->generate("APIKeyList"));
+        $this->get("white_october_breadcrumbs")
+            ->addItem("Home", $this->get("router")->generate("homepage"))
+            ->addItem("API Keys", $this->get("router")->generate("APIKeyList"));
         if( $entity ) {
-            $this->get("breadcrumbs")
-                ->add($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$entity->getSlug())))
-                ->add("Delete",'');
+            $this->get("white_october_breadcrumbs")
+                ->addItem($entity->getName(), $this->get("router")->generate("APIKeyViewSlug",array('slug'=>$entity->getSlug())))
+                ->addItem("Delete",'');
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($entity);
             $em->flush();
             return $this->render('DellaertWebappDeploymentBundle:APIKey:delete.html.twig',array('entity'=>$entity));
         }
-        $this->get("breadcrumbs")->add("Unkown API Key", '');
+        $this->get("white_october_breadcrumbs")->addItem("Unkown API Key", '');
         return $this->render('DellaertWebappDeploymentBundle:APIKey:delete.html.twig');
     }
     
