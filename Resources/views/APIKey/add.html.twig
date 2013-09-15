@@ -11,9 +11,10 @@
     	<script type="text/javascript">
     	setTimeout(function() {
     		  window.location.href = "{{ path('APIKeyList') }}";
-    		}, 3000);
+    		}, 30000);
     	</script>
     	<h1>API Key added: {{ entity.name }}</h1>
-    	<p>You will be returned to the API key list in 3 seconds...</p>
+        <p><b>The API key is</b>: {{ entity.apikey }}<p>
+    	<p>You will be returned to the <a href="{{ path('APIKeyList') }}">API key list</a> in 30 seconds...</p>
     {% endif %}
 {% endblock %}
