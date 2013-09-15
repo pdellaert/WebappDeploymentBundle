@@ -106,6 +106,7 @@ class APIKeyController extends Controller
     public function addAction()
     {
         $entity = new APIKey();
+        $entity->setApikey(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)).md5(uniqid(rand(),true)))),0,128));
         $form = $this->createAddEditForm($entity);
         $request = $this->getRequest();
         
@@ -118,7 +119,6 @@ class APIKeyController extends Controller
             if( $form->isValid() ) {
                 $entity->setEnabled(true);
                 $entity->preInsert();
-                $entity->setApikey(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)).md5(uniqid(rand(),true)))),0,128));
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($entity);
                 $em->flush();
@@ -183,6 +183,7 @@ class APIKeyController extends Controller
     {
         $fb = $this->createFormBuilder($entity);
         $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
+        $fb->add('apikey','text',array('max_length'=>128,'required'=>true,'label'=>'API Key','read_only'=>true));
         return $fb->getForm();
     }
 }
