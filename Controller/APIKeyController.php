@@ -103,7 +103,6 @@ class APIKeyController extends Controller
         return $this->render('DellaertWebappDeploymentBundle:APIKey:view.html.twig',array('entity'=>$entity));
     }
     
-    // TODO: NEED TO GENERATE KEY!
     public function addAction()
     {
         $entity = new APIKey();
@@ -116,7 +115,7 @@ class APIKeyController extends Controller
             ->addItem("API Keys", $this->get("router")->generate("APIKeyList"));
         
         if( $request->getMethod() == 'POST' ) {
-            $form->bindRequest($request);   
+            $form->handleRequest($request);   
             if( $form->isValid() ) {
                 $entity->setEnabled(true);
                 $entity->preInsert();
@@ -144,7 +143,7 @@ class APIKeyController extends Controller
             $form = $this->createAddEditForm($entity);
             $request = $this->getRequest();
             if( $request->getMethod() == 'POST' ) {
-                $form->bindRequest($request);   
+                $form->handleRequest($request);   
                 if( $form->isValid() ) {
                     $entity->preUpdate();
                     $em = $this->getDoctrine()->getEntityManager();
