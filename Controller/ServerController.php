@@ -81,7 +81,7 @@ class ServerController extends Controller
             }
             $serverTypes = "";
             foreach( $entity->getServerTypes() as $serverType ) {
-                $serverTypes .= $serverType->getHost().', ';
+                $serverTypes .= $serverType->getName().', ';
             }
             $serverTypes = substr($serverTypes, 0, -2);
             $data['rows'][] = array(
