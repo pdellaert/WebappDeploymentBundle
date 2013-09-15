@@ -106,7 +106,7 @@ class APIKeyController extends Controller
     public function addAction()
     {
         $entity = new APIKey();
-        $entity->setApikey(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)).md5(uniqid(rand(),true)))),0,128));
+        $entity->setApikey(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)))),0,64));
         $form = $this->createAddEditForm($entity);
         $request = $this->getRequest();
         

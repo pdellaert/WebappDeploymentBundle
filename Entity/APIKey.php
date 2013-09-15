@@ -45,7 +45,7 @@ class APIKey
     protected $name;
 
     /**
-     * @ORM\Column(type="string", length=128, unique=true)
+     * @ORM\Column(type="string", length=64, unique=true)
      * @Assert\NotBlank()
      *
      * @var string
