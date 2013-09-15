@@ -1,0 +1,44 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this server?') ) {
+					window.location = "{{ path('ServerDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('ServerEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+		<h1>Server: {{ entity.host }}</h1>
+		<table cellspacing="0">
+			<tr>
+				<th width="20%">IP</th>
+				<td width="30%">{{ entity.ip }}</td>
+				<th rowspan="4" width="20%">Server types</th>
+				<td rowspan="4" width="30%">
+					<ul>
+						{% for serverType in entity.serverTypes %}
+							<li><a href="{{ path('ServertypeViewSlug',{ 'slug': serverType.slug }) }}">{{ serverType.name }}</a></li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<th>Plesk</th>
+				<td>{% if entity.pleskCapable %}<div class="up">&nbsp;</div>{% else %}<div class="down">&nbsp;</div>{% endif %}</td>
+			</tr>
+			<tr>
+				<th>Plesk user</th>
+				<td>{{ entity.pleskUser }}</td>
+			</tr>
+			<tr>
+				<th>SSH Key</th>
+				<td>{{ entity.sshKeyPath }}</td>
+			</tr>
+		</table>
+	{% else %}
+		<h1>Unknown server</h1>
+		<p>The specified server is not available.</p>
+	{% endif %}
+{% endblock %}

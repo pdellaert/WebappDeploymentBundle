@@ -1,0 +1,41 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	<div id="entitybuttons"><a href="{{ path('ServerAdd') }}" class="button add">Add</a></div>
+	<h1>Servers</h1>
+	<script type="text/javascript">
+		$(function() {
+			$(".entitytable").flexigrid({
+				url: '{{ path('ServerListData') }}',
+				dataType: 'json',
+				colModel : [
+					{display: 'Hostname', name : 'host', width : 250, sortable : true, align: 'left'},
+					{display: 'IP', name : 'ip', width : 250, sortable : true, align: 'left'},
+					{display: 'Server types', name : 'Servers', width : 250, sortable : false, align: 'left'},
+					{display: 'Plesk', name : 'pleskCapable', width : 50, sortable : false, align: 'left'}
+				],
+				searchitems : [
+					{display: 'Hostname', name : 'host', isdefault: true},
+					{display: 'IP', name : 'host', isdefault: false}
+				],
+				sortname: "host",
+				sortorder: "asc",
+				usepager: true,
+				useRp: true,
+				rp: 20,
+				showTableToggleBtn: false,
+				showToggleBtn: false,
+				resizable: false,
+				width: 808,
+				height: 'auto',
+				singleSelect: true
+			});
+		});
+
+		$('.flexigrid tr[id*="row"]').live('click', function(){
+			window.location = '{{ path('ServerList') }}' + $(this).attr('id').substr(3);
+		});
+	</script>
+	
+	<table class="entitytable"></table> 
+{% endblock %}

@@ -18,10 +18,10 @@
 			</tr>
 		</table>
 		<div id="entitybuttons"><a href="{{ path('ServerAdd', { 'id': entity.id } ) }}" class="button add">Add server</a></div>
-		<h2>Projects</h2>
+		<h2>Servers</h2>
 		<ul>
 			{% for server in entity.servers %}
-				<li>><a href="{{ path('ProjectViewSlug',{ 'slug': server.slug }) }}">{{ server.host }} - {{ server.ip }}</a></li>
+				<li>><a href="{{ path('ServerViewSlug',{ 'slug': server.slug }) }}">{{ server.host }} - {{ server.ip }}</a></li>
 			{% endfor %}
 		</ul>
 	{% else %}
