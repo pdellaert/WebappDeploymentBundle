@@ -136,13 +136,18 @@ class ServerController extends Controller
             if( $form->isValid() ) {
                 $entity->setEnabled(true);
                 $entity->preInsert();
-                $em = $this->getDoctrine()->getEntityManager();
-                $em->persist($entity);
-                $em->flush();
-                $this->get("white_october_breadcrumbs")
-                    ->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
-                    ->addItem("Save",'');
-                return $this->render('DellaertWebappDeploymentBundle:Server:add.html.twig',array('entity'=>$entity));
+
+                $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').$entity->getHostname();
+                if( $this->createPushSSHKey($entity,$keyDir) ) {
+                    $entity->setSshKeyPath($keyDir.'/wdt');
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $em->persist($entity);
+                    $em->flush();
+                    $this->get("white_october_breadcrumbs")
+                        ->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
+                        ->addItem("Save",'');
+                    return $this->render('DellaertWebappDeploymentBundle:Server:add.html.twig',array('entity'=>$entity));
+                }
             }
         }
 
@@ -165,16 +170,10 @@ class ServerController extends Controller
                 if( $form->isValid() ) {
                     $entity->preUpdate();
                     $em = $this->getDoctrine()->getEntityManager();
-
-                    $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').$entity->getHostname();
-                    if( $this->createPushSSHKey($entity,$keyDir) ) {
-                        $entity->setSshKeyPath($keyDir.'/wdt');
-
-                        $em->persist($entity);
-                        $em->flush();
-                        $this->get("white_october_breadcrumbs")->addItem("Save",'');
-                        return $this->render('DellaertWebappDeploymentBundle:Server:edit.html.twig',array('entity'=>$entity));
-                    }
+                    $em->persist($entity);
+                    $em->flush();
+                    $this->get("white_october_breadcrumbs")->addItem("Save",'');
+                    return $this->render('DellaertWebappDeploymentBundle:Server:edit.html.twig',array('entity'=>$entity));
                 }
             }
             $this->get("white_october_breadcrumbs")->addItem("Edit",'');
