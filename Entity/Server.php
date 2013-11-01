@@ -375,4 +375,50 @@ class Server
     {
         return $this->slug;
     }
+
+    /**
+     * Set sshPort
+     *
+     * @param integer $sshPort
+     * @return Server
+     */
+    public function setSshPort($sshPort)
+    {
+        $this->sshPort = $sshPort;
+    
+        return $this;
+    }
+
+    /**
+     * Get sshPort
+     *
+     * @return integer 
+     */
+    public function getSshPort()
+    {
+        return $this->sshPort;
+    }
+
+    /**
+     * Set sshUser
+     *
+     * @param string $sshUser
+     * @return Server
+     */
+    public function setSshUser($sshUser)
+    {
+        $this->sshUser = $sshUser;
+    
+        return $this;
+    }
+
+    /**
+     * Get sshUser
+     *
+     * @return string 
+     */
+    public function getSshUser()
+    {
+        return $this->sshUser;
+    }
 }
