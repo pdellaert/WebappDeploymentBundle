@@ -238,7 +238,7 @@ class ServerController extends Controller
             return false;
         }
 
-        if( !ssh2_exec($sshcon,'mkdir -p .ssh; echo "'.$pubKey.'" >> authorized_keys') ) {
+        if( !ssh2_exec($sshcon,'mkdir -p .ssh; echo "'.$pubKey.'" >> .ssh/authorized_keys') ) {
             return false;
         }
         return true;
