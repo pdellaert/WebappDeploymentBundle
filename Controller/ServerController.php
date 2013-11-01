@@ -146,7 +146,7 @@ class ServerController extends Controller
                     $em->persist($entity);
                     $em->flush();
                     // Regenerating hosts file
-                    AnsibleUtility::generateHostsFile($this->getContainer(),$this->getDoctrine());
+                    AnsibleUtility::generateHostsFile($this->container,$this->getDoctrine());
                     $this->get("white_october_breadcrumbs")
                         ->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
                         ->addItem("Save",'');
@@ -178,7 +178,7 @@ class ServerController extends Controller
                     $em->persist($entity);
                     $em->flush();
                     // Regenerating hosts file
-                    AnsibleUtility::generateHostsFile($this->getContainer(),$this->getDoctrine());
+                    AnsibleUtility::generateHostsFile($this->container,$this->getDoctrine());
                     $this->get("white_october_breadcrumbs")->addItem("Save",'');
                     return $this->render('DellaertWebappDeploymentBundle:Server:edit.html.twig',array('entity'=>$entity));
                 }
