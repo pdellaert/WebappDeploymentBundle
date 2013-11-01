@@ -165,10 +165,16 @@ class ServerController extends Controller
                 if( $form->isValid() ) {
                     $entity->preUpdate();
                     $em = $this->getDoctrine()->getEntityManager();
-                    $em->persist($entity);
-                    $em->flush();
-                    $this->get("white_october_breadcrumbs")->addItem("Save",'');
-                    return $this->render('DellaertWebappDeploymentBundle:Server:edit.html.twig',array('entity'=>$entity));
+
+                    $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').$entity->getHostname();
+                    if( $this->createPushSSHKey($entity,$keyDir) ) {
+                        $entity->setSshKeyPath($keyDir.'/wdt');
+
+                        $em->persist($entity);
+                        $em->flush();
+                        $this->get("white_october_breadcrumbs")->addItem("Save",'');
+                        return $this->render('DellaertWebappDeploymentBundle:Server:edit.html.twig',array('entity'=>$entity));
+                    }
                 }
             }
             $this->get("white_october_breadcrumbs")->addItem("Edit",'');
@@ -197,7 +203,7 @@ class ServerController extends Controller
         return $this->render('DellaertWebappDeploymentBundle:Server:delete.html.twig');
     }
     
-    public function createAddEditForm($entity)
+    private function createAddEditForm($entity)
     {
         $fb = $this->createFormBuilder($entity);
         $fb->add('host','text',array('max_length'=>255,'required'=>true,'label'=>'Hostname'));
@@ -210,5 +216,23 @@ class ServerController extends Controller
             $fb->add('wdtPass','text',array('mapped'=>false,'max_length'=>255,'required'=>true,'label'=>'WDT user (wdt) password'));
         }
         return $fb->getForm();
+    }
+
+    private function createPushSSHKey($entity,$keyDir)
+    {
+        
+        if( !is_dir($keyDir) ) {
+            if(!mkdir($keyDir)) {
+                return false;
+            }
+        }
+
+        exec('ssh-keygen -q -t rsa -b 4096 -N \'\' -f "'.$keyDir.'/wdt');
+        if( !is_file($keyDir.'/wdt') ) {
+            return false;
+        }
+
+        
+        return true;
     }
 }
