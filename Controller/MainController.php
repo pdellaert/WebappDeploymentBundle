@@ -11,4 +11,11 @@ class MainController extends Controller
             ->addItem("Dashboard", $this->get("router")->generate("homepage"));
         return $this->render('DellaertWebappDeploymentBundle:Main:index.html.twig');
     }
+
+    public function helpAction()
+    {
+        $this->get("white_october_breadcrumbs")
+            ->addItem("Help", $this->get("router")->generate("help"));
+        return $this->render('DellaertWebappDeploymentBundle:Main:help.html.twig');
+    }
 }

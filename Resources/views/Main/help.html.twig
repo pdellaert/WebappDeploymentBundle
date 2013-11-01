@@ -1,0 +1,16 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+<h2>Supported servers</h2>
+<ul>
+	<li>Linux</li>
+</ul>
+
+<h2>Prerequests before adding a server</h2>
+<ul>
+	<li>Should have SSH enabled</li>
+	<li>Should have a user called <i>wdt</i></li>
+	<li><i>wdt</i> user should have passwordless sudo access</li>
+	<li><i>wdt</i> user should have SSH/SFTP access</li>
+<ul>
+{% endblock %}

@@ -6,6 +6,10 @@ Dashboard:
     pattern:  /dashboard
     defaults: { _controller: DellaertWebappDeploymentBundle:Main:index }
 
+Help:
+    pattern: /help
+    defaults: { _controller: DellaertWebappDeploymentBundle:Main:help }
+
 Server:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-server.yml"
     prefix:   /server
