@@ -193,6 +193,10 @@ class ServerController extends Controller
             $this->get("white_october_breadcrumbs")
                 ->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
                 ->addItem("Delete",'');
+            $keyDir = dirname($entity->getSshKeyPath());
+            unlink($entity->getSshKeyPath());
+            unlink($entity->getSshKeyPath().'.pub');
+            rmdir($keyDir);
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($entity);
             $em->flush();
