@@ -231,8 +231,6 @@ class ServerController extends Controller
         if( !is_file($keyDir.'/wdt') ) {
             return false;
         }
-
-        
         return true;
     }
 }

@@ -6,4 +6,4 @@ services:
 #        class: %dellaert_webapp_deployment.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
     dellaert_webapp_deployment.data_dir: /home/wdt/data
-    dellaert_webapp_deployment.sshkey_subdir: sshkey
+    dellaert_webapp_deployment.sshkey_subdir: sshkeys
