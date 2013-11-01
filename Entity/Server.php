@@ -82,7 +82,7 @@ class Server
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $sshKeyPath;
+    protected $sshKeyPath;
 
     /**
      * @Gedmo\Slug(fields={"host"})
