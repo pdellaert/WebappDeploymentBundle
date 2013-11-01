@@ -15,7 +15,7 @@ class MainController extends Controller
     public function helpAction()
     {
         $this->get("white_october_breadcrumbs")
-            ->addItem("Help", $this->get("router")->generate("help"));
+            ->addItem("Help", $this->get("router")->generate("Help"));
         return $this->render('DellaertWebappDeploymentBundle:Main:help.html.twig');
     }
 }
