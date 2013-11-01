@@ -138,7 +138,7 @@ class ServerController extends Controller
                 $entity->preInsert();
 
                 $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').'/'.$entity->getHost();
-                if( $this->createPushSSHKey($entity,$keyDir) ) {
+                if( $this->createPushSSHKey($entity,$keyDir,$form['wdtPass']->getData()) ) {
                     $entity->setSshKeyPath($keyDir.'/wdt');
                     $em = $this->getDoctrine()->getEntityManager();
                     $em->persist($entity);
@@ -217,7 +217,7 @@ class ServerController extends Controller
         return $fb->getForm();
     }
 
-    private function createPushSSHKey($entity,$keyDir)
+    private function createPushSSHKey($entity,$keyDir,$password)
     {
         
         if( !is_dir($keyDir) ) {
@@ -228,6 +228,17 @@ class ServerController extends Controller
 
         exec('ssh-keygen -q -t rsa -b 4096 -N \'\' -f "'.$keyDir.'/wdt"');
         if( !is_file($keyDir.'/wdt') ) {
+            return false;
+        }
+
+        $pubKey = file_get_contents($keyDir.'/wdt.pub');
+
+        $sshcon = ssh2_connect($entity->getIp(), 22);
+        if( !ssh2_auth_password($sshcon, 'wdt', $password) ) {
+            return false;
+        }
+
+        if( !ssh2_exec($sshcon,'mkdir -p .ssh; echo "'.$pubKey.'" >> authorized_keys') ) {
             return false;
         }
         return true;
