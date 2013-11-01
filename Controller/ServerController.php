@@ -212,7 +212,7 @@ class ServerController extends Controller
         $fb->add('pleskPassword','password',array('max_length'=>255,'required'=>false,'always_empty'=>false,'label'=>'Plesk password'));
         $fb->add('serverTypes','entity',array('class'=>'DellaertWebappDeploymentBundle:ServerType','property'=>'name','expanded'=>true,'multiple'=>true,'label'=>'Server types'));
         if( !$entity->getEnabled() ) {
-            $fb->add('wdtPass','text',array('mapped'=>false,'max_length'=>255,'required'=>true,'label'=>'WDT user (wdt) password'));
+            $fb->add('wdtPass','password',array('mapped'=>false,'max_length'=>255,'required'=>true,'label'=>'WDT user (wdt) password'));
         }
         return $fb->getForm();
     }
