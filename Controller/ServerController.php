@@ -206,6 +206,9 @@ class ServerController extends Controller
         $fb->add('pleskUser','text',array('max_length'=>255,'required'=>false,'label'=>'Plesk user'));
         $fb->add('pleskPassword','password',array('max_length'=>255,'required'=>false,'always_empty'=>false,'label'=>'Plesk password'));
         $fb->add('serverTypes','entity',array('class'=>'DellaertWebappDeploymentBundle:ServerType','property'=>'name','expanded'=>true,'multiple'=>true,'label'=>'Server types'));
+        if( !$entity->getEnabled() ) {
+            $fb->add('rootPass','text',array('max_length'=>255,'required'=>true,'label'=>'Root password'));
+        }
         return $fb->getForm();
     }
 }
