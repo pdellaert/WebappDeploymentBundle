@@ -59,6 +59,22 @@ class Server
     protected $ip;
 
     /**
+     * @ORM\Column(type="integer", length=4)
+     * @Assert\NotBlank()
+     *
+     * @var integer
+     */
+    protected $sshPort;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     *
+     * @var string
+     */
+    protected $sshUser;
+
+    /**
      * @ORM\Column(type="boolean")
      * 
      * @var boolean

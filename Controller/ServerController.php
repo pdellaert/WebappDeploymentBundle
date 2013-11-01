@@ -136,7 +136,7 @@ class ServerController extends Controller
             $form->handleRequest($request);   
             if( $form->isValid() ) {
                 $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').'/'.$entity->getHost();
-                if( $this->createPushSSHKey($entity,$keyDir,$form['wdtPass']->getData()) ) {
+                if( $this->createPushSSHKey($entity,$keyDir,$form['sshPass']->getData()) ) {
                     $entity->setEnabled(true);
                     $entity->preInsert();
                     // Generating SSH key
@@ -207,6 +207,8 @@ class ServerController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($entity);
             $em->flush();
+            // Regenerating hosts file
+            AnsibleUtility::generateHostsFile($this->container,$this->getDoctrine());
             return $this->render('DellaertWebappDeploymentBundle:Server:delete.html.twig',array('entity'=>$entity));
         }
         $this->get("white_october_breadcrumbs")->addItem("Unkown server", '');
@@ -218,13 +220,15 @@ class ServerController extends Controller
         $fb = $this->createFormBuilder($entity);
         $fb->add('host','text',array('max_length'=>255,'required'=>true,'label'=>'Hostname'));
         $fb->add('ip','text',array('max_length'=>255,'required'=>true,'label'=>'IP'));
+        $fb->add('sshPort','text',array('max_length'=>4,'required'=>true,'label'=>'SSH port'));
+        $fb->add('sshUser','text',array('max_length'=>255,'required'=>true,'label'=>'Ansible SSH user'));
+        if( !$entity->getEnabled() ) {
+            $fb->add('sshPass','password',array('mapped'=>false,'max_length'=>255,'required'=>true,'label'=>'Ansible SSH password'));
+        }
         $fb->add('pleskCapable','checkbox',array('required'=>false,'label'=>'Plesk enabled?'));
         $fb->add('pleskUser','text',array('max_length'=>255,'required'=>false,'label'=>'Plesk user'));
         $fb->add('pleskPassword','password',array('max_length'=>255,'required'=>false,'always_empty'=>false,'label'=>'Plesk password'));
         $fb->add('serverTypes','entity',array('class'=>'DellaertWebappDeploymentBundle:ServerType','property'=>'name','expanded'=>true,'multiple'=>true,'label'=>'Server types'));
-        if( !$entity->getEnabled() ) {
-            $fb->add('wdtPass','password',array('mapped'=>false,'max_length'=>255,'required'=>true,'label'=>'WDT user (wdt) password'));
-        }
         return $fb->getForm();
     }
 
