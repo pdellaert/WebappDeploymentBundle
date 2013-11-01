@@ -3,8 +3,8 @@
 {% block content %}
 	{% if form is defined %}
 		<h1>Add server</h1>
-		<p>The ansible user password will not be stored, it is only used one time to push an SSH key to the server to facilitate communication.</p>
-		<p>Make sure this ansible user has sudo access without a password. This is necessary to deploy.</p>
+		<p>The WDT user password will not be stored, it is only used one time to push an SSH key to the server to facilitate communication.</p>
+		<p>Make sure this WDT user has sudo access without a password. This is necessary to deploy.</p>
 		<form action="{{ path('ServerAdd') }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form) }}
 			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Clear" /><a href="{{ path('ServerList') }}" class="button right delete">Cancel</a>
