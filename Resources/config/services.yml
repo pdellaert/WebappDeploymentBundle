@@ -1,3 +1,6 @@
 parameters:
     dellaert_webapp_deployment.data_dir: /home/wdt/data
     dellaert_webapp_deployment.sshkey_subdir: sshkeys
+    dellaert_webapp_deployment.ansible_subdir: ansible
+    dellaert_webapp_deployment.ansible_hosts_file: hosts
+    dellaert_webapp_deployment.ansible_modules_subdir: modules

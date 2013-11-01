@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\WebappDeploymentBundle\Entity\Server;
 use Dellaert\WebappDeploymentBundle\Entity\ServerType;
 use Symfony\Component\HttpFoundation\Response;
+use Dellaert\WebappDeploymentBundle\Utility\AnsibleUtility;
 
 class ServerController extends Controller
 {
@@ -134,15 +135,18 @@ class ServerController extends Controller
         if( $request->getMethod() == 'POST' ) {
             $form->handleRequest($request);   
             if( $form->isValid() ) {
-                $entity->setEnabled(true);
-                $entity->preInsert();
-
                 $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').'/'.$entity->getHost();
                 if( $this->createPushSSHKey($entity,$keyDir,$form['wdtPass']->getData()) ) {
+                    $entity->setEnabled(true);
+                    $entity->preInsert();
+                    // Generating SSH key
                     $entity->setSshKeyPath($keyDir.'/wdt');
+                    // Saving entity
                     $em = $this->getDoctrine()->getEntityManager();
                     $em->persist($entity);
                     $em->flush();
+                    // Regenerating hosts file
+                    AnsibleUtility::generateHostsFile($this->getContainer(),$this->getDoctrine());
                     $this->get("white_october_breadcrumbs")
                         ->addItem($entity->getHost(), $this->get("router")->generate("ServerViewSlug",array('slug'=>$entity->getSlug())))
                         ->addItem("Save",'');
@@ -169,9 +173,12 @@ class ServerController extends Controller
                 $form->handleRequest($request);   
                 if( $form->isValid() ) {
                     $entity->preUpdate();
+                    // Saving Entity
                     $em = $this->getDoctrine()->getEntityManager();
                     $em->persist($entity);
                     $em->flush();
+                    // Regenerating hosts file
+                    AnsibleUtility::generateHostsFile($this->getContainer(),$this->getDoctrine());
                     $this->get("white_october_breadcrumbs")->addItem("Save",'');
                     return $this->render('DellaertWebappDeploymentBundle:Server:edit.html.twig',array('entity'=>$entity));
                 }
