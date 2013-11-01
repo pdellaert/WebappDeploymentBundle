@@ -137,7 +137,7 @@ class ServerController extends Controller
                 $entity->setEnabled(true);
                 $entity->preInsert();
 
-                $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').$entity->getHostname();
+                $keyDir = $this->container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$this->container->getParameter('dellaert_webapp_deployment.sshkey_subdir').$entity->getHost();
                 if( $this->createPushSSHKey($entity,$keyDir) ) {
                     $entity->setSshKeyPath($keyDir.'/wdt');
                     $em = $this->getDoctrine()->getEntityManager();
