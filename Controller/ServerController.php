@@ -222,7 +222,7 @@ class ServerController extends Controller
         
         if( !is_dir($keyDir) ) {
             if(!mkdir($keyDir)) {
-                echo("unable to create $keyDir");
+                die("unable to create $keyDir");
                 return false;
             }
         }
