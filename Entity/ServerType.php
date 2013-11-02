@@ -217,4 +217,27 @@ class ServerType
     {
         return $this->slug;
     }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return ServerType
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 }
