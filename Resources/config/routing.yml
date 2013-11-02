@@ -22,6 +22,10 @@ APIKey:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-apikey.yml"
     prefix:   /api-key
 
+Application:
+    resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-application.yml"
+    prefix:   /application
+
 ApplicationTemplate:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-applicationtemplate.yml"
     prefix:   /application-template

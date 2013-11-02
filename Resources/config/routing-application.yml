@@ -1,0 +1,29 @@
+ApplicationList:
+    pattern: /
+    defaults: { _controller: DellaertWebappDeploymentBundle:Application:list}
+
+ApplicationListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertWebappDeploymentBundle:Application:listData}
+
+ApplicationAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Application:add, id: -1}
+    requirements:
+        id: \d+
+
+ApplicationEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Application:edit}
+    requirements:
+        id: \d+
+
+ApplicationDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Application:delete}
+    requirements:
+        id: \d+
+
+ApplicationViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Application:view}

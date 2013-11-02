@@ -1,0 +1,32 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this application?') ) {
+					window.location = "{{ path('ApplicationDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('ApplicationEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+		<h1>Application: {{ entity.name }}</h1>
+		<table cellspacing="0">
+			<tr>
+				<th width="20%">Organisation</th>
+				<td width="30%">{{ entity.organisation }}</td>
+				<th width="20%">Application template</th>
+				<td width="30%">
+					<a href="{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.applicationTemplate.slug }) }}">{{ entity.applicationTemplate.name }}</a>
+				</td>
+			</tr>
+			<tr>
+				<th>Plesk</th>
+				<td colspan="3">{% if entity.pleskCapable %}Yes{% else %}No{% endif %}</td>
+			</tr>
+		</table>
+	{% else %}
+		<h1>Unknown application</h1>
+		<p>The specified application is not available.</p>
+	{% endif %}
+{% endblock %}

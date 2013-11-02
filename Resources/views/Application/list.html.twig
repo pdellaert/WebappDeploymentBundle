@@ -1,0 +1,41 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	<div id="entitybuttons"><a href="{{ path('ApplicationAdd') }}" class="button add">Add</a></div>
+	<h1>Applications</h1>
+	<script type="text/javascript">
+		$(function() {
+			$(".entitytable").flexigrid({
+				url: '{{ path('ApplicationListData') }}',
+				dataType: 'json',
+				colModel : [
+					{display: 'Name', name : 'name', width : 240, sortable : true, align: 'left'},
+					{display: 'Organisation', name : 'organisation', width : 240, sortable : true, align: 'left'},
+					{display: 'Application template', name : 'applicationTemplate', width : 240, sortable : false, align: 'left'},
+					{display: 'Plesk', name : 'pleskCapable', width : 80, sortable : false, align: 'left'}
+				],
+				searchitems : [
+					{display: 'Name', name : 'name', isdefault: true},
+					{display: 'Organisation', name : 'organisation', isdefault: false}
+				],
+				sortname: "name",
+				sortorder: "asc",
+				usepager: true,
+				useRp: true,
+				rp: 20,
+				showTableToggleBtn: false,
+				showToggleBtn: false,
+				resizable: false,
+				width: 808,
+				height: 'auto',
+				singleSelect: true
+			});
+		});
+
+		$('.flexigrid tr[id*="row"]').live('click', function(){
+			window.location = '{{ path('ApplicationList') }}' + $(this).attr('id').substr(3);
+		});
+	</script>
+	
+	<table class="entitytable"></table> 
+{% endblock %}
