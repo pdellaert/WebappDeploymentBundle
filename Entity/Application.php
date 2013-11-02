@@ -43,6 +43,11 @@ class Application
     protected $applicationTemplate;
 
     /**
+     * @ORM\OneToMany(targetEntity="ApplicationParameterValue", mappedBy="application")
+     */
+    protected $applicationParameterValues;
+
+    /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
@@ -66,26 +71,20 @@ class Application
     protected $pleskCapable;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    protected $applicationUser;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    protected $applicationPassword;
-
-    /**
      * @Gedmo\Slug(fields={"name","organisation"})
      * @ORM\Column(length=255, unique=true)
      * 
      * @var string
      */
     protected $slug;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->applicationParameterValues = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     public function preInsert()
     {
@@ -220,52 +219,6 @@ class Application
     public function getPleskCapable()
     {
         return $this->pleskCapable;
-    }
-
-    /**
-     * Set applicationUser
-     *
-     * @param string $applicationUser
-     * @return Application
-     */
-    public function setApplicationUser($applicationUser)
-    {
-        $this->applicationUser = $applicationUser;
-    
-        return $this;
-    }
-
-    /**
-     * Get applicationUser
-     *
-     * @return string 
-     */
-    public function getApplicationUser()
-    {
-        return $this->applicationUser;
-    }
-
-    /**
-     * Set applicationPassword
-     *
-     * @param string $applicationPassword
-     * @return Application
-     */
-    public function setApplicationPassword($applicationPassword)
-    {
-        $this->applicationPassword = $applicationPassword;
-    
-        return $this;
-    }
-
-    /**
-     * Get applicationPassword
-     *
-     * @return string 
-     */
-    public function getApplicationPassword()
-    {
-        return $this->applicationPassword;
     }
 
     /**

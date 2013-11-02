@@ -42,6 +42,11 @@ class ApplicationTemplate
     protected $applications;
 
     /**
+     * @ORM\OneToMany(targetEntity="ApplicationTemplateParameter", mappedBy="applicationTemplate")
+     */
+    protected $applicationTemplateParameters;
+
+    /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
@@ -84,6 +89,7 @@ class ApplicationTemplate
     public function __construct()
     {
         $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->applicationTemplateParameters = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function preInsert()
