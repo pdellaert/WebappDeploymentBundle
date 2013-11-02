@@ -196,7 +196,7 @@ class ApplicationController extends Controller
     private function createAddEditForm($entity)
     {
         $fb = $this->createFormBuilder($entity);
-        $fb->add('host','text',array('max_length'=>255,'required'=>true,'label'=>'Hostname'));
+        $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
         $fb->add('organisation','text',array('max_length'=>255,'required'=>true,'label'=>'Organisation'));
         $fb->add('pleskCapable','checkbox',array('required'=>false,'label'=>'Plesk enabled?'));
         $fb->add('applicationTemplate','entity',array('class'=>'DellaertWebappDeploymentBundle:ApplicationTemplate','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Application template'));
