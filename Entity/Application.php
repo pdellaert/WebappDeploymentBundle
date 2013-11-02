@@ -71,7 +71,7 @@ class Application
     protected $pleskCapable;
 
     /**
-     * @Gedmo\Slug(fields={"name","organisation"})
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=255, unique=true)
      * 
      * @var string

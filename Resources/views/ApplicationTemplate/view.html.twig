@@ -30,7 +30,7 @@
 		<h2>Applications</h2>
 		<ul>
 			{% for application in entity.applications %}
-				<li><a href="{{ path('ApplicationViewSlug',{ 'slug': application.slug }) }}">{{ application.host }} - {{ application.ip }}</a></li>
+				<li><a href="{{ path('ApplicationViewSlug',{ 'slug': application.slug }) }}">{{ application.name }}</a></li>
 			{% endfor %}
 		</ul>
 	    
