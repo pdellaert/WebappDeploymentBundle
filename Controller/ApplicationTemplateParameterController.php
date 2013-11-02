@@ -44,7 +44,7 @@ class ApplicationTemplateParameterController extends Controller
                 $entity->setApplicationTemplate($applicationTemplate);
                 $this->get('session')->set('return_url',$this->get('router')->generate('ApplicationTemplateViewSlug', array('slug'=>$applicationTemplate->getSlug())));
                 $this->get("white_october_breadcrumbs")
-                    ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug',$applicationTemplate->getSlug())));
+                    ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug'=>$entity->getApplicationTemplate()->getSlug())));
             } else {
             $this->get("white_october_breadcrumbs")
                 ->addItem("Unkown application template", '')
