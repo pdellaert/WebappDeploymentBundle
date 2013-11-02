@@ -26,6 +26,10 @@ Application:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-application.yml"
     prefix:   /application
 
+ApplicationParameterValue:
+    resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-applicationparametervalue.yml"
+    prefix:   /application-parameter-value
+
 ApplicationTemplate:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-applicationtemplate.yml"
     prefix:   /application-template

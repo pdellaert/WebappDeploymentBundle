@@ -1,0 +1,5 @@
+ApplicationParameterValueEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:ApplicationParameterValue:edit}
+    requirements:
+        id: \d+

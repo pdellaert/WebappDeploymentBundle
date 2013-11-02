@@ -25,6 +25,22 @@
 				<td colspan="3">{% if entity.pleskCapable %}Yes{% else %}No{% endif %}</td>
 			</tr>
 		</table>
+	    
+	    <h2>Application parameters</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Parameter</th>
+	    		<th>Value</th>
+	    		<th width="10%">Edit</th>
+	    	</tr>
+	    	{% for applicationParameterValue in entity.applicationParameterValues %}
+	    		<tr>
+	    			<td>{{ applicationParameterValue.applicationTemplateParameter.name }}</td>
+	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}********{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
+	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button flag">&nbsp;</a></td>
+	    		</tr>
+	    	{% endfor %}
+	    </table>
 	{% else %}
 		<h1>Unknown application</h1>
 		<p>The specified application is not available.</p>
