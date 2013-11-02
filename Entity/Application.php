@@ -266,4 +266,37 @@ class Application
     {
         return $this->applicationTemplate;
     }
+
+    /**
+     * Add applicationParameterValues
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues
+     * @return Application
+     */
+    public function addApplicationParameterValue(\Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues)
+    {
+        $this->applicationParameterValues[] = $applicationParameterValues;
+    
+        return $this;
+    }
+
+    /**
+     * Remove applicationParameterValues
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues
+     */
+    public function removeApplicationParameterValue(\Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues)
+    {
+        $this->applicationParameterValues->removeElement($applicationParameterValues);
+    }
+
+    /**
+     * Get applicationParameterValues
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getApplicationParameterValues()
+    {
+        return $this->applicationParameterValues;
+    }
 }

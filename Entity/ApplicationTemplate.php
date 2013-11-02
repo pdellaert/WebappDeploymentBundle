@@ -305,4 +305,37 @@ class ApplicationTemplate
     {
         return $this->databaseType;
     }
+
+    /**
+     * Add applicationTemplateParameters
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter $applicationTemplateParameters
+     * @return ApplicationTemplate
+     */
+    public function addApplicationTemplateParameter(\Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter $applicationTemplateParameters)
+    {
+        $this->applicationTemplateParameters[] = $applicationTemplateParameters;
+    
+        return $this;
+    }
+
+    /**
+     * Remove applicationTemplateParameters
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter $applicationTemplateParameters
+     */
+    public function removeApplicationTemplateParameter(\Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter $applicationTemplateParameters)
+    {
+        $this->applicationTemplateParameters->removeElement($applicationTemplateParameters);
+    }
+
+    /**
+     * Get applicationTemplateParameters
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getApplicationTemplateParameters()
+    {
+        return $this->applicationTemplateParameters;
+    }
 }
