@@ -3,7 +3,9 @@ namespace Dellaert\WebappDeploymentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\WebappDeploymentBundle\Entity\Application;
+use Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue;
 use Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplate;
+use Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationController extends Controller
@@ -134,6 +136,8 @@ class ApplicationController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($entity);
                 $em->flush();
+                // Saving Parameters
+                $this->updateApplicationParameterValues($entity);
                 $this->get("white_october_breadcrumbs")
                     ->addItem($entity->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())))
                     ->addItem("Save",'');
@@ -163,6 +167,8 @@ class ApplicationController extends Controller
                     $em = $this->getDoctrine()->getEntityManager();
                     $em->persist($entity);
                     $em->flush();
+                    // Saving Parameters
+                    $this->updateApplicationParameterValues($entity);
                     $this->get("white_october_breadcrumbs")->addItem("Save",'');
                     return $this->render('DellaertWebappDeploymentBundle:Application:edit.html.twig',array('entity'=>$entity));
                 }
@@ -201,5 +207,45 @@ class ApplicationController extends Controller
         $fb->add('pleskCapable','checkbox',array('required'=>false,'label'=>'Plesk enabled?'));
         $fb->add('applicationTemplate','entity',array('class'=>'DellaertWebappDeploymentBundle:ApplicationTemplate','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Application template'));
         return $fb->getForm();
+    }
+
+    private function updateApplicationParameterValues($entity) {
+        $em = $this->getDoctrine()->getEntityManager();
+        // Creating every template parameter that does not exist for the enitity yet
+        foreach( $entity->getApplicationTemplate()->getApplicationTemplateParameters() as $applicationTemplateParameter ) {
+            $found = false;
+            foreach( $entity->getApplicationParameterValues() as $applicationParameterValue ) {
+                if( $applicationParameterValue->getApplicationTemplateParameter()->getId() == $applicationTemplateParameter->getId() ) {
+                    $found = true;
+                    break;
+                }
+            }
+
+            if( !$found ) {
+                $applicationParameterValue = new ApplicationParameterValue();
+                $applicationParameterValue->setApplication($entity);
+                $applicationParameterValue->setApplicationTemplateParameter($applicationTemplateParameter);
+
+                $em->persist($applicationParameterValue);
+                $em->flush();
+            }
+        }
+
+        // Deleting every parameter value for every template parameter that does not exist in the template
+        foreach( $entity->getApplicationParameterValues() as $applicationParameterValue ) {
+            $found = false;
+            foreach( $entity->getApplicationTemplate()->getApplicationTemplateParameters() as $applicationTemplateParameter ) {
+                if( $applicationParameterValue->getApplicationTemplateParameter()->getId() == $applicationTemplateParameter->getId() ) {
+                    $found = true;
+                    break;
+                }
+            }
+
+            if( !$found ) {
+                $em->remove($applicationParameterValue);
+                $em->flush();
+            }
+        }
+
     }
 }
