@@ -214,4 +214,27 @@ class ApplicationTemplateParameter
     {
         return $this->applicationParameterValues;
     }
+
+    /**
+     * Set isPassword
+     *
+     * @param boolean $isPassword
+     * @return ApplicationTemplateParameter
+     */
+    public function setIsPassword($isPassword)
+    {
+        $this->isPassword = $isPassword;
+    
+        return $this;
+    }
+
+    /**
+     * Get isPassword
+     *
+     * @return boolean 
+     */
+    public function getIsPassword()
+    {
+        return $this->isPassword;
+    }
 }
