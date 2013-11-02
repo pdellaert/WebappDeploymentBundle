@@ -184,7 +184,7 @@ class ApplicationTemplateController extends Controller
         $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
         $fb->add('ansibleModule','text',array('max_length'=>255,'required'=>true,'label'=>'Ansible module'));
         $fb->add('databaseEnabled','checkbox',array('required'=>false,'label'=>'Database enabled?'));
-        $fb->add('serverTypes','entity',array('class'=>'DellaertWebappDeploymentBundle:DatabaseType','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Database type'));
+        $fb->add('databaseType','entity',array('class'=>'DellaertWebappDeploymentBundle:DatabaseType','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Database type'));
         return $fb->getForm();
     }
 }
