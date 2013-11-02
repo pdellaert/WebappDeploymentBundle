@@ -82,4 +82,162 @@ class DatabaseType
     {
         $this->updatedAt = new \DateTime();
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return DatabaseType
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return DatabaseType
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return DatabaseType
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return DatabaseType
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return DatabaseType
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Add applicationTemplates
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplate $applicationTemplates
+     * @return DatabaseType
+     */
+    public function addApplicationTemplate(\Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplate $applicationTemplates)
+    {
+        $this->applicationTemplates[] = $applicationTemplates;
+    
+        return $this;
+    }
+
+    /**
+     * Remove applicationTemplates
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplate $applicationTemplates
+     */
+    public function removeApplicationTemplate(\Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplate $applicationTemplates)
+    {
+        $this->applicationTemplates->removeElement($applicationTemplates);
+    }
+
+    /**
+     * Get applicationTemplates
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getApplicationTemplates()
+    {
+        return $this->applicationTemplates;
+    }
 }

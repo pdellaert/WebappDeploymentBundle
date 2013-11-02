@@ -95,4 +95,208 @@ class ApplicationTemplate
     {
         $this->updatedAt = new \DateTime();
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return ApplicationTemplate
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return ApplicationTemplate
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ApplicationTemplate
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set databaseEnabled
+     *
+     * @param boolean $databaseEnabled
+     * @return ApplicationTemplate
+     */
+    public function setDatabaseEnabled($databaseEnabled)
+    {
+        $this->databaseEnabled = $databaseEnabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get databaseEnabled
+     *
+     * @return boolean 
+     */
+    public function getDatabaseEnabled()
+    {
+        return $this->databaseEnabled;
+    }
+
+    /**
+     * Set ansibleModule
+     *
+     * @param string $ansibleModule
+     * @return ApplicationTemplate
+     */
+    public function setAnsibleModule($ansibleModule)
+    {
+        $this->ansibleModule = $ansibleModule;
+    
+        return $this;
+    }
+
+    /**
+     * Get ansibleModule
+     *
+     * @return string 
+     */
+    public function getAnsibleModule()
+    {
+        return $this->ansibleModule;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return ApplicationTemplate
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Add applications
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\Application $applications
+     * @return ApplicationTemplate
+     */
+    public function addApplication(\Dellaert\WebappDeploymentBundle\Entity\Application $applications)
+    {
+        $this->applications[] = $applications;
+    
+        return $this;
+    }
+
+    /**
+     * Remove applications
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\Application $applications
+     */
+    public function removeApplication(\Dellaert\WebappDeploymentBundle\Entity\Application $applications)
+    {
+        $this->applications->removeElement($applications);
+    }
+
+    /**
+     * Get applications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    /**
+     * Set databaseType
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\DatabaseType $databaseType
+     * @return ApplicationTemplate
+     */
+    public function setDatabaseType(\Dellaert\WebappDeploymentBundle\Entity\DatabaseType $databaseType = null)
+    {
+        $this->databaseType = $databaseType;
+    
+        return $this;
+    }
+
+    /**
+     * Get databaseType
+     *
+     * @return \Dellaert\WebappDeploymentBundle\Entity\DatabaseType 
+     */
+    public function getDatabaseType()
+    {
+        return $this->databaseType;
+    }
 }
