@@ -15,6 +15,8 @@
 			<tr>
 				<th>Name</th>
 				<td>{{ entity.name }}</td>
+				<th>Code</th>
+				<td>{{ entity.code }}</td>
 			</tr>
 		</table>
 		<div id="entitybuttons"><a href="{{ path('ServerAdd', { 'id': entity.id } ) }}" class="button add">Add server</a></div>

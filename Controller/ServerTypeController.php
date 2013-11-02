@@ -182,6 +182,7 @@ class ServerTypeController extends Controller
     {
         $fb = $this->createFormBuilder($entity);
         $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
+        $fb->add('code','text',array('max_length'=>255,'required'=>true,'label'=>'Shortcode'));
         return $fb->getForm();
     }
 }
