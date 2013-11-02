@@ -37,7 +37,7 @@ class ApplicationTemplate
     protected $enabled;
 
     /**
-     * @ORM\OneToMany(targetEntity="Application", mappedBy="applicationType")
+     * @ORM\OneToMany(targetEntity="Application", mappedBy="applicationTemplate")
      */
     protected $applications;
 
