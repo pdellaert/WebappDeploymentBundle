@@ -37,7 +37,7 @@ class Application
     protected $enabled;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ApplicationTemplate", mappedBy="applications")
+     * @ORM\ManyToOne(targetEntity="ApplicationTemplate", inversedBy="applications")
      * @ORM\JoinColumn(name="applicationtemplate_id", referencedColumnName="id")
      */
     protected $applicationTemplate;

@@ -57,7 +57,7 @@ class ApplicationTemplate
     protected $databaseEnabled;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DatabaseType", mappedBy="applicationTemplates")
+     * @ORM\ManyToOne(targetEntity="DatabaseType", inversedBy="applicationTemplates")
      * @ORM\JoinColumn(name="databasetype_id", referencedColumnName="id")
      */
     protected $databaseType;
