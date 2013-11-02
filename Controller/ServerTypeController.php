@@ -76,7 +76,7 @@ class ServerTypeController extends Controller
         foreach($results as $entity) {
             $data['rows'][] = array(
                 'id' => $entity->getSlug(),
-                'cell' => array($entity->getName())
+                'cell' => array($entity->getName(),$entity->getCode())
             );
         }
         

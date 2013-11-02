@@ -9,10 +9,12 @@
 				url: '{{ path('ServerTypeListData') }}',
 				dataType: 'json',
 				colModel : [
-					{display: 'Name', name : 'name', width : 800, sortable : true, align: 'left'},
+					{display: 'Name', name : 'name', width : 400, sortable : true, align: 'left'},
+					{display: 'Code', name : 'code', width : 400, sortable : true, align: 'left'},
 				],
 				searchitems : [
 					{display: 'Name', name : 'name', isdefault: true}
+					{display: 'Code', name : 'code'}
 				],
 				sortname: "name",
 				sortorder: "asc",
