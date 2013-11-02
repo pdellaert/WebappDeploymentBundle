@@ -1,0 +1,22 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if form is defined %}
+		<h1>Edit application template: {{ entity.name }}</h1>
+		<form action="{{ path('ApplicationTemplateEdit', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+			{{ form_widget(form) }}
+			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Reset" /><a href="{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.slug }) }}" class="button right delete">Cancel</a>
+		</form>
+	{% elseif entity is defined %}
+		<script type="text/javascript">
+		setTimeout(function() {
+			  window.location.href = "{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.slug }) }}";
+			}, 3000);
+		</script>
+		<h1>Application template changed: {{ entity.name }}</h1>
+		<p>You will be returned to the application template's page in 3 seconds...</p>
+	{% else %}
+		<h1>Unknown application template</h1>
+		<p>The specified application template is not available.</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this application template?') ) {
+					window.location = "{{ path('ApplicationTemplateDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('ApplicationTemplateEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+		<h1>Application template: {{ entity.name }}</h1>
+		<table cellspacing="0">
+			<tr>
+				<th>Name</th>
+				<td>{{ entity.name }}</td>
+				<th>Ansible module</th>
+				<td>{{ entity.ansibleModule }}</td>
+			</tr>
+			<tr>
+				<th>Database enabled</th>
+				<td>{% if entity.databaseEnable %}Yes{% else %}No{% endif %}</td>
+			</tr>
+			<tr>
+				<th>Database type</th>
+				<td>{{ entity.databaseType.name }}</td>
+			</tr>
+		</table>
+	{% else %}
+		<h1>Unknown application template</h1>
+		<p>The specified application template is not available.</p>
+	{% endif %}
+{% endblock %}

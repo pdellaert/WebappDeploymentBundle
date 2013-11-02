@@ -1,0 +1,27 @@
+DatabaseTypeList:
+    pattern: /
+    defaults: { _controller: DellaertWebappDeploymentBundle:DatabaseType:list}
+
+DatabaseTypeListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertWebappDeploymentBundle:DatabaseType:listData}
+
+DatabaseTypeAdd:
+    pattern: /add
+    defaults: { _controller: DellaertWebappDeploymentBundle:DatabaseType:add}
+
+DatabaseTypeEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:DatabaseType:edit}
+    requirements:
+        id: \d+
+
+DatabaseTypeDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:DatabaseType:delete}
+    requirements:
+        id: \d+
+
+DatabaseTypeViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertWebappDeploymentBundle:DatabaseType:view}

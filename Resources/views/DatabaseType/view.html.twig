@@ -1,0 +1,33 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this database type?') ) {
+					window.location = "{{ path('DatabaseTypeDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('DatabaseTypeEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+		<h1>Database type: {{ entity.name }}</h1>
+		<table cellspacing="0">
+			<tr>
+				<th>Name</th>
+				<td>{{ entity.name }}</td>
+				<th>Code</th>
+				<td>{{ entity.code }}</td>
+			</tr>
+		</table>
+		<div id="entitybuttons"><a href="{{ path('ApplicationTemplateAdd', { 'id': entity.id } ) }}" class="button add">Add Application template</a></div>
+		<h2>Application templates</h2>
+		<ul>
+			{% for applicationTemplate in entity.applicationTemplates %}
+				<li><a href="{{ path('ApplicationTemplateViewSlug',{ 'slug': applicationTemplate.slug }) }}">{{ applicationTemplate.name }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<h1>Unknown database type</h1>
+		<p>The specified database type is not available.</p>
+	{% endif %}
+{% endblock %}

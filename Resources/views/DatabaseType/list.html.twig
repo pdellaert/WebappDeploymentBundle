@@ -1,0 +1,39 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	<div id="entitybuttons"><a href="{{ path('DatabaseTypeAdd') }}" class="button add">Add</a></div>
+	<h1>Database types</h1>
+	<script type="text/javascript">
+		$(function() {
+			$(".entitytable").flexigrid({
+				url: '{{ path('DatabaseTypeListData') }}',
+				dataType: 'json',
+				colModel : [
+					{display: 'Name', name : 'name', width : 400, sortable : true, align: 'left'},
+					{display: 'Code', name : 'code', width : 400, sortable : true, align: 'left'}
+				],
+				searchitems : [
+					{display: 'Name', name : 'name', isdefault: true},
+					{display: 'Code', name : 'code', isdefault: false}
+				],
+				sortname: "name",
+				sortorder: "asc",
+				usepager: true,
+				useRp: true,
+				rp: 20,
+				showTableToggleBtn: false,
+				showToggleBtn: false,
+				resizable: false,
+				width: 808,
+				height: 'auto',
+				singleSelect: true
+			});
+		});
+
+		$('.flexigrid tr[id*="row"]').live('click', function(){
+			window.location = '{{ path('DatabaseTypeList') }}' + $(this).attr('id').substr(3);
+		});
+	</script>
+	
+	<table class="entitytable"></table> 
+{% endblock %}

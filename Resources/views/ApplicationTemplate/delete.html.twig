@@ -1,0 +1,16 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity is defined %}
+		<script type="text/javascript">
+		setTimeout(function() {
+			  window.location.href = "{{ path('ApplicationTemplateList') }}";
+			}, 3000);
+		</script>
+		<h1>Application template deleted: {{ entity.name }}</h1>
+		<p>You will be returned to the application template list in 3 seconds...</p>
+	{% else %}
+		<h1>Unknown application template</h1>
+		<p>The specified application template is not available.</p>
+	{% endif %}
+{% endblock %}

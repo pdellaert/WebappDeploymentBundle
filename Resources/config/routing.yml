@@ -21,3 +21,11 @@ ServerType:
 APIKey:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-apikey.yml"
     prefix:   /api-key
+
+ApplicationTemplate:
+    resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-applicationtemplate.yml"
+    prefix:   /application-template
+
+DatabaseType:
+    resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-databasetype.yml"
+    prefix:   /database-type
