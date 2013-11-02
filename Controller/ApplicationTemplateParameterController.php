@@ -17,7 +17,7 @@ class ApplicationTemplateParameterController extends Controller
             ->addItem("Application templates", $this->get("router")->generate("ApplicationTemplateList"));
         if( $entity ) {
             $this->get("white_october_breadcrumbs")
-                ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug',$entity->getApplicationTemplate()->getSlug())))
+                ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug'=>$entity->getApplicationTemplate()->getSlug())))
                 ->addItem("Application template parameters", '')
                 ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)));
         } else {
@@ -85,7 +85,7 @@ class ApplicationTemplateParameterController extends Controller
             ->addItem("Application templates", $this->get("router")->generate("ApplicationTemplateList"));
         if( $entity ) {
             $this->get("white_october_breadcrumbs")
-                ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug',$entity->getApplicationTemplate()->getSlug())))
+                ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug'=>$entity->getApplicationTemplate()->getSlug())))
                 ->addItem("Application template parameters", '')
                 ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)));
             $form = $this->createAddEditForm($entity);
@@ -116,7 +116,7 @@ class ApplicationTemplateParameterController extends Controller
             ->addItem("Application templates", $this->get("router")->generate("ApplicationTemplateList"));
         if( $entity ) {
             $this->get("white_october_breadcrumbs")
-                ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug',$entity->getApplicationTemplate()->getSlug())))
+                ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug'=>$entity->getApplicationTemplate()->getSlug())))
                 ->addItem("Application template parameters", '')
                 ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)))
                 ->addItem("Delete",'');
