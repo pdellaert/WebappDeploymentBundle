@@ -19,7 +19,7 @@ class ApplicationTemplateParameterController extends Controller
             $this->get("white_october_breadcrumbs")
                 ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug',$entity->getApplicationTemplate()->getSlug())))
                 ->addItem("Application template parameters", '')
-                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('Id'=>$id)));
+                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)));
         } else {
             $this->get("white_october_breadcrumbs")
                 ->addItem("Unkown application template", '')
@@ -68,7 +68,7 @@ class ApplicationTemplateParameterController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $this->get("white_october_breadcrumbs")
-                    ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('Id'=>$entity->getId())))
+                    ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$entity->getId())))
                     ->addItem("Save",'');
                 return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplateParameter:add.html.twig',array('entity'=>$entity));
             }
@@ -87,7 +87,7 @@ class ApplicationTemplateParameterController extends Controller
             $this->get("white_october_breadcrumbs")
                 ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug',$entity->getApplicationTemplate()->getSlug())))
                 ->addItem("Application template parameters", '')
-                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('Id'=>$id)));
+                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)));
             $form = $this->createAddEditForm($entity);
             $request = $this->getRequest();
             if( $request->getMethod() == 'POST' ) {
@@ -118,7 +118,7 @@ class ApplicationTemplateParameterController extends Controller
             $this->get("white_october_breadcrumbs")
                 ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug',$entity->getApplicationTemplate()->getSlug())))
                 ->addItem("Application template parameters", '')
-                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('Id'=>$id)))
+                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)))
                 ->addItem("Delete",'');
             $this->get('session')->set('return_url',$this->get('router')->generate('ApplicationTemplateViewSlug', array('slug'=>$entity->getApplicationTemplate()->getSlug())));
             $em = $this->getDoctrine()->getEntityManager();
