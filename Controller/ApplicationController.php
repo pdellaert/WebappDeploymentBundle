@@ -79,10 +79,6 @@ class ApplicationController extends Controller
             if($entity->getPleskCapable()) {
                 $pleskCapable = "yes";
             }
-            $applicationTemplate = "";
-            if( $entity->getApplicationTemplate() ) {
-                $applicationTemplate = ;
-            }
             $data['rows'][] = array(
                 'id' => $entity->getSlug(),
                 'cell' => array($entity->getName(),$entity->getOrganisation(),$entity->getApplicationTemplate()->getName(),$pleskCapable)
