@@ -39,7 +39,7 @@ class ApplicationTemplateParameterController extends Controller
             ->addItem("Application templates", $this->get("router")->generate("ApplicationTemplateList"));
 
         if( $id > 0 ) {
-            $applicationTemplate = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ApplicationTemplateParameter')->find($id);
+            $applicationTemplate = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ApplicationTemplate')->find($id);
             if( $applicationTemplate ) {
                 $entity->setApplicationTemplate($applicationTemplate);
                 $this->get('session')->set('return_url',$this->get('router')->generate('ApplicationTemplateViewSlug', array('slug'=>$applicationTemplate->getSlug())));
