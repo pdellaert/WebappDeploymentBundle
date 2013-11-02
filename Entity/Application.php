@@ -96,3 +96,4 @@ class Application
     {
         $this->updatedAt = new \DateTime();
     }
+}
