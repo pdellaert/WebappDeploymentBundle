@@ -26,6 +26,10 @@ ApplicationTemplate:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-applicationtemplate.yml"
     prefix:   /application-template
 
+ApplicationTemplateParameter:
+    resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-applicationtemplateparameter.yml"
+    prefix:   /application-template-parameter
+
 DatabaseType:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-databasetype.yml"
     prefix:   /database-type

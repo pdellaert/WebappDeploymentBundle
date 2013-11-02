@@ -103,9 +103,17 @@ class ApplicationTemplateController extends Controller
         return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplate:view.html.twig',array('entity'=>$entity));
     }
     
-    public function addAction()
+    public function addAction($id)
     {
         $entity = new ApplicationTemplate();
+        if( $id > 0 ) {
+            $databaseType = $this->getDoctrine()
+                ->getRepository('DellaertWebappDeploymentBundle:DatabaseType')
+                ->find($id);
+            if( $databaseType ) {
+                $entity->addDatabaseType($databaseType);
+            }
+        }
         $form = $this->createAddEditForm($entity);
         $request = $this->getRequest();
         

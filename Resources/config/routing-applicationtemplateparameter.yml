@@ -1,0 +1,23 @@
+ApplicationTemplateParameterAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:ApplicationTemplateParameter:add, id: -1}
+    requirements:
+        id: \d+
+
+ApplicationTemplateParameterEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:ApplicationTemplateParameter:edit}
+    requirements:
+        id: \d+
+
+ApplicationTemplateParameterDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:ApplicationTemplateParameter:delete}
+    requirements:
+        id: \d+
+
+ApplicationTemplateParameterViewId:
+    pattern: /{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:ApplicationTemplateParameter:view}
+    requirements:
+        id: \d+

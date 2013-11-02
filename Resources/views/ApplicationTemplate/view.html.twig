@@ -25,6 +25,21 @@
 				<td>{{ entity.databaseType.name }}</td>
 			</tr>
 		</table>
+	    
+	    <div id="entitybuttons"><a href="{{ path('ApplicationTemplateParameterAdd', { 'id': entity.id }) }}" class="button add">Add application template parameter</a></div>
+	    <h2>Application parameters</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Name</th>
+	    		<th class="textright">Password</th>
+	    	</tr>
+	    	{% for applicationTemplateParameter in entity.applicationTemplateParameters %}
+	    		<tr>
+	    			<td><a href="{{ path('ApplicationTemplateParameterViewId',{ 'id': applicationTemplateParameter.id }) }}">{{ applicationTemplateParameter.name }}</a></td>
+	    			<td>{% if applicationTemplateParameter.isPassword %}Yes{% else %}No{% endif %}</td>
+	    		</tr>
+	    	{% endfor %}
+	    </table>
 	{% else %}
 		<h1>Unknown application template</h1>
 		<p>The specified application template is not available.</p>
