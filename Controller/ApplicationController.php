@@ -100,7 +100,7 @@ class ApplicationController extends Controller
             ->addItem("Home", $this->get("router")->generate("homepage"))
             ->addItem("Applications", $this->get("router")->generate("ApplicationList"));
         if( $entity ) {
-            $this->get("white_october_breadcrumbs")->addItem($entity->getHost(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$slug)));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$slug)));
         } else {
             $this->get("white_october_breadcrumbs")->addItem("Unkown application", '');
         }
@@ -135,7 +135,7 @@ class ApplicationController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $this->get("white_october_breadcrumbs")
-                    ->addItem($entity->getHost(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())))
+                    ->addItem($entity->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())))
                     ->addItem("Save",'');
                 return $this->render('DellaertWebappDeploymentBundle:Application:add.html.twig',array('entity'=>$entity));
             }
@@ -152,7 +152,7 @@ class ApplicationController extends Controller
             ->addItem("Home", $this->get("router")->generate("homepage"))
             ->addItem("Applications", $this->get("router")->generate("ApplicationList"));
         if( $entity ) {
-            $this->get("white_october_breadcrumbs")->addItem($entity->getHost(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())));
             $form = $this->createAddEditForm($entity);
             $request = $this->getRequest();
             if( $request->getMethod() == 'POST' ) {
@@ -182,7 +182,7 @@ class ApplicationController extends Controller
             ->addItem("Applications", $this->get("router")->generate("ApplicationList"));
         if( $entity ) {
             $this->get("white_october_breadcrumbs")
-                ->addItem($entity->getHost(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())))
+                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())))
                 ->addItem("Delete",'');
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($entity);
