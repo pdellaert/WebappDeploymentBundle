@@ -50,6 +50,14 @@ class ServerType
     protected $name;
 
     /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     *
+     * @var string
+     */
+    protected $code;
+
+    /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=255, unique=true)
      * 
