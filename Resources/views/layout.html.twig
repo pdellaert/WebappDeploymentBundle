@@ -64,32 +64,37 @@
 						<li class="cat-item"><a href="{{ path('homepage') }}">Home</a></li>
 						<li class="cat-item">
 							<a href="{{ path('ServerList') }}" title="Servers">Servers</a>
-							<ul class='children'>
+							<ul class="children">
 								<li class="cat-item"><a href="{{ path('ServerAdd') }}" title="Add a server">Add</a></li>
 							</ul>
 						</li>
 						<li class="cat-item">
-							<a href="{{ path('ServerTypeList') }}" title="Server Types">Server Types</a>
-							<ul class='children'>
-								<li class="cat-item"><a href="{{ path('ServerTypeAdd') }}" title="Add a server type">Add</a></li>
-							</ul>
-						</li>
-						<li class="cat-item">
-							<a href="{{ path('DatabaseTypeList') }}" title="Database Types">Database Types</a>
-							<ul class='children'>
-								<li class="cat-item"><a href="{{ path('DatabaseTypeAdd') }}" title="Add a database type">Add</a></li>
-							</ul>
-						</li>
-						<li class="cat-item">
-							<a href="{{ path('ApplicationTemplateList') }}" title="Application templates">Application Templates</a>
-							<ul class='children'>
-								<li class="cat-item"><a href="{{ path('ApplicationTemplateAdd') }}" title="Add an application template">Add</a></li>
-							</ul>
-						</li>
-						<li class="cat-item">
-							<a href="{{ path('APIKeyList') }}" title="API Keys">API Keys</a>
-							<ul class='children'>
-								<li class="cat-item"><a href="{{ path('APIKeyAdd') }}" title="Add an API Key">Add</a></li>
+							Configuration
+							<ul class="children">
+								<li class="cat-item">
+									<a href="{{ path('ServerTypeList') }}" title="Server Types">Server Types</a>
+									<ul class="children">
+										<li class="cat-item"><a href="{{ path('ServerTypeAdd') }}" title="Add a server type">Add</a></li>
+									</ul>
+								</li>
+								<li class="cat-item">
+									<a href="{{ path('DatabaseTypeList') }}" title="Database Types">Database Types</a>
+									<ul class="children">
+										<li class="cat-item"><a href="{{ path('DatabaseTypeAdd') }}" title="Add a database type">Add</a></li>
+									</ul>
+								</li>
+								<li class="cat-item">
+									<a href="{{ path('ApplicationTemplateList') }}" title="Application templates">Application Templates</a>
+									<ul class="children">
+										<li class="cat-item"><a href="{{ path('ApplicationTemplateAdd') }}" title="Add an application template">Add</a></li>
+									</ul>
+								</li>
+								<li class="cat-item">
+									<a href="{{ path('APIKeyList') }}" title="API Keys">API Keys</a>
+									<ul class="children">
+										<li class="cat-item"><a href="{{ path('APIKeyAdd') }}" title="Add an API Key">Add</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 					</ul>
