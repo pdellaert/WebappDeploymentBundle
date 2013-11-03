@@ -41,7 +41,7 @@ class ApplicationParameterValueController extends Controller
     public function createAddEditForm($entity)
     {
         $fb = $this->createFormBuilder($entity);
-        if( $entity->getApplicationTemplateParameter->getIsPassword () ) {
+        if( $entity->getApplicationTemplateParameter()->getIsPassword () ) {
             $fb->add('value','password',array('max_length'=>255,'required'=>true,'label'=>'Value'));
         } else {
             $fb->add('value','text',array('max_length'=>255,'required'=>true,'label'=>'Value'));
