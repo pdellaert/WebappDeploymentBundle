@@ -58,7 +58,7 @@ class ApplicationTemplateParameterController extends Controller
             }
         }
         $this->get("white_october_breadcrumbs")->addItem("Add application template parameter", '');
-        return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplateParameter:add.html.twig',array('form'=>$form->createView(),'id'=>$id));
+        return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplateParameter:add.html.twig',array('form'=>$form->createView(),'id'=>$id,'entity'=>$entity));
     }
     
     public function editAction($id)
