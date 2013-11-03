@@ -15,3 +15,7 @@ ApplicationTemplateParameterDelete:
     defaults: { _controller: DellaertWebappDeploymentBundle:ApplicationTemplateParameter:delete}
     requirements:
         id: \d+
+
+ApplicationTemplateParameterDeleteNoId:
+    pattern: /delete
+    defaults: { _controller: DellaertWebappDeploymentBundle:ApplicationTemplateParameter:delete}
