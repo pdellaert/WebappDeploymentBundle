@@ -17,7 +17,7 @@ class ApplicationParameterValueController extends Controller
             $this->get("white_october_breadcrumbs")
                 ->addItem($entity->getApplication()->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getApplication()->getSlug())))
                 ->addItem("Application parameter values", '')
-                ->addItem($entity->getApplicationTemplateParameter()->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$entity->getApplicationTemplateParameter()->getId())));
+                ->addItem($entity->getApplicationTemplateParameter()->getName(), '');
             $form = $this->createAddEditForm($entity);
             $request = $this->getRequest();
             if( $request->getMethod() == 'POST' ) {
