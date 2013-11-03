@@ -43,7 +43,7 @@ class ApplicationParameterValue
     protected $application;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ApplicationTemplateParameter", inversedBy="applicationTemplateParameterValues")
+     * @ORM\ManyToOne(targetEntity="ApplicationTemplateParameter", inversedBy="applicationParameterValues")
      * @ORM\JoinColumn(name="applicationtemplateparameter_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $ApplicationTemplateParameter;
