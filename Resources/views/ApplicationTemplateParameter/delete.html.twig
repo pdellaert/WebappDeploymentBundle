@@ -4,7 +4,7 @@
 	{% if entity is defined %}
 		<script type="text/javascript">
 		setTimeout(function() {
-			  window.location.href = "{{ app.session.get('return_url') }}";
+			  window.location.href = "{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.applicationTemplate.slug }) }}";
 			}, 3000);
 		</script>
 		<h1>Application template parameter deleted: {{ entity.name }}</h1>

@@ -5,12 +5,12 @@
 		<h1>Add application template parameter</h1>
 		<form action="{{ path('ApplicationTemplateParameterAdd', { 'id': id }) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form) }}
-			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Clear" /><a href="{{ app.session.get('return_url') }}" class="button right delete">Cancel</a>
+			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Clear" /><a href="{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.applicationTemplate.slug }) }}" class="button right delete">Cancel</a>
 		</form>
 	{% elseif entity is defined %}
 		<script type="text/javascript">
 		setTimeout(function() {
-			  window.location.href = "{{ app.session.get('return_url') }}";
+			  window.location.href = "{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.applicationTemplate.slug }) }}";
 			}, 3000);
 		</script>
 		<h1>Application template parameter added: {{ entity.name }}</h1>

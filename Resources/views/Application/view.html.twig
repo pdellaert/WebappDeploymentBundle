@@ -31,13 +31,13 @@
 	    	<tr>
 	    		<th>Parameter</th>
 	    		<th>Value</th>
-	    		<th width="10%">Edit</th>
+	    		<th width="10%"></th>
 	    	</tr>
 	    	{% for applicationParameterValue in entity.applicationParameterValues %}
 	    		<tr>
 	    			<td>{{ applicationParameterValue.applicationTemplateParameter.name }}</td>
 	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}********{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
-	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button flag"></a></td>
+	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button save">Edit</a></td>
 	    		</tr>
 	    	{% endfor %}
 	    </table>

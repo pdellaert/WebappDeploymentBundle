@@ -5,12 +5,12 @@
 		<h1>Edit application template parameter: {{ entity.name }}</h1>
 		<form action="{{ path('ApplicationTemplateParameterEdit', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form) }}
-			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Reset" /><a href="{{ path('ApplicationTemplateParameterViewSlug',{ 'id': entity.id }) }}" class="button right delete">Cancel</a>
+			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Reset" /><a href="{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.applicationTemplate.slug }) }}" class="button right delete">Cancel</a>
 		</form>
 	{% elseif entity is defined %}
 		<script type="text/javascript">
 		setTimeout(function() {
-			  window.location.href = "{{ path('ApplicationTemplateParameterViewSlug',{ 'id': entity.id }) }}";
+			  window.location.href = "{{ path('ApplicationTemplateViewSlug',{ 'slug': entity.applicationTemplate.slug }) }}";
 			}, 3000);
 		</script>
 		<h1>Application template parameter changed: {{ entity.name }}</h1>

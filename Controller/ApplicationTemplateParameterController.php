@@ -9,29 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationTemplateParameterController extends Controller
 {    
-    public function viewAction($id)
-    {
-        $repository = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ApplicationTemplateParameter');
-        $entity = $repository->findOneById($id);
-        
-        $this->get("white_october_breadcrumbs")
-            ->addItem("Home", $this->get("router")->generate("homepage"))
-            ->addItem("Application templates", $this->get("router")->generate("ApplicationTemplateList"));
-        if( $entity ) {
-            $this->get("white_october_breadcrumbs")
-                ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug'=>$entity->getApplicationTemplate()->getSlug())))
-                ->addItem("Application template parameters", '')
-                ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)));
-        } else {
-            $this->get("white_october_breadcrumbs")
-                ->addItem("Unkown application template", '')
-                ->addItem("Application template parameters", '')
-                ->addItem("Unkown application template parameter", '');
-        }
-        
-        return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplateParameter:view.html.twig',array('entity'=>$entity));
-    }
-    
     public function addAction($id)
     {
         $entity = new ApplicationTemplateParameter();
@@ -44,7 +21,6 @@ class ApplicationTemplateParameterController extends Controller
             $applicationTemplate = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ApplicationTemplate')->find($id);
             if( $applicationTemplate ) {
                 $entity->setApplicationTemplate($applicationTemplate);
-                $this->get('session')->set('return_url',$this->get('router')->generate('ApplicationTemplateViewSlug', array('slug'=>$applicationTemplate->getSlug())));
                 $this->get("white_october_breadcrumbs")
                     ->addItem($entity->getApplicationTemplate()->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug'=>$entity->getApplicationTemplate()->getSlug())));
             } else {
@@ -52,11 +28,6 @@ class ApplicationTemplateParameterController extends Controller
                 ->addItem("Unkown application template", '')
                 ->addItem("Application template parameters", '');
             }
-        } elseif( $request->getMethod() != 'POST' ) {
-            $this->get('session')->remove('return_url');
-        }
-        if( $this->get('session')->get('return_url') == null || $this->get('session')->get('return_url') == '' ) {
-            $this->get('session')->set('return_url',$this->get('router')->generate('ApplicationTemplateList'));
         }
 
         $form = $this->createAddEditForm($entity);
@@ -110,7 +81,7 @@ class ApplicationTemplateParameterController extends Controller
                     $em = $this->getDoctrine()->getEntityManager();
                     $em->persist($entity);
                     $em->flush();
-                    $this->get("white_october_breadcrumbs")->addItem("Save",'');
+                    $this->get("white_october_breadcrumbs")->addItem("Save",''); 
                     return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplateParameter:edit.html.twig',array('entity'=>$entity));
                 }
             }
@@ -133,7 +104,6 @@ class ApplicationTemplateParameterController extends Controller
                 ->addItem("Application template parameters", '')
                 ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$id)))
                 ->addItem("Delete",'');
-            $this->get('session')->set('return_url',$this->get('router')->generate('ApplicationTemplateViewSlug', array('slug'=>$entity->getApplicationTemplate()->getSlug())));
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($entity);
             $em->flush();
