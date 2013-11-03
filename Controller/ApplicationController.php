@@ -227,7 +227,7 @@ class ApplicationController extends Controller
                 $applicationParameterValue->setApplicationTemplateParameter($applicationTemplateParameter);
                 $applicationParameterValue->setEnabled(true);
                 $applicationParameterValue->preInsert();
-                $applicationParameterValue->setValue('');
+                $applicationParameterValue->setValue($applicationTemplateParameter->getDefaultValue());
                 $entity->addApplicationParameterValue($applicationParameterValue);
                 $em->persist($applicationParameterValue);
             }

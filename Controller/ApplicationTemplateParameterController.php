@@ -47,7 +47,7 @@ class ApplicationTemplateParameterController extends Controller
                     $applicationParameterValue->setApplicationTemplateParameter($entity);
                     $applicationParameterValue->setEnabled(true);
                     $applicationParameterValue->preInsert();
-                    $applicationParameterValue->setValue('');
+                    $applicationParameterValue->setValue($entity->getDefaultValue());
                     $application->addApplicationParameterValue($applicationParameterValue);
                     $em->persist($applicationParameterValue);
                     $em->persist($application);
@@ -119,6 +119,7 @@ class ApplicationTemplateParameterController extends Controller
     {
         $fb = $this->createFormBuilder($entity);
         $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
+        $fb->add('defaultValue','text',array('max_length'=>255,'required'=>true,'label'=>'Default value'));
         $fb->add('isPassword','checkbox',array('required'=>false,'label'=>'Password'));
         $fb->add('applicationTemplate','entity',array('class'=>'DellaertWebappDeploymentBundle:ApplicationTemplate','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Application Template'));
         return $fb->getForm();
