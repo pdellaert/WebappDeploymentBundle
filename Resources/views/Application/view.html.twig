@@ -37,7 +37,7 @@
 	    		<tr>
 	    			<td>{{ applicationParameterValue.applicationTemplateParameter.name }}</td>
 	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}********{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
-	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button flag">&nbsp;</a></td>
+	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button flag"></a></td>
 	    		</tr>
 	    	{% endfor %}
 	    </table>

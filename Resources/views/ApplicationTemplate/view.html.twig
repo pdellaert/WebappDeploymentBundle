@@ -4,7 +4,7 @@
 	{% if entity %}
 		<script type="text/javascript">
 			function confirmDelete() {
-				if( confirm('Are you sure you want to delete this application template?') ) {
+				if( confirm('Are you sure you want to delete this application template? This will delete all applications using this template!') ) {
 					window.location = "{{ path('ApplicationTemplateDelete',{ 'id': entity.id }) }}";
 				}
 			}

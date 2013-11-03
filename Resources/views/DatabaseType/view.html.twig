@@ -4,7 +4,7 @@
 	{% if entity %}
 		<script type="text/javascript">
 			function confirmDelete() {
-				if( confirm('Are you sure you want to delete this database type?') ) {
+				if( confirm('Are you sure you want to delete this database type? This will also delete any application template using this database type, which in turn will delete any application using those templates!') ) {
 					window.location = "{{ path('DatabaseTypeDelete',{ 'id': entity.id }) }}";
 				}
 			}
