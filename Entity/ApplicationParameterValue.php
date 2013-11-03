@@ -46,7 +46,7 @@ class ApplicationParameterValue
      * @ORM\ManyToOne(targetEntity="ApplicationTemplateParameter", inversedBy="applicationParameterValues")
      * @ORM\JoinColumn(name="applicationtemplateparameter_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    protected $ApplicationTemplateParameter;
+    protected $applicationTemplateParameter;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -171,11 +171,11 @@ class ApplicationParameterValue
      * Set ApplicationTemplateParameter
      *
      * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter $applicationTemplateParameter
-     * @return ApplicationParameterValue
+     * @return applicationParameterValue
      */
     public function setApplicationTemplateParameter(\Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter $applicationTemplateParameter = null)
     {
-        $this->ApplicationTemplateParameter = $applicationTemplateParameter;
+        $this->applicationTemplateParameter = $applicationTemplateParameter;
     
         return $this;
     }
@@ -187,6 +187,6 @@ class ApplicationParameterValue
      */
     public function getApplicationTemplateParameter()
     {
-        return $this->ApplicationTemplateParameter;
+        return $this->applicationTemplateParameter;
     }
 }

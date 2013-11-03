@@ -43,7 +43,7 @@ class ApplicationTemplateParameter
     protected $applicationTemplate;
 
     /**
-     * @ORM\OneToMany(targetEntity="ApplicationParameterValue", mappedBy="application")
+     * @ORM\OneToMany(targetEntity="ApplicationParameterValue", mappedBy="applicationTemplateParameter")
      */
     protected $applicationParameterValues;
 
