@@ -62,7 +62,7 @@ class ApplicationTemplateController extends Controller
         $query = $qb->getQuery();
         $results = $query->getResult();
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $qstring = 'SELECT COUNT(c.id) FROM DellaertWebappDeploymentBundle:ApplicationTemplate c';
         if( $searchquery != '' && $searchtype != '' ) {
             $qstring .= ' where '.$qb->expr()->like('c.'.$searchtype, $qb->expr()->literal('%'.$searchquery.'%'));
@@ -126,7 +126,7 @@ class ApplicationTemplateController extends Controller
             if( $form->isValid() ) {
                 $entity->setEnabled(true);
                 $entity->preInsert();
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
                 $this->get("white_october_breadcrumbs")
@@ -153,7 +153,7 @@ class ApplicationTemplateController extends Controller
                 $form->handleRequest($request);   
                 if( $form->isValid() ) {
                     $entity->preUpdate();
-                    $em = $this->getDoctrine()->getEntityManager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
                     $this->get("white_october_breadcrumbs")->addItem("Save",'');
@@ -177,7 +177,7 @@ class ApplicationTemplateController extends Controller
             $this->get("white_october_breadcrumbs")
                 ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateViewSlug",array('slug'=>$entity->getSlug())))
                 ->addItem("Delete",'');
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($entity);
             $em->flush();
             return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplate:delete.html.twig',array('entity'=>$entity));

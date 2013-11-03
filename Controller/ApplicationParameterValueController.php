@@ -24,7 +24,7 @@ class ApplicationParameterValueController extends Controller
                 $form->handleRequest($request);   
                 if( $form->isValid() ) {
                     $entity->preUpdate();
-                    $em = $this->getDoctrine()->getEntityManager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
                     $this->get("white_october_breadcrumbs")->addItem("Save",'');

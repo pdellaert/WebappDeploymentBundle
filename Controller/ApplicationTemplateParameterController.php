@@ -37,7 +37,7 @@ class ApplicationTemplateParameterController extends Controller
             if( $form->isValid() ) {
                 $entity->setEnabled(true);
                 $entity->preInsert();
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
                 // Updating all applications linked to the template of this entity
@@ -80,7 +80,7 @@ class ApplicationTemplateParameterController extends Controller
                 $form->handleRequest($request);   
                 if( $form->isValid() ) {
                     $entity->preUpdate();
-                    $em = $this->getDoctrine()->getEntityManager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
                     $this->get("white_october_breadcrumbs")->addItem("Save",''); 
@@ -106,7 +106,7 @@ class ApplicationTemplateParameterController extends Controller
                 ->addItem("Application template parameters", '')
                 ->addItem($entity->getName(), '')
                 ->addItem("Delete",'');
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($entity);
             $em->flush();
             return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplateParameter:delete.html.twig',array('entity'=>$entity));

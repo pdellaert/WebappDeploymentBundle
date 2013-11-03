@@ -64,7 +64,7 @@ class ServerController extends Controller
         $query = $qb->getQuery();
         $results = $query->getResult();
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $qstring = 'SELECT COUNT(c.id) FROM DellaertWebappDeploymentBundle:Server c';
         if( $searchquery != '' && $searchtype != '' ) {
             $qstring .= ' where '.$qb->expr()->like('c.'.$searchtype, $qb->expr()->literal('%'.$searchquery.'%'));
@@ -142,7 +142,7 @@ class ServerController extends Controller
                     // Generating SSH key
                     $entity->setSshKeyPath($keyDir.'/wdt');
                     // Saving entity
-                    $em = $this->getDoctrine()->getEntityManager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
                     // Regenerating hosts file
@@ -174,7 +174,7 @@ class ServerController extends Controller
                 if( $form->isValid() ) {
                     $entity->preUpdate();
                     // Saving Entity
-                    $em = $this->getDoctrine()->getEntityManager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
                     // Regenerating hosts file
@@ -204,7 +204,7 @@ class ServerController extends Controller
             unlink($entity->getSshKeyPath());
             unlink($entity->getSshKeyPath().'.pub');
             rmdir($keyDir);
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($entity);
             $em->flush();
             // Regenerating hosts file

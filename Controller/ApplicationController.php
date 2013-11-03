@@ -65,7 +65,7 @@ class ApplicationController extends Controller
         $query = $qb->getQuery();
         $results = $query->getResult();
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $qstring = 'SELECT COUNT(c.id) FROM DellaertWebappDeploymentBundle:Application c';
         if( $searchquery != '' && $searchtype != '' ) {
             $qstring .= ' where '.$qb->expr()->like('c.'.$searchtype, $qb->expr()->literal('%'.$searchquery.'%'));
@@ -133,7 +133,7 @@ class ApplicationController extends Controller
             if( $form->isValid() ) {
                 $entity->setEnabled(true);
                 $entity->preInsert();
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
                 // Saving Parameters
@@ -164,7 +164,7 @@ class ApplicationController extends Controller
                 if( $form->isValid() ) {
                     $entity->preUpdate();
                     // Saving Entity
-                    $em = $this->getDoctrine()->getEntityManager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
                     // Saving Parameters
@@ -190,7 +190,7 @@ class ApplicationController extends Controller
             $this->get("white_october_breadcrumbs")
                 ->addItem($entity->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())))
                 ->addItem("Delete",'');
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($entity);
             $em->flush();
             return $this->render('DellaertWebappDeploymentBundle:Application:delete.html.twig',array('entity'=>$entity));
@@ -210,7 +210,7 @@ class ApplicationController extends Controller
     }
 
     private function updateApplicationParameterValues($entity) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         // Creating every template parameter that does not exist for the enitity yet
         foreach( $entity->getApplicationTemplate()->getApplicationTemplateParameters() as $applicationTemplateParameter ) {
             $found = false;
