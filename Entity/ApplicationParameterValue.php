@@ -38,13 +38,13 @@ class ApplicationParameterValue
 
     /**
      * @ORM\ManyToOne(targetEntity="Application", inversedBy="applicationParameterValues")
-     * @ORM\JoinColumn(name="application_id", referencedColumnName="id", onDelete="CASCADE", onUpdate="CASCADE")
+     * @ORM\JoinColumn(name="application_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $application;
 
     /**
      * @ORM\ManyToOne(targetEntity="ApplicationTemplateParameter", inversedBy="applicationParameterValues")
-     * @ORM\JoinColumn(name="applicationtemplateparameter_id", referencedColumnName="id", onDelete="CASCADE", onUpdate="CASCADE")
+     * @ORM\JoinColumn(name="applicationtemplateparameter_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $ApplicationTemplateParameter;
 

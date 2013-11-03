@@ -38,7 +38,7 @@ class Server
 
     /**
      * @ORM\ManyToMany(targetEntity="ServerType", inversedBy="servers")
-     * @ORM\JoinTable(name="webdep_server_servertype", onDelete="CASCADE", onUpdate="CASCADE")
+     * @ORM\JoinTable(name="webdep_server_servertype", onDelete="CASCADE")
      */
     protected $serverTypes;
 
