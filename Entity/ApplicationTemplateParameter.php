@@ -45,7 +45,7 @@ class ApplicationTemplateParameter
     /**
      * @ORM\OneToMany(targetEntity="ApplicationParameterValue", mappedBy="application")
      */
-    protected $applicationParameterValues;
+    protected $applicationTemplateParameterValues;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -67,7 +67,7 @@ class ApplicationTemplateParameter
      */
     public function __construct()
     {
-        $this->applicationParameterValues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->applicationTemplateParameterValues = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function preInsert()
@@ -183,36 +183,36 @@ class ApplicationTemplateParameter
     }
 
     /**
-     * Add applicationParameterValues
+     * Add applicationTemplateParameterValues
      *
-     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationTemplateParameterValues
      * @return ApplicationTemplateParameter
      */
-    public function addApplicationParameterValue(\Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues)
+    public function addApplicationTemplateParameterValue(\Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationTemplateParameterValues)
     {
-        $this->applicationParameterValues[] = $applicationParameterValues;
+        $this->applicationTemplateParameterValues[] = $applicationTemplateParameterValues;
     
         return $this;
     }
 
     /**
-     * Remove applicationParameterValues
+     * Remove applicationTemplateParameterValues
      *
-     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues
+     * @param \Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationTemplateParameterValues
      */
-    public function removeApplicationParameterValue(\Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationParameterValues)
+    public function removeApplicationTemplateParameterValue(\Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue $applicationTemplateParameterValues)
     {
-        $this->applicationParameterValues->removeElement($applicationParameterValues);
+        $this->applicationTemplateParameterValues->removeElement($applicationTemplateParameterValues);
     }
 
     /**
-     * Get applicationParameterValues
+     * Get applicationTemplateParameterValues
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getApplicationParameterValues()
+    public function getApplicationTemplateParameterValues()
     {
-        return $this->applicationParameterValues;
+        return $this->applicationTemplateParameterValues;
     }
 
     /**
