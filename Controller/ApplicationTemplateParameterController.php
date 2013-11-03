@@ -52,7 +52,7 @@ class ApplicationTemplateParameterController extends Controller
                     $em->flush();
                 }
                 $this->get("white_october_breadcrumbs")
-                    ->addItem($entity->getName(), '');
+                    ->addItem($entity->getName(), '')
                     ->addItem("Save",'');
                 return $this->render('DellaertWebappDeploymentBundle:ApplicationTemplateParameter:add.html.twig',array('entity'=>$entity));
             }
