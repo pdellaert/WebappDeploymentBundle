@@ -48,7 +48,9 @@ class ApplicationTemplateParameterController extends Controller
                     $applicationParameterValue->setEnabled(true);
                     $applicationParameterValue->preInsert();
                     $applicationParameterValue->setValue('');
+                    $application->addApplicationParameterValue($applicationParameterValue);
                     $em->persist($applicationParameterValue);
+                    $em->persist($application);
                     $em->flush();
                 }
                 $this->get("white_october_breadcrumbs")

@@ -228,6 +228,7 @@ class ApplicationController extends Controller
                 $applicationParameterValue->setEnabled(true);
                 $applicationParameterValue->preInsert();
                 $applicationParameterValue->setValue('');
+                $entity->addApplicationParameterValue($applicationParameterValue);
                 $em->persist($applicationParameterValue);
             }
         }
@@ -243,6 +244,7 @@ class ApplicationController extends Controller
             }
 
             if( !$found ) {
+                $entity->removeApplicationParameterValue($applicationParameterValue);
                 $em->remove($applicationParameterValue);
             }
         }
