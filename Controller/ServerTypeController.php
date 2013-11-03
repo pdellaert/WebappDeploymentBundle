@@ -2,7 +2,9 @@
 namespace Dellaert\WebappDeploymentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Dellaert\WebappDeploymentBundle\Entity\Server;
 use Dellaert\WebappDeploymentBundle\Entity\ServerType;
+use Dellaert\WebappDeploymentBundle\Controller\ServerController;
 use Symfony\Component\HttpFoundation\Response;
 
 class ServerTypeController extends Controller

@@ -4,7 +4,7 @@
 	{% if entity %}
 		<script type="text/javascript">
 			function confirmDelete() {
-				if( confirm('Are you sure you want to delete this server type?') ) {
+				if( confirm('Are you sure you want to delete this server type? This will also delete any server of this type!') ) {
 					window.location = "{{ path('ServerTypeDelete',{ 'id': entity.id }) }}";
 				}
 			}

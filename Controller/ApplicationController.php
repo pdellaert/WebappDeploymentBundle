@@ -191,9 +191,6 @@ class ApplicationController extends Controller
                 ->addItem($entity->getName(), $this->get("router")->generate("ApplicationViewSlug",array('slug'=>$entity->getSlug())))
                 ->addItem("Delete",'');
             $em = $this->getDoctrine()->getEntityManager();
-            foreach( $entity->getApplicationParameterValues() as $applicationParameterValue ) {
-                $em->remove($applicationParameterValue);
-            }
             $em->remove($entity);
             $em->flush();
             return $this->render('DellaertWebappDeploymentBundle:Application:delete.html.twig',array('entity'=>$entity));
@@ -232,7 +229,6 @@ class ApplicationController extends Controller
                 $applicationParameterValue->preInsert();
                 $applicationParameterValue->setValue('');
                 $em->persist($applicationParameterValue);
-                $em->flush();
             }
         }
 
@@ -248,9 +244,8 @@ class ApplicationController extends Controller
 
             if( !$found ) {
                 $em->remove($applicationParameterValue);
-                $em->flush();
             }
         }
-
+        $em->flush();
     }
 }

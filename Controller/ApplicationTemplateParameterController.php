@@ -3,6 +3,8 @@ namespace Dellaert\WebappDeploymentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\WebappDeploymentBundle\Entity\ApplicationTemplateParameter;
+use Dellaert\WebappDeploymentBundle\Entity\Application;
+use Dellaert\WebappDeploymentBundle\Entity\ApplicationParameterValue;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationTemplateParameterController extends Controller
@@ -67,6 +69,17 @@ class ApplicationTemplateParameterController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($entity);
                 $em->flush();
+                // Updating all applications linked to the template of this entity
+                foreach( $entity->getApplicationTemplate()->getApplications() as $application ) {
+                    $applicationParameterValue = new ApplicationParameterValue();
+                    $applicationParameterValue->setApplication($application);
+                    $applicationParameterValue->setApplicationTemplateParameter($entity);
+                    $applicationParameterValue->setEnabled(true);
+                    $applicationParameterValue->preInsert();
+                    $applicationParameterValue->setValue('');
+                    $em->persist($applicationParameterValue);
+                    $em->flush();
+                }
                 $this->get("white_october_breadcrumbs")
                     ->addItem($entity->getName(), $this->get("router")->generate("ApplicationTemplateParameterViewId",array('id'=>$entity->getId())))
                     ->addItem("Save",'');

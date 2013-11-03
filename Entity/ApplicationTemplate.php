@@ -63,7 +63,7 @@ class ApplicationTemplate
 
     /**
      * @ORM\ManyToOne(targetEntity="DatabaseType", inversedBy="applicationTemplates")
-     * @ORM\JoinColumn(name="databasetype_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="databasetype_id", referencedColumnName="id", onDelete="CASCADE", onUpdate="CASCADE")
      */
     protected $databaseType;
 

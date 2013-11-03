@@ -38,7 +38,7 @@ class Application
 
     /**
      * @ORM\ManyToOne(targetEntity="ApplicationTemplate", inversedBy="applications")
-     * @ORM\JoinColumn(name="applicationtemplate_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="applicationtemplate_id", referencedColumnName="id", onDelete="CASCADE", onUpdate="CASCADE")
      */
     protected $applicationTemplate;
 
