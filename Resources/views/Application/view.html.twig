@@ -36,7 +36,7 @@
 	    	{% for applicationParameterValue in entity.applicationParameterValues %}
 	    		<tr>
 	    			<td>{{ applicationParameterValue.applicationTemplateParameter.name }}</td>
-	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}********{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
+	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}<i>hidden</i>{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
 	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button save">Edit</a></td>
 	    		</tr>
 	    	{% endfor %}
