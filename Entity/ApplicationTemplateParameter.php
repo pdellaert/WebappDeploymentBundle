@@ -244,4 +244,27 @@ class ApplicationTemplateParameter
     {
         return $this->isPassword;
     }
+
+    /**
+     * Set defaultValue
+     *
+     * @param string $defaultValue
+     * @return ApplicationTemplateParameter
+     */
+    public function setDefaultValue($defaultValue)
+    {
+        $this->defaultValue = $defaultValue;
+    
+        return $this;
+    }
+
+    /**
+     * Get defaultValue
+     *
+     * @return string 
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
 }
