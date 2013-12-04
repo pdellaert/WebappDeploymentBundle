@@ -45,12 +45,14 @@
 	    	<tr>
 	    		<th>Name</th>
 	    		<th width="10%">Password</th>
+	    		<th width="10%">System</th>
 	    		<th width="25%"></th>
 	    	</tr>
 	    	{% for applicationTemplateParameter in entity.applicationTemplateParameters %}
 	    		<tr>
 	    			<td>{{ applicationTemplateParameter.name }}</td>
 	    			<td>{% if applicationTemplateParameter.isPassword %}Yes{% else %}No{% endif %}</td>
+	    			<td>{% if applicationTemplateParameter.isSystem %}Yes{% else %}No{% endif %}</td>
 	    			<td><a href="{{ path('ApplicationTemplateParameterEdit', { 'id': applicationTemplateParameter.id }) }}" class="button save left">Edit</a><a href="javascript:confirmApplicationTemplateParameterDelete({{ applicationTemplateParameter.id }})" class="button delete right">Delete</a>
 	    		</tr>
 	    	{% endfor %}
