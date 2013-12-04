@@ -70,6 +70,13 @@ class ApplicationTemplateParameter
     protected $isPassword;
 
     /**
+     * @ORM\Column(type="boolean")
+     * 
+     * @var boolean
+     */
+    protected $isSystem;
+
+    /**
      * Constructor
      */
     public function __construct()
