@@ -70,13 +70,6 @@ class ApplicationTemplateParameter
     protected $isPassword;
 
     /**
-     * @ORM\Column(type="boolean")
-     * 
-     * @var boolean
-     */
-    protected $isSystem;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -277,28 +270,5 @@ class ApplicationTemplateParameter
     public function getDefaultValue()
     {
         return $this->defaultValue;
-    }
-
-    /**
-     * Set isSystem
-     *
-     * @param boolean $isSystem
-     * @return ApplicationTemplateParameter
-     */
-    public function setIsSystem($isSystem)
-    {
-        $this->isSystem = $isSystem;
-    
-        return $this;
-    }
-
-    /**
-     * Get isSystem
-     *
-     * @return boolean 
-     */
-    public function getIsSystem()
-    {
-        return $this->isSystem;
     }
 }

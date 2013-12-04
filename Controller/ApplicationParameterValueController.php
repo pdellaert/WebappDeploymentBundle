@@ -42,17 +42,9 @@ class ApplicationParameterValueController extends Controller
     {
         $fb = $this->createFormBuilder($entity);
         if( $entity->getApplicationTemplateParameter()->getIsPassword () ) {
-            if( $entity->getApplicationTemplateParameter()->getIsSystem() ) {
-                $fb->add('value','password',array('max_length'=>255,'required'=>true,'label'=>'Value','disabled'=>true));
-            } else {
-                $fb->add('value','password',array('max_length'=>255,'required'=>true,'label'=>'Value'));
-            }
+            $fb->add('value','password',array('max_length'=>255,'required'=>true,'label'=>'Value'));
         } else {
-            if( $entity->getApplicationTemplateParameter()->getIsSystem() ) {
-                $fb->add('value','text',array('max_length'=>255,'required'=>true,'label'=>'Value','disabled'=>true));
-            } else {
-                $fb->add('value','text',array('max_length'=>255,'required'=>true,'label'=>'Value'));
-            }
+            $fb->add('value','text',array('max_length'=>255,'required'=>true,'label'=>'Value'));
         }
         return $fb->getForm();
     }
