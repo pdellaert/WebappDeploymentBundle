@@ -260,7 +260,11 @@ class ApplicationTemplateParameter
      */
     public function setDefaultValue($defaultValue)
     {
-        $this->defaultValue = $defaultValue;
+        if( !isset($defaultValue) ){
+            $this->defaultValue = '';
+        } else {
+            $this->defaultValue = $defaultValue;
+        }
     
         return $this;
     }
