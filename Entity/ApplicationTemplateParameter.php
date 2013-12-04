@@ -60,7 +60,7 @@ class ApplicationTemplateParameter
      *
      * @var string
      */
-    protected $defaultValue;
+    protected $defaultValue = '';
 
     /**
      * @ORM\Column(type="boolean")
