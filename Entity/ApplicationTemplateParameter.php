@@ -274,4 +274,27 @@ class ApplicationTemplateParameter
     {
         return $this->defaultValue;
     }
+
+    /**
+     * Set isSystem
+     *
+     * @param boolean $isSystem
+     * @return ApplicationTemplateParameter
+     */
+    public function setIsSystem($isSystem)
+    {
+        $this->isSystem = $isSystem;
+    
+        return $this;
+    }
+
+    /**
+     * Get isSystem
+     *
+     * @return boolean 
+     */
+    public function getIsSystem()
+    {
+        return $this->isSystem;
+    }
 }
