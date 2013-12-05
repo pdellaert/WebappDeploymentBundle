@@ -156,7 +156,7 @@ class DeploymentController extends Controller
         // Step 1: create subscription
         $subscriptionHandle = \Dellaert\PleskRemoteControlBundle\Utility\PleskAPIUtility::createSubscription($entity->getServer()->getHost(),$entity->getServer()->getPleskUser(),$entity->getServer()->getPleskPassword(),$entity->getHostname(),$entity->getServer()->getIp(),$entity->getPleskAdminUserName(),$entity->getPleskAdminUserPass());
         $subscriptionResultXML = simplexml_load_string($subscriptionHandle['result']);
-        if( $subscriptionResultXML->webspace->add->result->status == 'ok' ) {
+        if( !isset($subscriptionResultXML->system->errcode) && !isset($subscriptionResultXML->webspace->add->result->errcode) && $subscriptionResultXML->webspace->add->result->status == 'ok' ) {
             $entity->setPleskSubscriptionId($subscriptionResultXML->webspace->add->result->id);
         }
         // Step 2: create admin user
