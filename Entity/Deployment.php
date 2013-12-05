@@ -54,7 +54,7 @@ class Deployment
     protected $serverType;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
      * @var string
