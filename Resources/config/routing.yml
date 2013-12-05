@@ -41,3 +41,7 @@ ApplicationTemplateParameter:
 DatabaseType:
     resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-databasetype.yml"
     prefix:   /database-type
+
+Deployment:
+    resource: "@DellaertWebappDeploymentBundle/Resources/config/routing-deployment.yml"
+    prefix:   /deployment
