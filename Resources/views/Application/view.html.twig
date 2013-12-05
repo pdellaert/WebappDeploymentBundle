@@ -7,11 +7,11 @@
 				if( confirm('Are you sure you want to delete this application?') ) {
 					window.location = "{{ path('ApplicationDelete',{ 'id': entity.id }) }}";
 				}
+			}
 			function confirmDeploymentDelete(id) {
 				if( confirm('Are you sure you want to delete this deployment?') ) {
 					window.location = "{{ path('DeploymentDeleteNoId') }}/"+id;
 				}
-			}
 			}
 		</script>
 		<div id="entitybuttons"><a href="{{ path('ApplicationEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
