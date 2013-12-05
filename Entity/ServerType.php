@@ -66,11 +66,17 @@ class ServerType
     protected $slug;
 
     /**
+     * @ORM\OneToMany(targetEntity="Deployment", mappedBy="serverType")
+     */
+    protected $deployments;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->servers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->deployments = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function preInsert()

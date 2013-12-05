@@ -43,6 +43,22 @@
 				<td>{{ entity.sshPort }}
 			</tr>
 		</table>
+
+	    <h2>Application eployments</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Hostname</th>
+	    		<th>Application</th>
+	    		<th>Type</th>
+	    	</tr>
+	    	{% for deployment in entity.deployments %}
+	    		<tr>
+	    			<td><a href="http://{{ deployment.hostname }}" target="_blank">{{ deployment.hostname }}</a></td>
+	    			<td><a href="{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}">{{ deployment.application.name }}</a></td>
+	    			<td>{{ deployment.serverType.name }}</td>
+	    		</tr>
+	    	{% endfor %}
+	    </table>
 	{% else %}
 		<h1>Unknown server</h1>
 		<p>The specified server is not available.</p>

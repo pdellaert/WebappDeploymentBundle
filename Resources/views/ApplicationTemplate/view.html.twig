@@ -51,7 +51,7 @@
 	    		<tr>
 	    			<td>{{ applicationTemplateParameter.name }}</td>
 	    			<td>{% if applicationTemplateParameter.isPassword %}Yes{% else %}No{% endif %}</td>
-	    			<td><a href="{{ path('ApplicationTemplateParameterEdit', { 'id': applicationTemplateParameter.id }) }}" class="button save left">Edit</a><a href="javascript:confirmApplicationTemplateParameterDelete({{ applicationTemplateParameter.id }})" class="button delete right">Delete</a>
+	    			<td><a href="{{ path('ApplicationTemplateParameterEdit', { 'id': applicationTemplateParameter.id }) }}" class="button save left">Edit</a><a href="javascript:confirmApplicationTemplateParameterDelete({{ applicationTemplateParameter.id }})" class="button delete right">Delete</a></td>
 	    		</tr>
 	    	{% endfor %}
 	    </table>

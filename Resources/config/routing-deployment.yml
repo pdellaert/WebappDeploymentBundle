@@ -1,0 +1,33 @@
+DeploymentAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Deployment:add, id: -1}
+    requirements:
+        id: \d+
+
+DeploymentDeploy:
+    pattern: /deploy/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Deployment:deploy}
+    requirements:
+        id: \d+
+
+DeploymentRedeploy:
+    pattern: /redeploy/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Deployment:redeploy}
+    requirements:
+        id: \d+
+
+DeploymentUndeploy:
+    pattern: /undeploy/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Deployment:undeploy}
+    requirements:
+        id: \d+
+
+DeploymentDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:Deployment:delete}
+    requirements:
+        id: \d+
+
+DeploymentDeleteNoId:
+    pattern: /delete
+    defaults: { _controller: DellaertWebappDeploymentBundle:Deployment:delete}

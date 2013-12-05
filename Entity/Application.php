@@ -79,11 +79,17 @@ class Application
     protected $slug;
 
     /**
+     * @ORM\OneToMany(targetEntity="Deployment", mappedBy="application")
+     */
+    protected $deployments;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->applicationParameterValues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->deployments = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function preInsert()

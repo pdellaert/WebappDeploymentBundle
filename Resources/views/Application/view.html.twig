@@ -7,6 +7,11 @@
 				if( confirm('Are you sure you want to delete this application?') ) {
 					window.location = "{{ path('ApplicationDelete',{ 'id': entity.id }) }}";
 				}
+			function confirmApplicationTemplateParameterDelete(id) {
+				if( confirm('Are you sure you want to delete this deployment?') ) {
+					window.location = "{{ path('DeploymentDeleteNoId') }}/"+id;
+				}
+			}
 			}
 		</script>
 		<div id="entitybuttons"><a href="{{ path('ApplicationEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
@@ -38,6 +43,25 @@
 	    			<td>{{ applicationParameterValue.applicationTemplateParameter.name }}</td>
 	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}<i>hidden</i>{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
 	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button save">Edit</a></td>
+	    		</tr>
+	    	{% endfor %}
+	    </table>
+
+		<div id="entitybuttons"><a href="{{ path('DeploymentAdd', { 'id': entity.id }) }}" class="button add">Add deployment</a></div>
+	    <h2>Deployments</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Hostname</th>
+	    		<th>Server</th>
+	    		<th>Type</th>
+	    		<th></th>
+	    	</tr>
+	    	{% for deployment in entity.deployments %}
+	    		<tr>
+	    			<td><a href="http://{{ deployment.hostname }}" target="_blank">{{ deployment.hostname }}</a></td>
+	    			<td><a href="{{ path('ServerViewSlug',{ 'slug': entity.server.slug }) }}">{{ deployment.server.name }}</a></td>
+	    			<td>{{ deployment.serverType.name }}</td>
+	    			<td>{% if deployment.deployed %}<a href="{{ path('DeploymentRedeploy', { 'id': deployment.id }) }}" class="button save left">Redeploy</a><a href="{{ path('DeploymentUdeploy', { 'id': deployment.id }) }}" class="button delete middle">Undeploy</a><a href="javascript:confirmDeploymentDelete({{ deployment.id }})" class="button delete right">Delete</a>{% else %}<a href="{{ path('DeploymentDeploy', { 'id': deployment.id }) }}" class="button save left">Deploy</a><a href="javascript:confirmDeploymentDelete({{ deployment.id }})" class="button delete right">Delete</a>{% endif %}</td>
 	    		</tr>
 	    	{% endfor %}
 	    </table>
