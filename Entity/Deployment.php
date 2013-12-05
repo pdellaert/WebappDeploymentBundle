@@ -66,7 +66,7 @@ class Deployment
      * 
      * @var boolean
      */
-    protected $deployed;
+    protected $deployed = false;
 
     /**
      * @ORM\Column(type="boolean")
@@ -249,7 +249,11 @@ class Deployment
      */
     public function setDeployed($deployed)
     {
-        $this->deployed = $deployed;
+        if( !isset($deployed) ) {
+            $this->deployed = false;
+        } else {
+            $this->deployed = $deployed;
+        }
     
         return $this;
     }
