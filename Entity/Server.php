@@ -427,4 +427,37 @@ class Server
     {
         return $this->sshUser;
     }
+
+    /**
+     * Add deployments
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\Deployment $deployments
+     * @return Server
+     */
+    public function addDeployment(\Dellaert\WebappDeploymentBundle\Entity\Deployment $deployments)
+    {
+        $this->deployments[] = $deployments;
+    
+        return $this;
+    }
+
+    /**
+     * Remove deployments
+     *
+     * @param \Dellaert\WebappDeploymentBundle\Entity\Deployment $deployments
+     */
+    public function removeDeployment(\Dellaert\WebappDeploymentBundle\Entity\Deployment $deployments)
+    {
+        $this->deployments->removeElement($deployments);
+    }
+
+    /**
+     * Get deployments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDeployments()
+    {
+        return $this->deployments;
+    }
 }
