@@ -177,10 +177,10 @@ class DeploymentController extends Controller
 
     private function generatePleskValues($entity)
     {
-        $entity->setPleskAdminUserName($entity->getApplication()->getSlug().'_admin');
+        $entity->setPleskAdminUserName(substr($entity->getServerType()->getCode().'-'.$entity->getApplication()->getSlug(),0,16));
         $entity->setPleskAdminUserPass(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)))),0,20));
-        $entity->setPleskDBName($entity->getApplication()->getSlug().'_'.$entity->getServerType()->getCode());
-        $entity->setPleskDBUserName($entity->getApplication()->getSlug().'_'.$entity->getServerType()->getCode());
+        $entity->setPleskDBName(substr($entity->getServerType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
+        $entity->setPleskDBUserName(substr($entity->getServerType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
         $entity->setPleskDBUserPass(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)))),0,20));
         return $entity;
     }
