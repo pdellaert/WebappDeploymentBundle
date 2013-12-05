@@ -109,7 +109,7 @@ class Server
     protected $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Deployment", mappedBy="application")
+     * @ORM\OneToMany(targetEntity="Deployment", mappedBy="server")
      */
     protected $deployments;
 
