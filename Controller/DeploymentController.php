@@ -153,6 +153,15 @@ class DeploymentController extends Controller
 
     private function deployPleskDeployment($entity) {
         // TODO: Add logic
+        // Step 1: create subscription
+        $subscriptionHandle = Dellaert\PleskRemoteControlBundle\Utility\PleskAPIUtility::createSubscription($entity->getServer()->getHost(),$entity->getServer()->getPleskUser(),$entity->getServer()->getPleskPassword(),$entity->getServer()->getIp(),$entity->getPleskAdminUserName(),$entity->getPleskAdminUserPass());
+        $subscriptionResultXML = new SimpleXMLElement($subscriptionHandle['result']);
+        if( $subscriptionResultXML->webspace->add->result->status == 'ok' ) {
+            $entity->setPleskSubscriptionId($subscriptionResultXML->webspace->add->result->id);
+        }
+        // Step 2: create admin user
+        // Step 3: create database
+        // Step 4: create database user
         return $entity;
     }
 
