@@ -295,7 +295,11 @@ class Deployment
      */
     public function setPleskSubscriptionId($pleskSubscriptionId)
     {
-        $this->pleskSubscriptionId = $pleskSubscriptionId;
+        if( !isset($pleskSubscriptionId) ) {
+            $this->pleskSubscriptionId = '';
+        } else {
+            $this->pleskSubscriptionId = $pleskSubscriptionId;
+        }
     
         return $this;
     }
@@ -318,7 +322,11 @@ class Deployment
      */
     public function setPleskAdminUserId($pleskAdminUserId)
     {
-        $this->pleskAdminUserId = $pleskAdminUserId;
+        if( !isset($pleskAdminUserId) ) {
+            $this->pleskAdminUserId = '';
+        } else {
+            $this->pleskAdminUserId = $pleskAdminUserId;
+        }
     
         return $this;
     }
@@ -341,7 +349,11 @@ class Deployment
      */
     public function setPleskAdminUserName($pleskAdminUserName)
     {
-        $this->pleskAdminUserName = $pleskAdminUserName;
+        if( !isset($pleskAdminUserName) ) {
+            $this->pleskAdminUserName = '';
+        } else {
+            $this->pleskAdminUserName = $pleskAdminUserName;
+        }
     
         return $this;
     }
@@ -364,7 +376,11 @@ class Deployment
      */
     public function setPleskAdminUserPass($pleskAdminUserPass)
     {
-        $this->pleskAdminUserPass = $pleskAdminUserPass;
+        if( !isset($pleskAdminUserPass) ) {
+            $this->pleskAdminUserPass = '';
+        } else {
+            $this->pleskAdminUserPass = $pleskAdminUserPass;
+        }
     
         return $this;
     }
@@ -387,7 +403,11 @@ class Deployment
      */
     public function setPleskDBServerId($pleskDBServerId)
     {
-        $this->pleskDBServerId = $pleskDBServerId;
+        if( !isset($pleskDBServerId) ) {
+            $this->pleskDBServerId = '';
+        } else {
+            $this->pleskDBServerId = $pleskDBServerId;
+        }
     
         return $this;
     }
@@ -410,7 +430,11 @@ class Deployment
      */
     public function setPleskDBId($pleskDBId)
     {
-        $this->pleskDBId = $pleskDBId;
+        if( !isset($pleskDBId) ) {
+            $this->pleskDBId = '';
+        } else {
+            $this->pleskDBId = $pleskDBId;
+        }
     
         return $this;
     }
@@ -433,7 +457,11 @@ class Deployment
      */
     public function setPleskDBName($pleskDBName)
     {
-        $this->pleskDBName = $pleskDBName;
+        if( !isset($pleskDBName) ) {
+            $this->pleskDBName = '';
+        } else {
+            $this->pleskDBName = $pleskDBName;
+        }
     
         return $this;
     }
@@ -456,7 +484,11 @@ class Deployment
      */
     public function setPleskDBUserId($pleskDBUserId)
     {
-        $this->pleskDBUserId = $pleskDBUserId;
+        if( !isset($pleskDBUserId) ) {
+            $this->pleskDBUserId = '';
+        } else {
+            $this->pleskDBUserId = $pleskDBUserId;
+        }
     
         return $this;
     }
@@ -479,7 +511,11 @@ class Deployment
      */
     public function setPleskDBUserName($pleskDBUserName)
     {
-        $this->pleskDBUserName = $pleskDBUserName;
+        if( !isset($pleskDBUserName) ) {
+            $this->pleskDBUserName = '';
+        } else {
+            $this->pleskDBUserName = $pleskDBUserName;
+        }
     
         return $this;
     }
@@ -502,7 +538,11 @@ class Deployment
      */
     public function setPleskDBUserPass($pleskDBUserPass)
     {
-        $this->pleskDBUserPass = $pleskDBUserPass;
+        if( !isset($pleskDBUserPass) ) {
+            $this->pleskDBUserPass = '';
+        } else {
+            $this->pleskDBUserPass = $pleskDBUserPass;
+        }
     
         return $this;
     }
@@ -525,7 +565,11 @@ class Deployment
      */
     public function setPleskDBHost($pleskDBHost)
     {
-        $this->pleskDBHost = $pleskDBHost;
+        if( !isset($pleskDBHost) ) {
+            $this->pleskDBHost = '';
+        } else {
+            $this->pleskDBHost = $pleskDBHost;
+        }
     
         return $this;
     }
