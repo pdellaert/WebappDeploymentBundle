@@ -182,7 +182,7 @@ class DeploymentController extends Controller
         $fb->add('hostname','text',array('max_length'=>255,'required'=>true,'label'=>'Hostname'));
         $fb->add('pleskCapable','checkbox',array('required'=>false,'label'=>'Plesk enabled?'));
         $fb->add('application','entity',array('class'=>'DellaertWebappDeploymentBundle:Application','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Application'));
-        $fb->add('server','entity',array('class'=>'DellaertWebappDeploymentBundle:Server','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Server'));
+        $fb->add('server','entity',array('class'=>'DellaertWebappDeploymentBundle:Server','property'=>'hostname','expanded'=>false,'multiple'=>false,'label'=>'Server'));
         $fb->add('serverType','entity',array('class'=>'DellaertWebappDeploymentBundle:ServerType','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Type'));
         return $fb->getForm();
     }
