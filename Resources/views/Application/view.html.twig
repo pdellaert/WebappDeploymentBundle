@@ -30,22 +30,6 @@
 				<td colspan="3">{% if entity.pleskCapable %}Yes{% else %}No{% endif %}</td>
 			</tr>
 		</table>
-	    
-	    <h2>Application parameters</h2>
-	    <table cellspacing="0" class="sortable">
-	    	<tr>
-	    		<th>Parameter</th>
-	    		<th>Value</th>
-	    		<th width="10%"></th>
-	    	</tr>
-	    	{% for applicationParameterValue in entity.applicationParameterValues %}
-	    		<tr>
-	    			<td>{{ applicationParameterValue.applicationTemplateParameter.name }}</td>
-	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}<i>hidden</i>{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
-	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button save">Edit</a></td>
-	    		</tr>
-	    	{% endfor %}
-	    </table>
 
 		<div id="entitybuttons"><a href="{{ path('DeploymentAdd', { 'id': entity.id }) }}" class="button add">Add deployment</a></div>
 	    <h2>Deployments</h2>
@@ -62,6 +46,22 @@
 	    			<td><a href="{{ path('ServerViewSlug',{ 'slug': deployment.server.slug }) }}">{{ deployment.server.host }}</a></td>
 	    			<td>{{ deployment.serverType.name }}</td>
 	    			<td align="right">{% if deployment.deployed %}<a href="{{ path('DeploymentRedeploy', { 'id': deployment.id }) }}" class="button save left">Redeploy</a><a href="{{ path('DeploymentUndeploy', { 'id': deployment.id }) }}" class="button delete middle">Undeploy</a><a href="javascript:confirmDeploymentDelete({{ deployment.id }})" class="button delete right">Delete</a>{% else %}<a href="{{ path('DeploymentDeploy', { 'id': deployment.id }) }}" class="button save left">Deploy</a><a href="javascript:confirmDeploymentDelete({{ deployment.id }})" class="button delete right">Delete</a>{% endif %}</td>
+	    		</tr>
+	    	{% endfor %}
+	    </table>
+	    
+	    <h2>Application parameters</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Parameter</th>
+	    		<th>Value</th>
+	    		<th width="10%"></th>
+	    	</tr>
+	    	{% for applicationParameterValue in entity.applicationParameterValues %}
+	    		<tr>
+	    			<td>{{ applicationParameterValue.applicationTemplateParameter.name }}</td>
+	    			<td>{% if applicationParameterValue.applicationTemplateParameter.isPassword %}<i>hidden</i>{% else %}{{ applicationParameterValue.value }}{% endif %}</td>
+	    			<td><a href="{{ path('ApplicationParameterValueEdit',{ 'id': applicationParameterValue.id }) }}" class="button save">Edit</a></td>
 	    		</tr>
 	    	{% endfor %}
 	    </table>
