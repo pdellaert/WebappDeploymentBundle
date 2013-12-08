@@ -184,6 +184,7 @@ class DatabaseTypeController extends Controller
         $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
         $fb->add('code','text',array('max_length'=>255,'required'=>true,'label'=>'Shortcode'));
         $fb->add('pleskDBId','integer',array('max_length'=>255,'required'=>false,'label'=>'Plesk DB ID','precision'=>0));
+        $fb->add('pleskDBHost','text',array('max_length'=>255,'required'=>false,'label'=>'Plesk DB Host'));
         return $fb->getForm();
     }
 }
