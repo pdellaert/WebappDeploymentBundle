@@ -50,7 +50,7 @@ class DatabaseType
     protected $name;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      *
      * @var string
@@ -64,6 +64,13 @@ class DatabaseType
      * @var string
      */
     protected $slug;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var int
+     */
+    protected $pleskDBId;
 
     /**
      * Constructor

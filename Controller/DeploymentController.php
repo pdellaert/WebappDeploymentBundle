@@ -6,6 +6,7 @@ use Dellaert\WebappDeploymentBundle\Entity\Deployment;
 use Dellaert\WebappDeploymentBundle\Entity\Application;
 use Dellaert\WebappDeploymentBundle\Entity\Server;
 use Dellaert\WebappDeploymentBundle\Entity\ServerType;
+use Dellaert\PleskRemoteControlBundle\Utility\PleskAPIUtility;
 use Symfony\Component\HttpFoundation\Response;
 
 class DeploymentController extends Controller
@@ -67,15 +68,19 @@ class DeploymentController extends Controller
                 ->addItem($entity->getApplication()->getName(), $this->get('router')->generate('ApplicationViewSlug',array('slug'=>$entity->getApplication()->getSlug())))
                 ->addItem($entity->getHostname(), '')
                 ->addItem('Deploy','');
-            $entity->setDeployed(true);
+            $pleskResult = array('succes'=>true);
+            $ansibleResult = array('succes'=>true);
             if( $entity->getPleskCapable() ) {
-                $this->deployPleskDeployment($entity);
+                $pleskResult = $this->deployPleskDeployment($entity);
             }
             // TODO: ANSIBLE STUFF
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            return $this->render('DellaertWebappDeploymentBundle:Deployment:deploy.html.twig',array('entity'=>$entity));
+            if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
+                $entity->setDeployed(true);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+            }
+            return $this->render('DellaertWebappDeploymentBundle:Deployment:deploy.html.twig',array('entity'=>$entity,'pleskResult'=>$pleskResult,'ansibleResult'=>$ansibleResult));
         }
         $this->get("white_october_breadcrumbs")->addItem("Unkown deployment", '');
         return $this->render('DellaertWebappDeploymentBundle:Deployment:deploy.html.twig');
@@ -91,14 +96,18 @@ class DeploymentController extends Controller
                 ->addItem($entity->getApplication()->getName(), $this->get('router')->generate('ApplicationViewSlug',array('slug'=>$entity->getApplication()->getSlug())))
                 ->addItem($entity->getHostname(), '')
                 ->addItem('Redeploy','');
+            $pleskResult = array('succes'=>true);
+            $ansibleResult = array('succes'=>true);
             if( $entity->getPleskCapable() ) {
-                $this->redeployPleskDeployment($entity);
+                $pleskResult = $this->redeployPleskDeployment($entity);
             }
             // TODO: ANSIBLE STUFF
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            return $this->render('DellaertWebappDeploymentBundle:Deployment:redeploy.html.twig',array('entity'=>$entity));
+            if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+            }
+            return $this->render('DellaertWebappDeploymentBundle:Deployment:redeploy.html.twig',array('entity'=>$entity,'pleskResult'=>$pleskResult,'ansibleResult'=>$ansibleResult));
         }
         $this->get("white_october_breadcrumbs")->addItem("Unkown deployment", '');
         return $this->render('DellaertWebappDeploymentBundle:Deployment:redeploy.html.twig');
@@ -114,15 +123,19 @@ class DeploymentController extends Controller
                 ->addItem($entity->getApplication()->getName(), $this->get('router')->generate('ApplicationViewSlug',array('slug'=>$entity->getApplication()->getSlug())))
                 ->addItem($entity->getHostname(), '')
                 ->addItem('Undeploy','');
+            $pleskResult = array('succes'=>true);
+            $ansibleResult = array('succes'=>true);
             if( $entity->getPleskCapable() ) {
-                $this->redeployPleskDeployment($entity);
+                $pleskResult = $this->undeployPleskDeployment($entity);
             }
             // TODO: ANSIBLE STUFF
-            $entity->setDeployed(false);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            return $this->render('DellaertWebappDeploymentBundle:Deployment:undeploy.html.twig',array('entity'=>$entity));
+            if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
+                $entity->setDeployed(false);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+            }
+            return $this->render('DellaertWebappDeploymentBundle:Deployment:undeploy.html.twig',array('entity'=>$entity,'pleskResult'=>$pleskResult,'ansibleResult'=>$ansibleResult));
         }
         $this->get("white_october_breadcrumbs")->addItem("Unkown deployment", '');
         return $this->render('DellaertWebappDeploymentBundle:Deployment:undeploy.html.twig');
@@ -138,41 +151,111 @@ class DeploymentController extends Controller
                 ->addItem($entity->getApplication()->getName(), $this->get('router')->generate('ApplicationViewSlug',array('slug'=>$entity->getApplication()->getSlug())))
                 ->addItem($entity->getHostname(), '')
                 ->addItem('Delete','');
+            $pleskResult = array('succes'=>true);
+            $ansibleResult = array('succes'=>true);
             // TODO: ANSIBLE STUFF
             if( $entity->getPleskCapable() ) {
-                $this->deletePleskDeployment($entity);
+                $pleskResult = $this->deletePleskDeployment($entity);
             }
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($entity);
-            $em->flush();
-            return $this->render('DellaertWebappDeploymentBundle:Deployment:delete.html.twig',array('entity'=>$entity));
+            if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($entity);
+                $em->flush();
+            }
+            return $this->render('DellaertWebappDeploymentBundle:Deployment:delete.html.twig',array('entity'=>$entity,'pleskResult'=>$pleskResult,'ansibleResult'=>$ansibleResult));
         }
         $this->get("white_october_breadcrumbs")->addItem("Unkown deployment", '');
         return $this->render('DellaertWebappDeploymentBundle:Deployment:delete.html.twig');
     }
 
     private function deployPleskDeployment($entity) {
-        // TODO: Add logic
         // Step 1: create subscription
-        $subscriptionHandle = \Dellaert\PleskRemoteControlBundle\Utility\PleskAPIUtility::createSubscription($entity->getServer()->getHost(),$entity->getServer()->getPleskUser(),$entity->getServer()->getPleskPassword(),$entity->getHostname(),$entity->getServer()->getIp(),$entity->getPleskAdminUserName(),$entity->getPleskAdminUserPass());
+        $subscriptionHandle = PleskAPIUtility::createSubscription(
+            $entity->getServer()->getHost(),
+            $entity->getServer()->getPleskUser(),
+            $entity->getServer()->getPleskPassword(),
+            $entity->getHostname(),
+            $entity->getServer()->getIp(),
+            $entity->getPleskAdminUserName(),
+            $entity->getPleskAdminUserPass());
         $subscriptionResultXML = simplexml_load_string($subscriptionHandle['result']);
         if( !isset($subscriptionResultXML->system->errcode) && !isset($subscriptionResultXML->webspace->add->result->errcode) && $subscriptionResultXML->webspace->add->result->status == 'ok' ) {
             $entity->setPleskSubscriptionId($subscriptionResultXML->webspace->add->result->id);
+
+            // Step 2: create admin user
+            $adminHandle = PleskAPIUtility::createUser(
+                $entity->getServer()->getHost(),
+                $entity->getServer()->getPleskUser(),
+                $entity->getServer()->getPleskPassword(),
+                $entity->getPleskSubscriptionId(),
+                $entity->getPleskAdminUserName(),
+                $entity->getPleskAdminUserPass(),
+                $entity->getPleskAdminUserName());
+            $adminResultXML = simplexml_load_string($adminHandle['result']);
+            if( !isset($adminResultXML->system->errcode) &&  !isset($adminResultXML->user->add->result->errcode) && $adminResultXML->user->add->result->status == 'ok' ) {
+                $entity->setPleskAdminUserId($adminResultXML->user->add->result->id);
+
+                // Step 3: create database
+                $dbHandle = PleskAPIUtility::createDatabase(
+                    $entity->getServer()->getHost(),
+                    $entity->getServer()->getPleskUser(),
+                    $entity->getServer()->getPleskPassword(),
+                    $entity->getPleskSubscriptionId(),
+                    $entity->getPleskDBName(),
+                    $entity->getApplication()->getApplicationTemplate()->getDatabaseType()->getCode(),
+                    $entity->getApplication()->getApplicationTemplate()->getDatabaseType()->getPleskDBId());
+                $dbResultXML = simplexml_load_string($dbHandle['result']);
+                if( !isset($dbResultXML->system->errcode) &&  !isset($dbResultXML->database->{'add-db'}->result->errcode) && $dbResultXML->database->{'add-db'}->result->status == 'ok' ) {
+                    $entity->setPleskDBId($dbResultXML->database->{'add-db'}->result->id);
+
+                    // Step 4: create database user
+                    createDatabaseUser($pleskhost,$pleskuser,$pleskpass,$dbid,$username,$userpass)
+                    $dbUserHandle = PleskAPIUtility::createDatabaseUser(
+                        $entity->getServer()->getHost(),
+                        $entity->getServer()->getPleskUser(),
+                        $entity->getServer()->getPleskPassword(),
+                        $entity->getPleskDBId(),
+                        $entity->getPleskDBUserName(),
+                        $entity->getPleskDBUserPass());
+                    $dbUserResultXML = simplexml_load_string($dbUserHandle['result']);
+                    if( !isset($dbUserResultXML->system->errcode) &&  !isset($dbUserResultXML->database->{'add-db-user'}->result->errcode) && $dbUserResultXML->database->{'add-db-user'}->result->status == 'ok' ) {
+                        $entity->setPleskDBUserId($dbResultXML->database->{'add-db-user'}->result->id);
+                        return array('succes'=>true);
+                    } elseif( isset($dbUserResultXML->system->errcode) ) {
+                        return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->system->errcode);
+                    } else {
+                        return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->database->{'add-db-user'}->result->errcode);
+                    }                
+                } elseif( isset($dbResultXML->system->errcode) ) {
+                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->system->errcode);
+                } else {
+                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->database->{'add-db'}->result->errcode);
+                }
+            } elseif( isset($adminResultXML->system->errcode) ) {
+                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->system->errcode);
+            } else {
+                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->user->add->result->errcode);
+            }
+        } elseif( isset($subscriptionResultXML->system->errcode) ) {
+            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->system->errcode);
+        } else {
+            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->webspace->add->result->errcode);
         }
-        // Step 2: create admin user
-        // Step 3: create database
-        // Step 4: create database user
-        return $entity;
     }
 
     private function redeployPleskDeployment($entity) {
         // TODO: Add logic
-        return $entity;
+        return array('succes'=>true);
+    }
+
+    private function undeployPleskDeployment($entity) {
+        // TODO: Add logic
+        return array('succes'=>true);
     }
 
     private function deletePleskDeployment($entity) {
         // TODO: Add logic
-        return $entity;
+        return array('succes'=>true);
     }
 
     private function generatePleskValues($entity)
