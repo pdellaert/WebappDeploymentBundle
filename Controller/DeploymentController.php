@@ -264,7 +264,7 @@ class DeploymentController extends Controller
         $entity->setPleskDBName(substr($entity->getServerType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
         $entity->setPleskDBUserName(substr($entity->getServerType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
         $entity->setPleskDBUserPass(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)))),0,20));
-        $entity->setPleskDBHost($entity->getApplication->getApplicationTemplate()->getDatabaseType()->getPleskDBHost());
+        $entity->setPleskDBHost($entity->getApplication()->getApplicationTemplate()->getDatabaseType()->getPleskDBHost());
         return $entity;
     }
     
