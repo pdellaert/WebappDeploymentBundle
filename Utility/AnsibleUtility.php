@@ -2,7 +2,7 @@
 namespace Dellaert\WebappDeploymentBundle\Utility;
 
 use Dellaert\WebappDeploymentBundle\Entity\Server;
-use Dellaert\WebappDeploymentBundle\Entity\ServerType;
+use Dellaert\WebappDeploymentBundle\Entity\DeploymentType;
 
 class AnsibleUtility {
 

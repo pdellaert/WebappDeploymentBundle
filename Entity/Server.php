@@ -37,12 +37,6 @@ class Server
     protected $enabled;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ServerType", inversedBy="servers")
-     * @ORM\JoinTable(name="webdep_server_servertype")
-     */
-    protected $serverTypes;
-
-    /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
@@ -118,7 +112,6 @@ class Server
      */
     public function __construct()
     {
-        $this->serverTypes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->deployments = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -324,39 +317,6 @@ class Server
     public function getSshKeyPath()
     {
         return $this->sshKeyPath;
-    }
-
-    /**
-     * Add serverTypes
-     *
-     * @param \Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes
-     * @return Server
-     */
-    public function addServerType(\Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes)
-    {
-        $this->serverTypes[] = $serverTypes;
-    
-        return $this;
-    }
-
-    /**
-     * Remove serverTypes
-     *
-     * @param \Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes
-     */
-    public function removeServerType(\Dellaert\WebappDeploymentBundle\Entity\ServerType $serverTypes)
-    {
-        $this->serverTypes->removeElement($serverTypes);
-    }
-
-    /**
-     * Get serverTypes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getServerTypes()
-    {
-        return $this->serverTypes;
     }
 
     /**

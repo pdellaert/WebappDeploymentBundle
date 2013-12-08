@@ -2,19 +2,18 @@
 namespace Dellaert\WebappDeploymentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Dellaert\WebappDeploymentBundle\Entity\Server;
-use Dellaert\WebappDeploymentBundle\Entity\ServerType;
-use Dellaert\WebappDeploymentBundle\Controller\ServerController;
+use Dellaert\WebappDeploymentBundle\Entity\Deployment;
+use Dellaert\WebappDeploymentBundle\Entity\DeploymentType;
 use Symfony\Component\HttpFoundation\Response;
 
-class ServerTypeController extends Controller
+class DeploymentTypeController extends Controller
 {
     public function listAction()
     {
         $this->get("white_october_breadcrumbs")
             ->addItem("Home", $this->get("router")->generate("homepage"))
-            ->addItem("Server types", $this->get("router")->generate("ServerTypeList"));
-        return $this->render('DellaertWebappDeploymentBundle:ServerType:list.html.twig');
+            ->addItem("Deployment types", $this->get("router")->generate("DeploymentTypeList"));
+        return $this->render('DellaertWebappDeploymentBundle:DeploymentType:list.html.twig');
     }
     
     public function listDataAction()
@@ -53,7 +52,7 @@ class ServerTypeController extends Controller
         
         $pageStart = ($page-1)*$rp;
         
-        $repository = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ServerType');
+        $repository = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:DeploymentType');
         $qb = $repository->createQueryBuilder('c');
         if( $searchquery != '' && $searchtype != '' ) {
             $qb->add('where',$qb->expr()->like('c.'.$searchtype, $qb->expr()->literal('%'.$searchquery.'%')));
@@ -65,7 +64,7 @@ class ServerTypeController extends Controller
         $results = $query->getResult();
         
         $em = $this->getDoctrine()->getManager();
-        $qstring = 'SELECT COUNT(c.id) FROM DellaertWebappDeploymentBundle:ServerType c';
+        $qstring = 'SELECT COUNT(c.id) FROM DellaertWebappDeploymentBundle:DeploymentType c';
         if( $searchquery != '' && $searchtype != '' ) {
             $qstring .= ' where '.$qb->expr()->like('c.'.$searchtype, $qb->expr()->literal('%'.$searchquery.'%'));
         }
@@ -90,30 +89,30 @@ class ServerTypeController extends Controller
     
     public function viewAction($slug)
     {
-        $repository = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ServerType');
+        $repository = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:DeploymentType');
         $entity = $repository->findOneBySlug($slug);
         
         $this->get("white_october_breadcrumbs")
             ->addItem("Home", $this->get("router")->generate("homepage"))
-            ->addItem("Server types", $this->get("router")->generate("ServerTypeList"));
+            ->addItem("Deployment types", $this->get("router")->generate("DeploymentTypeList"));
         if( $entity ) {
-            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("ServerTypeViewSlug",array('slug'=>$slug)));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("DeploymentTypeViewSlug",array('slug'=>$slug)));
         } else {
-            $this->get("white_october_breadcrumbs")->addItem("Unkown server type", '');
+            $this->get("white_october_breadcrumbs")->addItem("Unkown deployment type", '');
         }
         
-        return $this->render('DellaertWebappDeploymentBundle:ServerType:view.html.twig',array('entity'=>$entity));
+        return $this->render('DellaertWebappDeploymentBundle:DeploymentType:view.html.twig',array('entity'=>$entity));
     }
     
     public function addAction()
     {
-        $entity = new ServerType();
+        $entity = new DeploymentType();
         $form = $this->createAddEditForm($entity);
         $request = $this->getRequest();
         
         $this->get("white_october_breadcrumbs")
             ->addItem("Home", $this->get("router")->generate("homepage"))
-            ->addItem("Server types", $this->get("router")->generate("ServerTypeList"));
+            ->addItem("Deployment types", $this->get("router")->generate("DeploymentTypeList"));
         
         if( $request->getMethod() == 'POST' ) {
             $form->handleRequest($request);   
@@ -124,23 +123,23 @@ class ServerTypeController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $this->get("white_october_breadcrumbs")
-                    ->addItem($entity->getName(), $this->get("router")->generate("ServerTypeViewSlug",array('slug'=>$entity->getSlug())))
+                    ->addItem($entity->getName(), $this->get("router")->generate("DeploymentTypeViewSlug",array('slug'=>$entity->getSlug())))
                     ->addItem("Save",'');
-                return $this->render('DellaertWebappDeploymentBundle:ServerType:add.html.twig',array('entity'=>$entity));
+                return $this->render('DellaertWebappDeploymentBundle:DeploymentType:add.html.twig',array('entity'=>$entity));
             }
         }
-        $this->get("white_october_breadcrumbs")->addItem("Add server type", '');
-        return $this->render('DellaertWebappDeploymentBundle:ServerType:add.html.twig',array('form'=>$form->createView()));
+        $this->get("white_october_breadcrumbs")->addItem("Add deployment type", '');
+        return $this->render('DellaertWebappDeploymentBundle:DeploymentType:add.html.twig',array('form'=>$form->createView()));
     }
     
     public function editAction($id)
     {
-        $entity = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ServerType')->find($id);
+        $entity = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:DeploymentType')->find($id);
         $this->get("white_october_breadcrumbs")
             ->addItem("Home", $this->get("router")->generate("homepage"))
-            ->addItem("Server types", $this->get("router")->generate("ServerTypeList"));
+            ->addItem("Deployment types", $this->get("router")->generate("DeploymentTypeList"));
         if( $entity ) {
-            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("ServerTypeViewSlug",array('slug'=>$entity->getSlug())));
+            $this->get("white_october_breadcrumbs")->addItem($entity->getName(), $this->get("router")->generate("DeploymentTypeViewSlug",array('slug'=>$entity->getSlug())));
             $form = $this->createAddEditForm($entity);
             $request = $this->getRequest();
             if( $request->getMethod() == 'POST' ) {
@@ -151,33 +150,33 @@ class ServerTypeController extends Controller
                     $em->persist($entity);
                     $em->flush();
                     $this->get("white_october_breadcrumbs")->addItem("Save",'');
-                    return $this->render('DellaertWebappDeploymentBundle:ServerType:edit.html.twig',array('entity'=>$entity));
+                    return $this->render('DellaertWebappDeploymentBundle:DeploymentType:edit.html.twig',array('entity'=>$entity));
                 }
             }
             $this->get("white_october_breadcrumbs")->addItem("Edit",'');
-            return $this->render('DellaertWebappDeploymentBundle:ServerType:edit.html.twig',array('form'=>$form->createView(),'entity'=>$entity));
+            return $this->render('DellaertWebappDeploymentBundle:DeploymentType:edit.html.twig',array('form'=>$form->createView(),'entity'=>$entity));
         }
-        $this->get("white_october_breadcrumbs")->addItem("Unkown server type", '');
-        return $this->render('DellaertWebappDeploymentBundle:ServerType:edit.html.twig');
+        $this->get("white_october_breadcrumbs")->addItem("Unkown deployment type", '');
+        return $this->render('DellaertWebappDeploymentBundle:DeploymentType:edit.html.twig');
     }
     
     public function deleteAction($id)
     {
-        $entity = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:ServerType')->find($id);
+        $entity = $this->getDoctrine()->getRepository('DellaertWebappDeploymentBundle:DeploymentType')->find($id);
         $this->get("white_october_breadcrumbs")
             ->addItem("Home", $this->get("router")->generate("homepage"))
-            ->addItem("Server types", $this->get("router")->generate("ServerTypeList"));
+            ->addItem("Deployment types", $this->get("router")->generate("DeploymentTypeList"));
         if( $entity ) {
             $this->get("white_october_breadcrumbs")
-                ->addItem($entity->getName(), $this->get("router")->generate("ServerTypeViewSlug",array('slug'=>$entity->getSlug())))
+                ->addItem($entity->getName(), $this->get("router")->generate("DeploymentTypeViewSlug",array('slug'=>$entity->getSlug())))
                 ->addItem("Delete",'');
             $em = $this->getDoctrine()->getManager();
             $em->remove($entity);
             $em->flush();
-            return $this->render('DellaertWebappDeploymentBundle:ServerType:delete.html.twig',array('entity'=>$entity));
+            return $this->render('DellaertWebappDeploymentBundle:DeploymentType:delete.html.twig',array('entity'=>$entity));
         }
-        $this->get("white_october_breadcrumbs")->addItem("Unkown server type", '');
-        return $this->render('DellaertWebappDeploymentBundle:ServerType:delete.html.twig');
+        $this->get("white_october_breadcrumbs")->addItem("Unkown deployment type", '');
+        return $this->render('DellaertWebappDeploymentBundle:DeploymentType:delete.html.twig');
     }
     
     public function createAddEditForm($entity)
@@ -185,6 +184,7 @@ class ServerTypeController extends Controller
         $fb = $this->createFormBuilder($entity);
         $fb->add('name','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
         $fb->add('code','text',array('max_length'=>255,'required'=>true,'label'=>'Shortcode'));
+        $fb->add('gitBranch','text',array('max_length'=>255,'required'=>true,'label'=>'Default git branch'));
         return $fb->getForm();
     }
 }

@@ -1,0 +1,27 @@
+DeploymentTypeList:
+    pattern: /
+    defaults: { _controller: DellaertWebappDeploymentBundle:DeploymentType:list}
+
+DeploymentTypeListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertWebappDeploymentBundle:DeploymentType:listData}
+
+DeploymentTypeAdd:
+    pattern: /add
+    defaults: { _controller: DellaertWebappDeploymentBundle:DeploymentType:add}
+
+DeploymentTypeEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:DeploymentType:edit}
+    requirements:
+        id: \d+
+
+DeploymentTypeDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertWebappDeploymentBundle:DeploymentType:delete}
+    requirements:
+        id: \d+
+
+DeploymentTypeViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertWebappDeploymentBundle:DeploymentType:view}

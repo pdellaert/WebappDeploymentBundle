@@ -1,0 +1,41 @@
+{% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this deployment type? This will also delete any deployment of this type!') ) {
+					window.location = "{{ path('DeploymentTypeDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('DeploymentTypeEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+		<h1>Deployment type: {{ entity.name }}</h1>
+		<table cellspacing="0">
+			<tr>
+				<th>Name</th>
+				<td>{{ entity.name }}</td>
+				<th>Code</th>
+				<td>{{ entity.code }}</td>
+			</tr>
+		</table>
+		<h2>Deployments</h2>
+		<table cellspacing="0" class="sortable">
+			<tr>
+				<th>Hostname</th>
+				<th>Application</th>
+				<th>Server</th>
+			</tr>
+			{% for deployment in entity.deployments %}
+				<tr>
+					<td><a href="http://{{ deployment.hostname }}" target="_blank">{{ deployment.hostname }}</a></td>
+					<td><a href="{{ path('ApplicationViewSlug',{ 'slug': deployment.application.slug }) }}">{{ deployment.application.name }}</a></td>
+					<td><a href="{{ path('ServerViewSlug',{ 'slug': deployment.server.slug }) }}">{{ deployment.server.host }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% else %}
+		<h1>Unknown deployment type</h1>
+		<p>The specified deployment type is not available.</p>
+	{% endif %}
+{% endblock %}

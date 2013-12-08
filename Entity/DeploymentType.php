@@ -9,9 +9,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="webdep_servertype")
+ * @ORM\Table(name="webdep_deploymenttype")
  */
-class ServerType
+class DeploymentType
 {
     /**
      * @ORM\Id
@@ -35,11 +35,6 @@ class ServerType
      * @var boolean
      */
     protected $enabled;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Server", mappedBy="serverTypes")
-     */
-    protected $servers;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -66,7 +61,7 @@ class ServerType
     protected $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Deployment", mappedBy="serverType")
+     * @ORM\OneToMany(targetEntity="Deployment", mappedBy="deploymentType")
      */
     protected $deployments;
 
@@ -75,7 +70,6 @@ class ServerType
      */
     public function __construct()
     {
-        $this->servers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->deployments = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -103,7 +97,7 @@ class ServerType
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return ServerType
+     * @return DeploymentType
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -126,7 +120,7 @@ class ServerType
      * Set enabled
      *
      * @param boolean $enabled
-     * @return ServerType
+     * @return DeploymentType
      */
     public function setEnabled($enabled)
     {
@@ -149,7 +143,7 @@ class ServerType
      * Set name
      *
      * @param string $name
-     * @return ServerType
+     * @return DeploymentType
      */
     public function setName($name)
     {
@@ -169,43 +163,10 @@ class ServerType
     }
 
     /**
-     * Get servers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getServers()
-    {
-        return $this->servers;
-    }
-    
-    /**
-     * Add servers
-     *
-     * @param \Dellaert\WebappDeploymentBundle\Entity\Server $servers
-     * @return ServerType
-     */
-    public function addServer(\Dellaert\WebappDeploymentBundle\Entity\Server $servers)
-    {
-        $this->servers[] = $servers;
-    
-        return $this;
-    }
-
-    /**
-     * Remove servers
-     *
-     * @param \Dellaert\WebappDeploymentBundle\Entity\Server $servers
-     */
-    public function removeServer(\Dellaert\WebappDeploymentBundle\Entity\Server $servers)
-    {
-        $this->servers->removeElement($servers);
-    }
-
-    /**
      * Set slug
      *
      * @param string $slug
-     * @return ServerType
+     * @return DeploymentType
      */
     public function setSlug($slug)
     {
@@ -228,7 +189,7 @@ class ServerType
      * Set code
      *
      * @param string $code
-     * @return ServerType
+     * @return DeploymentType
      */
     public function setCode($code)
     {
@@ -251,7 +212,7 @@ class ServerType
      * Add deployments
      *
      * @param \Dellaert\WebappDeploymentBundle\Entity\Deployment $deployments
-     * @return ServerType
+     * @return DeploymentType
      */
     public function addDeployment(\Dellaert\WebappDeploymentBundle\Entity\Deployment $deployments)
     {

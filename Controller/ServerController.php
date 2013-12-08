@@ -3,7 +3,6 @@ namespace Dellaert\WebappDeploymentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\WebappDeploymentBundle\Entity\Server;
-use Dellaert\WebappDeploymentBundle\Entity\ServerType;
 use Symfony\Component\HttpFoundation\Response;
 use Dellaert\WebappDeploymentBundle\Utility\AnsibleUtility;
 
@@ -80,14 +79,9 @@ class ServerController extends Controller
             if($entity->getPleskCapable()) {
                 $pleskCapable = "yes";
             }
-            $serverTypes = "";
-            foreach( $entity->getServerTypes() as $serverType ) {
-                $serverTypes .= $serverType->getName().', ';
-            }
-            $serverTypes = substr($serverTypes, 0, -2);
             $data['rows'][] = array(
                 'id' => $entity->getSlug(),
-                'cell' => array($entity->getHost(),$entity->getIp(),$serverTypes,$pleskCapable)
+                'cell' => array($entity->getHost(),$entity->getIp(),$pleskCapable)
             );
         }
         
@@ -114,17 +108,9 @@ class ServerController extends Controller
         return $this->render('DellaertWebappDeploymentBundle:Server:view.html.twig',array('entity'=>$entity));
     }
     
-    public function addAction($id)
+    public function addAction()
     {
         $entity = new Server();
-        if( $id > 0 ) {
-            $serverType = $this->getDoctrine()
-                ->getRepository('DellaertWebappDeploymentBundle:ServerType')
-                ->find($id);
-            if( $serverType ) {
-                $entity->addServerType($serverType);
-            }
-        }
         $form = $this->createAddEditForm($entity);
         $request = $this->getRequest();
         
@@ -228,7 +214,6 @@ class ServerController extends Controller
         $fb->add('pleskCapable','checkbox',array('required'=>false,'label'=>'Plesk enabled?'));
         $fb->add('pleskUser','text',array('max_length'=>255,'required'=>false,'label'=>'Plesk user'));
         $fb->add('pleskPassword','password',array('max_length'=>255,'required'=>false,'always_empty'=>false,'label'=>'Plesk password'));
-        $fb->add('serverTypes','entity',array('class'=>'DellaertWebappDeploymentBundle:ServerType','property'=>'name','expanded'=>true,'multiple'=>true,'label'=>'Server types'));
         return $fb->getForm();
     }
 

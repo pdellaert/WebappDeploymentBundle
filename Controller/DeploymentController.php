@@ -5,7 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\WebappDeploymentBundle\Entity\Deployment;
 use Dellaert\WebappDeploymentBundle\Entity\Application;
 use Dellaert\WebappDeploymentBundle\Entity\Server;
-use Dellaert\WebappDeploymentBundle\Entity\ServerType;
+use Dellaert\WebappDeploymentBundle\Entity\DeploymentType;
 use Dellaert\PleskRemoteControlBundle\Utility\PleskAPIUtility;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -320,10 +320,10 @@ class DeploymentController extends Controller
 
     private function generatePleskValues($entity)
     {
-        $entity->setPleskAdminUserName(substr($entity->getServerType()->getCode().'-'.$entity->getApplication()->getSlug(),0,16));
+        $entity->setPleskAdminUserName(substr($entity->getDeploymentType()->getCode().'-'.$entity->getApplication()->getSlug(),0,16));
         $entity->setPleskAdminUserPass(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)))),0,20));
-        $entity->setPleskDBName(substr($entity->getServerType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
-        $entity->setPleskDBUserName(substr($entity->getServerType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
+        $entity->setPleskDBName(substr($entity->getDeploymentType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
+        $entity->setPleskDBUserName(substr($entity->getDeploymentType()->getCode().'_'.$entity->getApplication()->getSlug(),0,32));
         $entity->setPleskDBUserPass(substr(str_replace('=',md5(uniqid(rand(),true)),base64_encode(md5(uniqid(rand(),true)))),0,20));
         $entity->setPleskDBHost($entity->getApplication()->getApplicationTemplate()->getDatabaseType()->getPleskDBHost());
         return $entity;
@@ -336,7 +336,7 @@ class DeploymentController extends Controller
         $fb->add('pleskCapable','checkbox',array('required'=>false,'label'=>'Plesk enabled?'));
         $fb->add('application','entity',array('class'=>'DellaertWebappDeploymentBundle:Application','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Application'));
         $fb->add('server','entity',array('class'=>'DellaertWebappDeploymentBundle:Server','property'=>'host','expanded'=>false,'multiple'=>false,'label'=>'Server'));
-        $fb->add('serverType','entity',array('class'=>'DellaertWebappDeploymentBundle:ServerType','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Type'));
+        $fb->add('deploymentType','entity',array('class'=>'DellaertWebappDeploymentBundle:DeploymentType','property'=>'name','expanded'=>false,'multiple'=>false,'label'=>'Type'));
         return $fb->getForm();
     }
 }

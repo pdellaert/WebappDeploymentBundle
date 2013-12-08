@@ -15,18 +15,8 @@
 			<tr>
 				<th width="20%">IP</th>
 				<td width="30%">{{ entity.ip }}</td>
-				<th rowspan="4" width="20%">Server types</th>
-				<td rowspan="4" width="30%">
-					<ul>
-						{% for serverType in entity.serverTypes %}
-							<li><a href="{{ path('ServerTypeViewSlug',{ 'slug': serverType.slug }) }}">{{ serverType.name }}</a></li>
-						{% endfor %}
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<th>Plesk</th>
-				<td>{% if entity.pleskCapable %}Yes{% else %}No{% endif %}</td>
+				<th rowspan="4" width="20%">Plesk</th>
+				<td rowspan="4" width="30%">{% if entity.pleskCapable %}Yes{% else %}No{% endif %}</td>
 			</tr>
 			<tr>
 				<th>Plesk user</th>
@@ -55,7 +45,7 @@
 	    		<tr>
 	    			<td><a href="http://{{ deployment.hostname }}" target="_blank">{{ deployment.hostname }}</a></td>
 	    			<td><a href="{{ path('ApplicationViewSlug',{ 'slug': deployment.application.slug }) }}">{{ deployment.application.name }}</a></td>
-	    			<td>{{ deployment.serverType.name }}</td>
+	    			<td>{{ deployment.deploymentType.name }}</td>
 	    		</tr>
 	    	{% endfor %}
 	    </table>

@@ -1,12 +1,12 @@
 {% extends "DellaertWebappDeploymentBundle::layout.html.twig" %}
 
 {% block content %}
-	<div id="entitybuttons"><a href="{{ path('ServerTypeAdd') }}" class="button add">Add</a></div>
-	<h1>Server types</h1>
+	<div id="entitybuttons"><a href="{{ path('DeploymentTypeAdd') }}" class="button add">Add</a></div>
+	<h1>Deployment types</h1>
 	<script type="text/javascript">
 		$(function() {
 			$(".entitytable").flexigrid({
-				url: '{{ path('ServerTypeListData') }}',
+				url: '{{ path('DeploymentTypeListData') }}',
 				dataType: 'json',
 				colModel : [
 					{display: 'Name', name : 'name', width : 400, sortable : true, align: 'left'},
@@ -31,7 +31,7 @@
 		});
 
 		$('.flexigrid tr[id*="row"]').live('click', function(){
-			window.location = '{{ path('ServerTypeList') }}' + $(this).attr('id').substr(3);
+			window.location = '{{ path('DeploymentTypeList') }}' + $(this).attr('id').substr(3);
 		});
 	</script>
 	

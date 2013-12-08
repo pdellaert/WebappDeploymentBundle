@@ -48,10 +48,10 @@ class Deployment
     protected $server;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ServerType", inversedBy="deployments")
-     * @ORM\JoinColumn(name="servertype_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="DeploymentType", inversedBy="deployments")
+     * @ORM\JoinColumn(name="deploymenttype_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    protected $serverType;
+    protected $deploymentType;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -635,25 +635,25 @@ class Deployment
     }
 
     /**
-     * Set serverType
+     * Set deploymentType
      *
-     * @param \Dellaert\WebappDeploymentBundle\Entity\ServerType $serverType
+     * @param \Dellaert\WebappDeploymentBundle\Entity\DeploymentType $deploymentType
      * @return Deployment
      */
-    public function setServerType(\Dellaert\WebappDeploymentBundle\Entity\ServerType $serverType = null)
+    public function setDeploymentType(\Dellaert\WebappDeploymentBundle\Entity\DeploymentType $deploymentType = null)
     {
-        $this->serverType = $serverType;
+        $this->deploymentType = $deploymentType;
     
         return $this;
     }
 
     /**
-     * Get serverType
+     * Get deploymentType
      *
-     * @return \Dellaert\WebappDeploymentBundle\Entity\ServerType 
+     * @return \Dellaert\WebappDeploymentBundle\Entity\DeploymentType 
      */
-    public function getServerType()
+    public function getDeploymentType()
     {
-        return $this->serverType;
+        return $this->deploymentType;
     }
 }
