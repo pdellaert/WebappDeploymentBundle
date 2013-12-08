@@ -247,4 +247,27 @@ class DatabaseType
     {
         return $this->applicationTemplates;
     }
+
+    /**
+     * Set pleskDBId
+     *
+     * @param integer $pleskDBId
+     * @return DatabaseType
+     */
+    public function setPleskDBId($pleskDBId)
+    {
+        $this->pleskDBId = $pleskDBId;
+    
+        return $this;
+    }
+
+    /**
+     * Get pleskDBId
+     *
+     * @return integer 
+     */
+    public function getPleskDBId()
+    {
+        return $this->pleskDBId;
+    }
 }
