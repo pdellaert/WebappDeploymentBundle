@@ -73,9 +73,10 @@ class DatabaseType
     protected $pleskDBId;
     
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(length=255)
      *
-     * @var int
+     * @var string
      */
     protected $pleskDBhost;
 
@@ -281,7 +282,7 @@ class DatabaseType
     /**
      * Set pleskDBhost
      *
-     * @param integer $pleskDBhost
+     * @param string $pleskDBhost
      * @return DatabaseType
      */
     public function setPleskDBhost($pleskDBhost)
@@ -294,7 +295,7 @@ class DatabaseType
     /**
      * Get pleskDBhost
      *
-     * @return integer 
+     * @return string 
      */
     public function getPleskDBhost()
     {
