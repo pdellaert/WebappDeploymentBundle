@@ -71,6 +71,13 @@ class DatabaseType
      * @var int
      */
     protected $pleskDBId;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var int
+     */
+    protected $pleskDBhost;
 
     /**
      * Constructor

@@ -2,13 +2,57 @@
 
 {% block content %}
 	{% if entity is defined %}
-		<script type="text/javascript">
-		setTimeout(function() {
-			  window.location.href = "{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}";
-			}, 3000);
-		</script>
-		<h1>Deployment deployed: {{ entity.hostname }}</h1>
-		<p>You will be returned to the application in 3 seconds...</p>
+		{% if not pleskResult.succes }
+			<h1>Deployment {{ entity.hostname }}: Plesk deployment error:</h1>
+			<p>{{ pleskResult.error }}</p>
+		{% endif %}
+		{% if not ansibleResult.succes }
+			<h1>Deployment {{ entity.hostname }}: Ansible deployment error:</h1>
+			<p>{{ pleskResult.error }}</p>
+		{% endif %}
+		{% if pleskResult.succes and ansibleResult.succes }
+			<script type="text/javascript">
+			setTimeout(function() {
+				  window.location.href = "{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}";
+				}, 3000);
+			</script>
+			<h1>Deployment {{ entity.hostname }}: deployed</h1>
+			<p>URL: <a href="http://{{ entity.hostname }}" target="_blank">http://{{ entity.hostname }}</a></p>
+			{% if entity.pleskCapable %}
+			    <h2>Plesk variables</h2>
+			    <table cellspacing="0" class="sortable">
+			    	<tr>
+			    		<th>Variable</th>
+			    		<th>Value</th>
+			    	</tr>
+					<tr>
+						<td>Admin/FTP username</td>
+						<td>{{ entity.adminUserName }}</td>
+					</tr>
+					<tr>
+						<td>Admin/FTP password</td>
+						<td>{{ entity.adminUserPass }}</td>
+					</tr>
+					<tr>
+						<td>Database name</td>
+						<td>{{ entity.DBName }}</td>
+					</tr>
+					<tr>
+						<td>Database username</td>
+						<td>{{ entity.DBUserName }}</td>
+					</tr>
+					<tr>
+						<td>Database password</td>
+						<td>{{ entity.DBUserPass }}</td>
+					</tr>
+					<tr>
+						<td>Database host</td>
+						<td>{{ entity.DBHost }}</td>
+					</tr>
+			    </table>
+			{% endif %}
+			<p><a href="{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}">Return to application</a></p>
+		{% endif %}
 	{% else %}
 		<h1>Unknown deployment</h1>
 		<p>The specified deployment is not available.</p>
