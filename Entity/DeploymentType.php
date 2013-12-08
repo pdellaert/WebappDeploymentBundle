@@ -247,4 +247,27 @@ class DeploymentType
     {
         return $this->deployments;
     }
+
+    /**
+     * Set gitBranch
+     *
+     * @param string $gitBranch
+     * @return DeploymentType
+     */
+    public function setGitBranch($gitBranch)
+    {
+        $this->gitBranch = $gitBranch;
+    
+        return $this;
+    }
+
+    /**
+     * Get gitBranch
+     *
+     * @return string 
+     */
+    public function getGitBranch()
+    {
+        return $this->gitBranch;
+    }
 }
