@@ -63,24 +63,24 @@
 					<ul class="sf-menu">
 						<li class="cat-item"><a href="{{ path('homepage') }}">Home</a></li>
 						<li class="cat-item">
-							<a href="{{ path('ServerList') }}" title="Servers">Servers</a>
-							<ul class="children">
-								<li class="cat-item"><a href="{{ path('ServerAdd') }}" title="Add a server">Add</a></li>
-							</ul>
-						</li>
-						<li class="cat-item">
 							<a href="{{ path('ApplicationList') }}" title="Applications">Applications</a>
 							<ul class="children">
 								<li class="cat-item"><a href="{{ path('ApplicationAdd') }}" title="Add an application">Add</a></li>
 							</ul>
 						</li>
 						<li class="cat-item">
+							<a href="{{ path('ServerList') }}" title="Servers">Servers</a>
+							<ul class="children">
+								<li class="cat-item"><a href="{{ path('ServerAdd') }}" title="Add a server">Add</a></li>
+							</ul>
+						</li>
+						<li class="cat-item">
 							<a href="" title="Configuration">Configuration</a>
 							<ul class="children">
 								<li class="cat-item">
-									<a href="{{ path('DeploymentTypeList') }}" title="Deployment Types">Deployment Types</a>
+									<a href="{{ path('ApplicationTemplateList') }}" title="Application templates">Application Templates</a>
 									<ul class="children">
-										<li class="cat-item"><a href="{{ path('DeploymentTypeAdd') }}" title="Add a deployment type">Add</a></li>
+										<li class="cat-item"><a href="{{ path('ApplicationTemplateAdd') }}" title="Add an application template">Add</a></li>
 									</ul>
 								</li>
 								<li class="cat-item">
@@ -90,9 +90,9 @@
 									</ul>
 								</li>
 								<li class="cat-item">
-									<a href="{{ path('ApplicationTemplateList') }}" title="Application templates">Application Templates</a>
+									<a href="{{ path('DeploymentTypeList') }}" title="Deployment Types">Deployment Types</a>
 									<ul class="children">
-										<li class="cat-item"><a href="{{ path('ApplicationTemplateAdd') }}" title="Add an application template">Add</a></li>
+										<li class="cat-item"><a href="{{ path('DeploymentTypeAdd') }}" title="Add a deployment type">Add</a></li>
 									</ul>
 								</li>
 								<li class="cat-item">
