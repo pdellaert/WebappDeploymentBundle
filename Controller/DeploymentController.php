@@ -154,7 +154,7 @@ class DeploymentController extends Controller
             $pleskResult = array('succes'=>true);
             $ansibleResult = array('succes'=>true);
             // TODO: ANSIBLE STUFF
-            if( $entity->getPleskCapable() ) {
+            if( $entity->getPleskCapable() && $entity->getDeployed() ) {
                 $pleskResult = $this->undeployPleskDeployment($entity);
             }
             if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
