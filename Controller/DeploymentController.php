@@ -218,7 +218,7 @@ class DeploymentController extends Controller
                         $entity->getPleskDBUserPass());
                     $dbUserResultXML = simplexml_load_string($dbUserHandle['result']);
                     if( !isset($dbUserResultXML->system->errcode) &&  !isset($dbUserResultXML->database->{'add-db-user'}->result->errcode) && $dbUserResultXML->database->{'add-db-user'}->result->status == 'ok' ) {
-                        $entity->setPleskDBUserId($dbResultXML->database->{'add-db-user'}->result->id);
+                        $entity->setPleskDBUserId($dbUserResultXML->database->{'add-db-user'}->result->id);
                         return array('succes'=>true);
                     } elseif( isset($dbUserResultXML->system->errcode) ) {
                         return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->system->errcode);
