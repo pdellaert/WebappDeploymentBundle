@@ -142,7 +142,7 @@ class ServerController extends Controller
         }
 
         $this->get("white_october_breadcrumbs")->addItem("Add server", '');
-        return $this->render('DellaertWebappDeploymentBundle:Server:add.html.twig',array('form'=>$form->createView(),'id'=>$id));
+        return $this->render('DellaertWebappDeploymentBundle:Server:add.html.twig',array('form'=>$form->createView()));
     }
     
     public function editAction($id)

@@ -7,10 +7,8 @@ ServerListData:
     defaults: { _controller: DellaertWebappDeploymentBundle:Server:listData}
 
 ServerAdd:
-    pattern: /add/{id}
-    defaults: { _controller: DellaertWebappDeploymentBundle:Server:add, id: -1}
-    requirements:
-        id: \d+
+    pattern: /add
+    defaults: { _controller: DellaertWebappDeploymentBundle:Server:add}
 
 ServerEdit:
     pattern: /edit/{id}
