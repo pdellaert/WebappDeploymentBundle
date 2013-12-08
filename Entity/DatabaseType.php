@@ -277,4 +277,27 @@ class DatabaseType
     {
         return $this->pleskDBId;
     }
+
+    /**
+     * Set pleskDBhost
+     *
+     * @param integer $pleskDBhost
+     * @return DatabaseType
+     */
+    public function setPleskDBhost($pleskDBhost)
+    {
+        $this->pleskDBhost = $pleskDBhost;
+    
+        return $this;
+    }
+
+    /**
+     * Get pleskDBhost
+     *
+     * @return integer 
+     */
+    public function getPleskDBhost()
+    {
+        return $this->pleskDBhost;
+    }
 }
