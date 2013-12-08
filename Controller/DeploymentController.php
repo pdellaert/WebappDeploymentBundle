@@ -209,7 +209,6 @@ class DeploymentController extends Controller
                     $entity->setPleskDBId($dbResultXML->database->{'add-db'}->result->id);
 
                     // Step 4: create database user
-                    createDatabaseUser($pleskhost,$pleskuser,$pleskpass,$dbid,$username,$userpass)
                     $dbUserHandle = PleskAPIUtility::createDatabaseUser(
                         $entity->getServer()->getHost(),
                         $entity->getServer()->getPleskUser(),
