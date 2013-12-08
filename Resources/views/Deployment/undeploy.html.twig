@@ -2,13 +2,24 @@
 
 {% block content %}
 	{% if entity is defined %}
-		<script type="text/javascript">
-		setTimeout(function() {
-			  window.location.href = "{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}";
-			}, 3000);
-		</script>
-		<h1>Deployment undeployed: {{ entity.hostname }}</h1>
-		<p>You will be returned to the application in 3 seconds...</p>
+		{% if not pleskResult.succes %}
+			<h1>Deployment {{ entity.hostname }}: Plesk undeployment error:</h1>
+			<p>{{ pleskResult.error }}</p>
+		{% endif %}
+		{% if not ansibleResult.succes %}
+			<h1>Deployment {{ entity.hostname }}: Ansible undeployment error:</h1>
+			<p>{{ pleskResult.error }}</p>
+		{% endif %}
+		{% if pleskResult.succes and ansibleResult.succes %}
+			<script type="text/javascript">
+			setTimeout(function() {
+				  window.location.href = "{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}";
+				}, 3000);
+			</script>
+			<h1>Deployment {{ entity.hostname }}: undeployed</h1>
+			<p>You will be returned to the application in 3 seconds... or click this button</p>
+			<p><a href="{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}" class="button">Return to application</a></p>
+		{% endif %}
 	{% else %}
 		<h1>Unknown deployment</h1>
 		<p>The specified deployment is not available.</p>
