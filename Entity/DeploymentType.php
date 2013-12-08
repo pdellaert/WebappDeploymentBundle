@@ -53,6 +53,13 @@ class DeploymentType
     protected $code;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    protected $gitBranch;
+
+    /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=255, unique=true)
      * 

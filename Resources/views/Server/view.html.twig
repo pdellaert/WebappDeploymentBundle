@@ -15,16 +15,12 @@
 			<tr>
 				<th width="20%">IP</th>
 				<td width="30%">{{ entity.ip }}</td>
-				<th rowspan="4" width="20%">Plesk</th>
-				<td rowspan="4" width="30%">{% if entity.pleskCapable %}Yes{% else %}No{% endif %}</td>
+				<th rowspan="2" width="20%">Plesk</th>
+				<td rowspan="2" width="30%">{% if entity.pleskCapable %}Yes{% else %}No{% endif %}</td>
 			</tr>
 			<tr>
 				<th>Plesk user</th>
 				<td>{{ entity.pleskUser }}</td>
-			</tr>
-			<tr>
-				<th>SSH Key</th>
-				<td>{{ entity.sshKeyPath }}</td>
 			</tr>
 			<tr>
 				<th>SSH User</th>
@@ -32,6 +28,8 @@
 				<th>SSH Port</th>
 				<td>{{ entity.sshPort }}
 			</tr>
+				<th>SSH Key</th>
+				<td colspan="3">{{ entity.sshKeyPath }}</td>
 		</table>
 
 	    <h2>Application deployments</h2>
