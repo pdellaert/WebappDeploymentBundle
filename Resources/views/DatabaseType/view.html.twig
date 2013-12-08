@@ -18,6 +18,12 @@
 				<th>Code</th>
 				<td>{{ entity.code }}</td>
 			</tr>
+			<tr>
+				<th>Plesk DB Id</th>
+				<td>{{ entity.pleskDBId }}</td>
+				<th>Plesk DB Host</th>
+				<td>{{ entity.pleskDBHost }}</td>
+			</tr>
 		</table>
 		<div id="entitybuttons"><a href="{{ path('ApplicationTemplateAdd', { 'id': entity.id } ) }}" class="button add">Add Application template</a></div>
 		<h2>Application templates</h2>
