@@ -2,15 +2,15 @@
 
 {% block content %}
 	{% if entity is defined %}
-		{% if not pleskResult.succes }
+		{% if not pleskResult.succes %}
 			<h1>Deployment {{ entity.hostname }}: Plesk deployment error:</h1>
 			<p>{{ pleskResult.error }}</p>
 		{% endif %}
-		{% if not ansibleResult.succes }
+		{% if not ansibleResult.succes %}
 			<h1>Deployment {{ entity.hostname }}: Ansible deployment error:</h1>
 			<p>{{ pleskResult.error }}</p>
 		{% endif %}
-		{% if pleskResult.succes and ansibleResult.succes }
+		{% if pleskResult.succes and ansibleResult.succes %}
 			<script type="text/javascript">
 			setTimeout(function() {
 				  window.location.href = "{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}";
