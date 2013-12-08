@@ -13,4 +13,29 @@
 	<li><i>wdt</i> user should have passwordless sudo access</li>
 	<li><i>wdt</i> user should have SSH/SFTP access</li>
 <ul>
+
+<h2>Prerequests for working with Plesk</h2>
+<ul>
+	<li>After the basic linux install, and setup of the <i>wdt</i> user, install Plesk</li>
+	<li>Add a API user with a complex password as secondary full administrator</li>
+</ul>
+
+<h2>Prerequests for working with Git</h2>
+<ul>
+	<li><i>wdt</i> user should have a standard SSH key set to checkout git repo's</li>
+</ul>
+
+<h2>Working with ansible module</h2>
+<ul>
+	<li>Make sure all parameters are filled in in the application</li>
+</ul>
+
+<h2>TODO</h2>
+<ul>
+	<li>Update Ansible plesk_wordpress_lite module with different actions (deploy, redploy, undeploy)</li>
+	<li>Discuss/investigate wordpress settings (wp_content instead of wp-content, no uploads folder, no .htaccess)</li>
+	<li>Investigate folders that need to stay when redeploy, or what items in database does not need to be updated</li>
+	<li>How to do backups on redeploy and delete?</li>
+	<li>Investigate Ansible setup, we have a module/script, but needs 'manual' execution</li>
+</ul>
 {% endblock %}
