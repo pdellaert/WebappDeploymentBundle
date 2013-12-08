@@ -11,11 +11,6 @@
 			<p>{{ pleskResult.error }}</p>
 		{% endif %}
 		{% if pleskResult.succes and ansibleResult.succes %}
-			<script type="text/javascript">
-			setTimeout(function() {
-				  window.location.href = "{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}";
-				}, 3000);
-			</script>
 			<h1>Deployment {{ entity.hostname }}: deployed</h1>
 			<p>URL: <a href="http://{{ entity.hostname }}" target="_blank">http://{{ entity.hostname }}</a></p>
 			{% if entity.pleskCapable %}
@@ -51,7 +46,7 @@
 					</tr>
 			    </table>
 			{% endif %}
-			<p><a href="{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}">Return to application</a></p>
+			<p><a href="{{ path('ApplicationViewSlug',{ 'slug': entity.application.slug }) }}" class="button">Return to application</a></p>
 		{% endif %}
 	{% else %}
 		<h1>Unknown deployment</h1>
