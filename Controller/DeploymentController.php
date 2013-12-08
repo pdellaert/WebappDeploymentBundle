@@ -155,7 +155,7 @@ class DeploymentController extends Controller
             $ansibleResult = array('succes'=>true);
             // TODO: ANSIBLE STUFF
             if( $entity->getPleskCapable() ) {
-                $pleskResult = $this->deletePleskDeployment($entity);
+                $pleskResult = $this->undeployPleskDeployment($entity);
             }
             if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
                 $em = $this->getDoctrine()->getManager();
@@ -177,7 +177,8 @@ class DeploymentController extends Controller
             $entity->getHostname(),
             $entity->getServer()->getIp(),
             $entity->getPleskAdminUserName(),
-            $entity->getPleskAdminUserPass());
+            $entity->getPleskAdminUserPass()
+        );
         $subscriptionResultXML = simplexml_load_string($subscriptionHandle['result']);
         if( !isset($subscriptionResultXML->system->errcode) && !isset($subscriptionResultXML->webspace->add->result->errcode) && $subscriptionResultXML->webspace->add->result->status == 'ok' ) {
             $entity->setPleskSubscriptionId($subscriptionResultXML->webspace->add->result->id);
@@ -190,10 +191,11 @@ class DeploymentController extends Controller
                 $entity->getPleskSubscriptionId(),
                 $entity->getPleskAdminUserName(),
                 $entity->getPleskAdminUserPass(),
-                $entity->getPleskAdminUserName());
+                $entity->getPleskAdminUserName()
+            );
             $adminResultXML = simplexml_load_string($adminHandle['result']);
             if( !isset($adminResultXML->system->errcode) &&  !isset($adminResultXML->user->add->result->errcode) && $adminResultXML->user->add->result->status == 'ok' ) {
-                $entity->setPleskAdminUserId($adminResultXML->user->add->result->id);
+                $entity->setPleskAdminUserId($adminResultXML->user->add->result->guid);
 
                 // Step 3: create database
                 $dbHandle = PleskAPIUtility::createDatabase(
@@ -203,7 +205,8 @@ class DeploymentController extends Controller
                     $entity->getPleskSubscriptionId(),
                     $entity->getPleskDBName(),
                     $entity->getApplication()->getApplicationTemplate()->getDatabaseType()->getCode(),
-                    $entity->getApplication()->getApplicationTemplate()->getDatabaseType()->getPleskDBId());
+                    $entity->getApplication()->getApplicationTemplate()->getDatabaseType()->getPleskDBId()
+                );
                 $dbResultXML = simplexml_load_string($dbHandle['result']);
                 if( !isset($dbResultXML->system->errcode) &&  !isset($dbResultXML->database->{'add-db'}->result->errcode) && $dbResultXML->database->{'add-db'}->result->status == 'ok' ) {
                     $entity->setPleskDBId($dbResultXML->database->{'add-db'}->result->id);
@@ -215,7 +218,8 @@ class DeploymentController extends Controller
                         $entity->getServer()->getPleskPassword(),
                         $entity->getPleskDBId(),
                         $entity->getPleskDBUserName(),
-                        $entity->getPleskDBUserPass());
+                        $entity->getPleskDBUserPass()
+                    );
                     $dbUserResultXML = simplexml_load_string($dbUserHandle['result']);
                     if( !isset($dbUserResultXML->system->errcode) &&  !isset($dbUserResultXML->database->{'add-db-user'}->result->errcode) && $dbUserResultXML->database->{'add-db-user'}->result->status == 'ok' ) {
                         $entity->setPleskDBUserId($dbUserResultXML->database->{'add-db-user'}->result->id);
@@ -226,17 +230,17 @@ class DeploymentController extends Controller
                         return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->database->{'add-db-user'}->result->errcode.' ('.$dbUserResultXML->database->{'add-db-user'}->result->errtext.')');
                     }                
                 } elseif( isset($dbResultXML->system->errcode) ) {
-                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
+                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->system->errcode.' ('.$dbResultXML->system->errtext.')');
                 } else {
                     return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->database->{'add-db'}->result->errcode.' ('.$dbResultXML->database->{'add-db'}->result->errtext.')');
                 }
             } elseif( isset($adminResultXML->system->errcode) ) {
-                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
+                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->system->errcode.' ('.$adminResultXML->system->errtext.')');
             } else {
                 return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->user->add->result->errcode.' ('.$adminResultXML->user->add->result->errtext.')');
             }
         } elseif( isset($subscriptionResultXML->system->errcode) ) {
-            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
+            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->system->errcode.' ('.$subscriptionResultXML->system->errtext.')');
         } else {
             return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->webspace->add->result->errcode.' ('.$subscriptionResultXML->webspace->add->result->errtext.')');
         }
@@ -248,13 +252,70 @@ class DeploymentController extends Controller
     }
 
     private function undeployPleskDeployment($entity) {
-        // TODO: Add logic
-        return array('succes'=>true);
-    }
+        // Step 1: delete database user
+        $dbUserHandle = PleskAPIUtility::deleteDatabaseUser(
+            $entity->getServer()->getHost(),
+            $entity->getServer()->getPleskUser(),
+            $entity->getServer()->getPleskPassword(),
+            $entity->getPleskDBUserId()
+        );
+        $dbUserResultXML = simplexml_load_string($dbUserHandle['result']);
+        if( !isset($dbUserResultXML->system->errcode) &&  !isset($dbUserResultXML->database->{'del-db-user'}->result->errcode) && $dbUserResultXML->database->{'del-db-user'}->result->status == 'ok' ) {
+            $entity->setPleskDBUserId('');
 
-    private function deletePleskDeployment($entity) {
-        // TODO: Add logic
-        return array('succes'=>true);
+            // Step 2: delete database
+            $dbHandle = PleskAPIUtility::deleteDatabase(
+                $entity->getServer()->getHost(),
+                $entity->getServer()->getPleskUser(),
+                $entity->getServer()->getPleskPassword(),
+                $entity->getPleskDBId()
+            );
+            $dbResultXML = simplexml_load_string($dbHandle['result']);
+            if( !isset($dbResultXML->system->errcode) &&  !isset($dbResultXML->database->{'del-db'}->result->errcode) && $dbResultXML->database->{'del-db'}->result->status == 'ok' ) {
+                $entity->setPleskDBId('');
+
+                // Step 3: delete admin user
+                $adminHandle = PleskAPIUtility::deleteUser(
+                    $entity->getServer()->getHost(),
+                    $entity->getServer()->getPleskUser(),
+                    $entity->getServer()->getPleskPassword(),
+                    $entity->getPleskAdminUserId()
+                );
+                $adminResultXML = simplexml_load_string($adminHandle['result']);
+                if( !isset($adminResultXML->system->errcode) &&  !isset($adminResultXML->user->del->result->errcode) && $adminResultXML->user->del->result->status == 'ok' ) {
+                    $entity->setPleskAdminUserId('');
+
+                    // Step 4: delete subscription
+                    $subscriptionHandle = PleskAPIUtility::deleteSubscription(
+                        $entity->getServer()->getHost(),
+                        $entity->getServer()->getPleskUser(),
+                        $entity->getServer()->getPleskPassword(),
+                        $entity->getPleskSubscriptionId()
+                    );
+                    $subscriptionResultXML = simplexml_load_string($subscriptionHandle['result']);
+                    if( !isset($subscriptionResultXML->system->errcode) && !isset($subscriptionResultXML->webspace->del->result->errcode) && $subscriptionResultXML->webspace->del->result->status == 'ok' ) {
+                        $entity->setPleskSubscriptionId('');
+                        return array('succes'=>true);
+                    } elseif( isset($subscriptionResultXML->system->errcode) ) {
+                        return array('succes'=>false,'error'=>'Unable to delete Plesk subscription/webspace, error code: '.$subscriptionResultXML->system->errcode.' ('.$subscriptionResultXML->system->errtext.')');
+                    } else {
+                        return array('succes'=>false,'error'=>'Unable to delete Plesk subscription/webspace, error code: '.$subscriptionResultXML->webspace->del->result->errcode.' ('.$subscriptionResultXML->webspace->del->result->errtext.')');
+                    }                    
+                } elseif( isset($adminResultXML->system->errcode) ) {
+                    return array('succes'=>false,'error'=>'Unable to delete Plesk admin user, error code: '.$adminResultXML->system->errcode.' ('.$adminResultXML->system->errtext.')');
+                } else {
+                    return array('succes'=>false,'error'=>'Unable to delete Plesk admin user, error code: '.$adminResultXML->user->del->result->errcode.' ('.$adminResultXML->user->del->result->errtext.')');
+                }
+            } elseif( isset($dbResultXML->system->errcode) ) {
+                return array('succes'=>false,'error'=>'Unable to delete Plesk database, error code: '.$dbResultXML->system->errcode.' ('.$dbResultXML->system->errtext.')');
+            } else {
+                return array('succes'=>false,'error'=>'Unable to delete Plesk database, error code: '.$dbResultXML->database->{'del-db'}->result->errcode.' ('.$dbResultXML->database->{'del-db'}->result->errtext.')');
+            }
+        } elseif( isset($dbUserResultXML->system->errcode) ) {
+            return array('succes'=>false,'error'=>'Unable to delete Plesk database user, error code: '.$dbUserResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
+        } else {
+            return array('succes'=>false,'error'=>'Unable to delete Plesk database user, error code: '.$dbUserResultXML->database->{'del-db-user'}->result->errcode.' ('.$dbUserResultXML->database->{'del-db-user'}->result->errtext.')');
+        }
     }
 
     private function generatePleskValues($entity)
