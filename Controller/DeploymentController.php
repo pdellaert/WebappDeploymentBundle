@@ -221,24 +221,24 @@ class DeploymentController extends Controller
                         $entity->setPleskDBUserId($dbUserResultXML->database->{'add-db-user'}->result->id);
                         return array('succes'=>true);
                     } elseif( isset($dbUserResultXML->system->errcode) ) {
-                        return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->system->errcode);
+                        return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
                     } else {
-                        return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->database->{'add-db-user'}->result->errcode);
+                        return array('succes'=>false,'error'=>'Unable to create Plesk database user, error code: '.$dbUserResultXML->database->{'add-db-user'}->result->errcode.' ('.$dbUserResultXML->database->{'add-db-user'}->result->errtext.')');
                     }                
                 } elseif( isset($dbResultXML->system->errcode) ) {
-                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->system->errcode);
+                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
                 } else {
-                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->database->{'add-db'}->result->errcode);
+                    return array('succes'=>false,'error'=>'Unable to create Plesk database, error code: '.$dbResultXML->database->{'add-db'}->result->errcode.' ('.$dbResultXML->database->{'add-db'}->result->errtext.')');
                 }
             } elseif( isset($adminResultXML->system->errcode) ) {
-                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->system->errcode);
+                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
             } else {
-                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->user->add->result->errcode);
+                return array('succes'=>false,'error'=>'Unable to create Plesk admin user, error code: '.$adminResultXML->user->add->result->errcode.' ('.$adminResultXML->user->add->result->errtext.')');
             }
         } elseif( isset($subscriptionResultXML->system->errcode) ) {
-            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->system->errcode);
+            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->system->errcode.' ('.$dbUserResultXML->system->errtext.')');
         } else {
-            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->webspace->add->result->errcode);
+            return array('succes'=>false,'error'=>'Unable to create Plesk subscription/webspace, error code: '.$subscriptionResultXML->webspace->add->result->errcode.' ('.$subscriptionResultXML->webspace->add->result->errtext.')');
         }
     }
 
