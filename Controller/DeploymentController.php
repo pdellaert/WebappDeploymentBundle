@@ -85,7 +85,7 @@ class DeploymentController extends Controller
                         .' db_username='.$entity->getPleskDBUserName()
                         .' db_password='.$entity->getPleskDBUserPass()
                         .' db_host='.$entity->getPleskDBHost()
-                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch();
                 }
                 foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
                     if( $appParameter->getValue() != '' ) {
@@ -137,7 +137,7 @@ class DeploymentController extends Controller
                         .' db_username='.$entity->getPleskDBUserName()
                         .' db_password='.$entity->getPleskDBUserPass()
                         .' db_host='.$entity->getPleskDBHost()
-                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch();
                 }
                 foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
                     if( $appParameter->getValue() != '' ) {
@@ -185,7 +185,7 @@ class DeploymentController extends Controller
                         .' db_username='.$entity->getPleskDBUserName()
                         .' db_password='.$entity->getPleskDBUserPass()
                         .' db_host='.$entity->getPleskDBHost()
-                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch();
                 }
                 foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
                     if( $appParameter->getValue() != '' ) {
@@ -237,7 +237,7 @@ class DeploymentController extends Controller
                         .' db_username='.$entity->getPleskDBUserName()
                         .' db_password='.$entity->getPleskDBUserPass()
                         .' db_host='.$entity->getPleskDBHost()
-                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch();
                 }
                 foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
                     if( $appParameter->getValue() != '' ) {
