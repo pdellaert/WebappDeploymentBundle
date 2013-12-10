@@ -6,7 +6,7 @@ use Dellaert\WebappDeploymentBundle\Entity\DeploymentType;
 
 class AnsibleUtility {
 
-	static public function generateHostsFile($container,$doctrine) {
+	public static function generateHostsFile($container,$doctrine) {
         $entity = new Server();
         $servers = $doctrine->getRepository('DellaertWebappDeploymentBundle:Server')->findByEnabled(true);
         $hosts = '';
@@ -16,6 +16,13 @@ class AnsibleUtility {
 
         $hostsFile = $container->getParameter('dellaert_webapp_deployment.data_dir').'/'.$container->getParameter('dellaert_webapp_deployment.ansible_subdir').'/'.$container->getParameter('dellaert_webapp_deployment.ansible_hosts_file');
         file_put_contents($hostsFile, $hosts);
+    }
+
+    public static function executeAnsibleModule($container,$server,$module,$arguments) {
+        if( exec('ansible '.$server.' -m '.$module.' -a "'.$arguments.'"') ) {
+            return array('succes'=>true);
+        }
+        return array('succes'=>false);
     }
 
 }

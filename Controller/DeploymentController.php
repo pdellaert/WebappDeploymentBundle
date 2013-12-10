@@ -7,6 +7,7 @@ use Dellaert\WebappDeploymentBundle\Entity\Application;
 use Dellaert\WebappDeploymentBundle\Entity\Server;
 use Dellaert\WebappDeploymentBundle\Entity\DeploymentType;
 use Dellaert\PleskRemoteControlBundle\Utility\PleskAPIUtility;
+use Dellaert\WebappDeploymentBundle\Utility\AnsibleUtility;
 use Symfony\Component\HttpFoundation\Response;
 
 class DeploymentController extends Controller
@@ -70,10 +71,35 @@ class DeploymentController extends Controller
                 ->addItem('Deploy','');
             $pleskResult = array('succes'=>true);
             $ansibleResult = array('succes'=>true);
+            // Plesk stuff
             if( $entity->getPleskCapable() ) {
                 $pleskResult = $this->deployPleskDeployment($entity);
             }
-            // TODO: ANSIBLE STUFF
+            // Ansible stuff
+            if( $pleskResult['succes'] ) {
+                $arguments = 'action=deploy vhost='.$entity->getHostname();
+                if( $entity->getPleskCapable() ) {
+                    $arguments .= ' admin_user='.$entity->getPleskAdminUserName()
+                        .' admin_pass='.$entity->getPleskAdminUserPass()
+                        .' db_name='.$entity->getPleskDBName()
+                        .' db_username='.$entity->getPleskDBUserName()
+                        .' db_password='.$entity->getPleskDBUserPass()
+                        .' db_host='.$entity->getPleskDBHost()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                }
+                foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
+                    if( $appParameter->getValue() != '' ) {
+                        $arguments .= ' '.$appParameter->getApplicationTemplateParameter()->getName().'='
+                            .$appParameter->getValue();
+                    }
+                }
+                $ansibleResult = AnsibleUtility::executeAnsibleModule(
+                    $this->container,
+                    $entity->getServer()->getHost(),
+                    $entity->getApplication()->getApplicationTemplate()->getAnsibleModule(),
+                    $arguments
+                );
+            }
             if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
                 $entity->setDeployed(true);
                 $em = $this->getDoctrine()->getManager();
@@ -101,7 +127,31 @@ class DeploymentController extends Controller
             if( $entity->getPleskCapable() ) {
                 $pleskResult = $this->redeployPleskDeployment($entity);
             }
-            // TODO: ANSIBLE STUFF
+            // Ansible stuff
+            if( $pleskResult['succes'] ) {
+                $arguments = 'action=redeploy vhost='.$entity->getHostname();
+                if( $entity->getPleskCapable() ) {
+                    $arguments .= ' admin_user='.$entity->getPleskAdminUserName()
+                        .' admin_pass='.$entity->getPleskAdminUserPass()
+                        .' db_name='.$entity->getPleskDBName()
+                        .' db_username='.$entity->getPleskDBUserName()
+                        .' db_password='.$entity->getPleskDBUserPass()
+                        .' db_host='.$entity->getPleskDBHost()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                }
+                foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
+                    if( $appParameter->getValue() != '' ) {
+                        $arguments .= ' '.$appParameter->getApplicationTemplateParameter()->getName().'='
+                            .$appParameter->getValue();
+                    }
+                }
+                $ansibleResult = AnsibleUtility::executeAnsibleModule(
+                    $this->container,
+                    $entity->getServer()->getHost(),
+                    $entity->getApplication()->getApplicationTemplate()->getAnsibleModule(),
+                    $arguments
+                );
+            }
             if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
@@ -125,10 +175,34 @@ class DeploymentController extends Controller
                 ->addItem('Undeploy','');
             $pleskResult = array('succes'=>true);
             $ansibleResult = array('succes'=>true);
+            // Ansible stuff
+            if( $pleskResult['succes'] ) {
+                $arguments = 'action=undeploy vhost='.$entity->getHostname();
+                if( $entity->getPleskCapable() ) {
+                    $arguments .= ' admin_user='.$entity->getPleskAdminUserName()
+                        .' admin_pass='.$entity->getPleskAdminUserPass()
+                        .' db_name='.$entity->getPleskDBName()
+                        .' db_username='.$entity->getPleskDBUserName()
+                        .' db_password='.$entity->getPleskDBUserPass()
+                        .' db_host='.$entity->getPleskDBHost()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                }
+                foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
+                    if( $appParameter->getValue() != '' ) {
+                        $arguments .= ' '.$appParameter->getApplicationTemplateParameter()->getName().'='
+                            .$appParameter->getValue();
+                    }
+                }
+                $ansibleResult = AnsibleUtility::executeAnsibleModule(
+                    $this->container,
+                    $entity->getServer()->getHost(),
+                    $entity->getApplication()->getApplicationTemplate()->getAnsibleModule(),
+                    $arguments
+                );
+            }
             if( $entity->getPleskCapable() ) {
                 $pleskResult = $this->undeployPleskDeployment($entity);
             }
-            // TODO: ANSIBLE STUFF
             if( $pleskResult['succes'] && $ansibleResult['succes'] ) {
                 $entity->setDeployed(false);
                 $em = $this->getDoctrine()->getManager();
@@ -153,7 +227,31 @@ class DeploymentController extends Controller
                 ->addItem('Delete','');
             $pleskResult = array('succes'=>true);
             $ansibleResult = array('succes'=>true);
-            // TODO: ANSIBLE STUFF
+            // Ansible stuff
+            if( $pleskResult['succes'] ) {
+                $arguments = 'action=delete vhost='.$entity->getHostname();
+                if( $entity->getPleskCapable() ) {
+                    $arguments .= ' admin_user='.$entity->getPleskAdminUserName()
+                        .' admin_pass='.$entity->getPleskAdminUserPass()
+                        .' db_name='.$entity->getPleskDBName()
+                        .' db_username='.$entity->getPleskDBUserName()
+                        .' db_password='.$entity->getPleskDBUserPass()
+                        .' db_host='.$entity->getPleskDBHost()
+                        .' git_branch='.$entity->getDeploymentType()->getGitBranch()
+                }
+                foreach( $entity->getApplication()->getApplicationParameterValues() as $appParameter ) {
+                    if( $appParameter->getValue() != '' ) {
+                        $arguments .= ' '.$appParameter->getApplicationTemplateParameter()->getName().'='
+                            .$appParameter->getValue();
+                    }
+                }
+                $ansibleResult = AnsibleUtility::executeAnsibleModule(
+                    $this->container,
+                    $entity->getServer()->getHost(),
+                    $entity->getApplication()->getApplicationTemplate()->getAnsibleModule(),
+                    $arguments
+                );
+            }
             if( $entity->getPleskCapable() && $entity->getDeployed() ) {
                 $pleskResult = $this->undeployPleskDeployment($entity);
             }
@@ -247,7 +345,7 @@ class DeploymentController extends Controller
     }
 
     private function redeployPleskDeployment($entity) {
-        // TODO: Add logic
+        // Only ansible actions required for now
         return array('succes'=>true);
     }
 
