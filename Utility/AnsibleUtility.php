@@ -20,7 +20,7 @@ class AnsibleUtility {
 
     public static function executeAnsibleModule($container,$server,$module,$arguments) {
         $execOutput = array();
-        if( exec('ansible '.$server.' -m '.$module.' -a "'.$arguments.'"', $execOutput) ) {
+        if( exec('ansible '.$server.' -m '.$module.' -a "'.$arguments.'"') !== false ) {
             return array('succes'=>true);
         }
         return array('succes'=>false,'error'=>$execOutput);

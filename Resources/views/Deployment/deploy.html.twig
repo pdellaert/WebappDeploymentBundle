@@ -8,7 +8,7 @@
 		{% endif %}
 		{% if not ansibleResult.succes %}
 			<h1>Deployment {{ entity.hostname }}: Ansible deployment error:</h1>
-			<p>{{ pleskResult.error }}</p>
+			<p>{{ ansible.error }}</p>
 		{% endif %}
 		{% if pleskResult.succes and ansibleResult.succes %}
 			<h1>Deployment {{ entity.hostname }}: deployed</h1>
